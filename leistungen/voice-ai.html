@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice AI — Intelligente Sprachsysteme | VETES</title>
+  <meta name="description" content="VETES entwickelt individuelle Voice-AI-Systeme für Terminvereinbarung, Erstgespräche und telefonischen Kundenservice – 24/7, skalierbar, nahtlos integriert." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #0f0e0c;
+      --surface-2: #151310;
+      --surface-3: #1c1a17;
+      --border: rgba(255,255,255,0.055);
+      --border-light: rgba(255,255,255,0.09);
+      --text: #eae5db;
+      --text-secondary: #6e6860;
+      --text-muted: #3a3630;
+      --accent: #c8ad72;
+      --accent-soft: rgba(200,173,114,0.13);
+      --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-float: 0 28px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 1.7;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Ambient ── */
+    .site-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .site-ambient::before {
+      content: ''; position: absolute; top: -20%; right: -10%;
+      width: 70vw; height: 80vh;
+      background: radial-gradient(ellipse at 60% 30%, rgba(200,173,114,0.05) 0%, transparent 65%);
+      animation: ambientA 18s ease-in-out infinite alternate;
+    }
+    .site-ambient::after {
+      content: ''; position: absolute; bottom: 5%; left: -15%;
+      width: 60vw; height: 70vh;
+      background: radial-gradient(ellipse at 40% 65%, rgba(120,90,50,0.035) 0%, transparent 65%);
+      animation: ambientB 22s ease-in-out infinite alternate;
+    }
+    @keyframes ambientA { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-3%,5%) scale(1.06); } }
+    @keyframes ambientB { 0% { transform: translate(0,0); } 100% { transform: translate(5%,-6%) scale(1.09); } }
+    nav, section, footer, header { position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 30px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s;
+    }
+    nav.scrolled { background: rgba(8,8,8,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500;
+      letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 44px; list-style: none; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3);
+      padding: 10px 24px; border-radius: 2px; position: relative; overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s !important;
+    }
+    .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: linear-gradient(140deg, #cdb476 0%, #b8944c 100%);
+      color: #090700; font-family: 'DM Sans', sans-serif; font-size: 11.5px;
+      font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 17px 34px; border-radius: 2px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(200,173,114,0.22), 0 1px 4px rgba(0,0,0,0.4);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+      transition: left 0.65s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(200,173,114,0.32), 0 2px 8px rgba(0,0,0,0.5); }
+    .btn-primary:hover::before { left: 145%; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--text-secondary); font-size: 12px; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--border-light); padding: 17px 30px; border-radius: 2px;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.15); color: var(--text); background: rgba(255,255,255,0.025); }
+
+    /* ── Section base ── */
+    section { padding: 120px 64px; }
+    .section-eyebrow {
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px; opacity: 0.75;
+    }
+    .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); opacity: 0.45; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; padding: 140px 64px 100px;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 65% 35%, rgba(200,173,114,0.07) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 75%, rgba(140,105,55,0.04) 0%, transparent 50%),
+        linear-gradient(160deg, #0c0b09 0%, #080808 60%, #060606 100%);
+    }
+    #hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 820px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 40px; opacity: 0.8;
+    }
+    .hero-tag::before { content: ''; display: block; width: 22px; height: 1px; background: var(--accent); opacity: 0.5; }
+    .hero-tag::after { content: ''; display: block; width: 22px; height: 1px; background: var(--accent); opacity: 0.5; }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6.5vw, 108px);
+      font-weight: 300; line-height: 0.93; letter-spacing: -0.018em;
+      color: #f2ede2; margin-bottom: 40px;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    }
+    h1 em { font-style: italic; color: var(--accent); text-shadow: 0 0 60px rgba(200,173,114,0.25), 0 0 120px rgba(200,173,114,0.1); }
+    .hero-sub {
+      font-size: 16px; line-height: 1.8; color: var(--text-secondary);
+      max-width: 500px; margin-bottom: 56px;
+      padding-left: 20px; border-left: 1px solid rgba(200,173,114,0.22);
+    }
+    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero-scroll-hint {
+      position: absolute; bottom: 48px; left: 64px; z-index: 2;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .hero-scroll-line { width: 1px; height: 32px; background: var(--text-muted); opacity: 0.4; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      position: absolute; top: 110px; left: 64px; z-index: 2;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .breadcrumb a:hover { color: var(--text-secondary); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    /* ── Problem section ── */
+    #problem {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 30%, var(--surface) 70%, var(--bg) 100%);
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .two-col-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.8vw, 54px); font-weight: 300; line-height: 1.12; margin-bottom: 24px;
+    }
+    .two-col-left h2 em { font-style: italic; color: var(--accent); }
+    .two-col-left p { font-size: 15px; line-height: 1.85; color: var(--text-secondary); max-width: 420px; }
+    .problem-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+    .problem-item {
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+      display: flex; gap: 18px; align-items: baseline;
+    }
+    .problem-item:first-child { border-top: 1px solid var(--border); }
+    .problem-dash { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--accent); opacity: 0.5; flex-shrink: 0; }
+    .problem-text { font-size: 14px; line-height: 1.72; color: var(--text-secondary); }
+    .problem-text strong { display: block; font-size: 14.5px; font-weight: 400; color: var(--text); margin-bottom: 2px; }
+
+    /* ── What we build ── */
+    #leistung { background: var(--bg); }
+    .leistung-header { max-width: 720px; margin-bottom: 80px; }
+    .leistung-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 4.5vw, 64px); font-weight: 300; line-height: 1.06; margin-bottom: 24px;
+    }
+    .leistung-header h2 em { font-style: italic; color: var(--accent); }
+    .leistung-header p { font-size: 15px; line-height: 1.85; color: var(--text-secondary); }
+    .leistung-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .leistung-item {
+      background: var(--surface); padding: 40px 34px;
+      transition: background 0.3s;
+    }
+    .leistung-item:hover { background: var(--surface-2); }
+    .leistung-icon { margin-bottom: 24px; opacity: 0.65; }
+    .leistung-icon svg { width: 28px; height: 28px; }
+    .leistung-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--text); margin-bottom: 10px; }
+    .leistung-item p { font-size: 13.5px; line-height: 1.72; color: var(--text-secondary); }
+
+    /* ── Use cases ── */
+    #usecases {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 20%, var(--surface) 80%, var(--bg) 100%);
+    }
+    .usecase-header { text-align: center; margin-bottom: 80px; }
+    .usecase-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 58px); font-weight: 300; line-height: 1.08; margin-bottom: 16px; }
+    .usecase-header h2 em { font-style: italic; color: var(--accent); }
+    .usecase-header p { font-size: 15px; color: var(--text-secondary); max-width: 520px; margin: 0 auto; }
+    .usecase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .usecase-card {
+      background: linear-gradient(145deg, var(--surface-2) 0%, var(--surface-3) 100%);
+      border: 1px solid var(--border); border-radius: 8px; padding: 36px 32px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .usecase-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,173,114,0.15), transparent);
+    }
+    .usecase-card:hover { border-color: rgba(200,173,114,0.18); box-shadow: 0 12px 48px rgba(0,0,0,0.4); }
+    .usecase-num { font-family: 'Cormorant Garamond', serif; font-size: 11px; color: var(--text-muted); letter-spacing: 0.2em; margin-bottom: 16px; display: block; }
+    .usecase-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 12px; }
+    .usecase-card p { font-size: 14px; line-height: 1.78; color: var(--text-secondary); }
+
+    /* ── Process ── */
+    #prozess { background: var(--bg); }
+    .prozess-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 80px; margin-bottom: 80px; }
+    .prozess-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 56px); font-weight: 300; line-height: 1.08; }
+    .prozess-header h2 em { font-style: italic; color: var(--accent); }
+    .prozess-header p { max-width: 340px; font-size: 14px; line-height: 1.8; color: var(--text-secondary); padding-left: 24px; border-left: 1px solid rgba(200,173,114,0.18); flex-shrink: 0; }
+    .prozess-steps { display: flex; flex-direction: column; }
+    .prozess-step {
+      display: grid; grid-template-columns: 48px 1fr; gap: 28px;
+      padding: 36px 0; border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .prozess-step:first-child { border-top: 1px solid var(--border); }
+    .step-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--text-muted); letter-spacing: 0.15em; padding-top: 4px; }
+    .step-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+    .step-body p { font-size: 14px; line-height: 1.78; color: var(--text-secondary); }
+
+    /* ── Why VETES ── */
+    #warum {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 25%, var(--surface) 75%, var(--bg) 100%);
+    }
+    .warum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .warum-left { position: sticky; top: 120px; }
+    .warum-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 3.8vw, 54px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+    .warum-left h2 em { font-style: italic; color: var(--accent); }
+    .warum-left p { font-size: 14px; line-height: 1.82; color: var(--text-secondary); }
+    .warum-list { display: flex; flex-direction: column; }
+    .warum-item {
+      display: grid; grid-template-columns: 24px 1fr; gap: 20px;
+      padding: 28px 0; border-bottom: 1px solid var(--border);
+    }
+    .warum-item:first-child { border-top: 1px solid var(--border); }
+    .warum-dash { color: var(--accent); opacity: 0.5; font-size: 13px; font-family: 'Cormorant Garamond', serif; padding-top: 3px; }
+    .warum-item h3 { font-size: 14.5px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+    .warum-item p { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
+
+    /* ── Mid CTA ── */
+    .mid-cta {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 64px 56px;
+      display: flex; align-items: center; justify-content: space-between; gap: 60px;
+      margin: 80px 0 0; position: relative; overflow: hidden;
+    }
+    .mid-cta::before {
+      content: ''; position: absolute; top: 50%; right: 0; transform: translate(30%, -50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,173,114,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .mid-cta-left { max-width: 520px; }
+    .mid-cta-left h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 2.5vw, 36px); font-weight: 300; margin-bottom: 12px; line-height: 1.2; }
+    .mid-cta-left h3 em { font-style: italic; color: var(--accent); }
+    .mid-cta-left p { font-size: 14px; line-height: 1.78; color: var(--text-secondary); }
+    .mid-cta-right { flex-shrink: 0; }
+
+    /* ── Testimonials ── */
+    #testimonials {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 30%, var(--surface) 70%, var(--bg) 100%);
+    }
+    .testimonials-header { text-align: center; margin-bottom: 72px; }
+    .testimonials-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 54px); font-weight: 300; margin-bottom: 16px; }
+    .testimonials-header h2 em { font-style: italic; color: var(--accent); }
+    .testimonials-header p { font-size: 14px; color: var(--text-secondary); max-width: 440px; margin: 0 auto; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card {
+      background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface-3) 100%);
+      border: 1px solid var(--border); border-radius: 8px; padding: 40px 36px;
+      position: relative; overflow: hidden;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .testimonial-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,173,114,0.15), transparent);
+    }
+    .testimonial-card:hover { box-shadow: 0 16px 60px rgba(0,0,0,0.5); border-color: rgba(200,173,114,0.12); }
+    .t-stars { display: flex; gap: 3px; margin-bottom: 20px; }
+    .t-star { width: 10px; height: 10px; background: #00b67a; clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+    .t-quote { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--text); line-height: 1.5; margin-bottom: 12px; }
+    .t-text { font-size: 13.5px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 28px; }
+    .t-author { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* ── Case Studies ── */
+    #cases { background: var(--bg); }
+    .cases-header { margin-bottom: 72px; }
+    .cases-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 56px); font-weight: 300; line-height: 1.08; margin-bottom: 16px; }
+    .cases-header h2 em { font-style: italic; color: var(--accent); }
+    .cases-header p { font-size: 15px; color: var(--text-secondary); max-width: 500px; }
+    .case-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .case-item {
+      background: var(--surface); padding: 48px 52px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; align-items: start;
+      transition: background 0.3s;
+    }
+    .case-item:hover { background: var(--surface-2); }
+    .case-label { font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .case-branche { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--text); }
+    .case-col h4 { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); opacity: 0.7; margin-bottom: 10px; }
+    .case-col p { font-size: 13.5px; line-height: 1.72; color: var(--text-secondary); }
+    .case-result-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 6px; }
+    .case-result-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; }
+
+    /* ── FAQ ── */
+    #faq { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 30%, var(--surface) 70%, var(--bg) 100%); }
+    .faq-header-centered { text-align: center; margin-bottom: 72px; }
+    .faq-header-centered h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 56px); font-weight: 300; margin-bottom: 16px; }
+    .faq-header-centered h2 em { font-style: italic; color: var(--accent); }
+    .faq-header-centered p { font-size: 15px; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }
+    .faq-list { max-width: 820px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 26px 0; cursor: pointer; gap: 24px; list-style: none; user-select: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--text); line-height: 1.3; }
+    .faq-icon { width: 26px; height: 26px; border: 1px solid rgba(200,173,114,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.3s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); position: relative; }
+    .faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--accent); border-radius: 1px; transition: transform 0.35s ease, opacity 0.3s; }
+    .faq-icon::before { width: 10px; height: 1px; }
+    .faq-icon::after { width: 1px; height: 10px; }
+    details[open] .faq-icon { border-color: rgba(200,173,114,0.5); transform: rotate(45deg); }
+    .faq-a { padding: 0 0 26px 0; font-size: 14.5px; line-height: 1.82; color: var(--text-secondary); max-width: 680px; }
+
+    /* ── Final CTA ── */
+    #final-cta {
+      text-align: center; padding: 152px 64px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%);
+    }
+    #final-cta::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 700px; height: 520px;
+      background: radial-gradient(ellipse, rgba(200,173,114,0.07) 0%, rgba(160,130,80,0.04) 35%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 32px;
+      display: flex; align-items: center; justify-content: center; gap: 18px; opacity: 0.7;
+    }
+    .cta-eyebrow::before, .cta-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--accent); opacity: 0.35; }
+    #final-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 6vw, 88px); font-weight: 300; line-height: 1.02; max-width: 780px; margin: 0 auto 28px; }
+    #final-cta h2 em { font-style: italic; color: var(--accent); text-shadow: 0 0 50px rgba(200,173,114,0.2); }
+    #final-cta > p { font-size: 15px; line-height: 1.8; color: var(--text-secondary); max-width: 460px; margin: 0 auto 56px; }
+    .cta-actions { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .cta-note { margin-top: 28px; font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; }
+
+    /* ── Sibling links ── */
+    #more-leistungen { background: var(--bg); padding: 80px 64px; border-top: 1px solid var(--border); }
+    .more-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 36px; }
+    .more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .more-card {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
+      padding: 28px 28px; text-decoration: none; color: inherit;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .more-card:hover { border-color: rgba(200,173,114,0.22); background: var(--surface-3); }
+    .more-card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+    .more-card-sub { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+    .more-arrow { color: var(--accent); opacity: 0.6; font-size: 20px; transition: transform 0.3s, opacity 0.3s; }
+    .more-card:hover .more-arrow { transform: translateX(5px); opacity: 1; }
+
+    /* ── Footer ── */
+    footer { padding: 52px 64px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); background: var(--bg); }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 6px; }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.06em; transition: color 0.25s; }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── Reveal animations ── */
+    .reveal { transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    body.js-ready .reveal { opacity: 0; transform: translateY(22px); }
+    .reveal.visible { opacity: 1 !important; transform: none !important; }
+    .stagger-item { transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    body.js-ready .stagger-item { opacity: 0; transform: translateY(16px); }
+    .stagger-item.visible { opacity: 1 !important; transform: none !important; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      nav, section, footer { padding-left: 40px; padding-right: 40px; }
+      #hero { padding: 120px 40px 80px; }
+      .two-col, .warum-grid { grid-template-columns: 1fr; gap: 52px; }
+      .warum-left { position: static; }
+      .leistung-grid { grid-template-columns: repeat(2, 1fr); }
+      .usecase-grid { grid-template-columns: 1fr; }
+      .mid-cta { flex-direction: column; gap: 32px; }
+      .case-item { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      #hero { padding: 100px 24px 72px; }
+      section { padding: 80px 24px; }
+      .nav-links { display: none; }
+      .leistung-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .prozess-header { flex-direction: column; gap: 32px; }
+      .more-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 32px; text-align: center; }
+      .footer-links { justify-content: center; }
+      .breadcrumb { top: 84px; left: 24px; }
+      #more-leistungen { padding: 64px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-ambient"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo">VETE<span>S</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html#trust">Über uns</a></li>
+    <li><a href="../index.html#services" class="active">Leistungen</a></li>
+    <li><a href="../index.html#integrations">Integrationen</a></li>
+    <li><a href="../index.html#prozess">Prozess</a></li>
+    <li><a href="../index.html#faq">FAQ</a></li>
+    <li><a href="mailto:info@vetes.de" class="nav-cta">Gespräch vereinbaren</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="breadcrumb">
+    <a href="../index.html">VETES</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../index.html#services">Leistungen</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Voice AI</span>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">Voice AI · Sprachsysteme</div>
+    <h1>Ihr Telefon<br/>arbeitet jetzt<br/><em>für Sie.</em></h1>
+    <p class="hero-sub">Intelligente Sprachsysteme, die Anrufe entgegennehmen, qualifizieren und weiterleiten – natürlich, präzise und ohne Pause. Kein verpasster Anruf, kein überlastetes Team.</p>
+    <div class="hero-actions">
+      <a href="mailto:info@vetes.de" class="btn-primary">
+        Gespräch vereinbaren
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#leistung" class="btn-outline">Leistung ansehen</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="hero-scroll-line"></div>
+    Scrollen
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="two-col">
+    <div class="two-col-left">
+      <div class="section-eyebrow">Das Problem</div>
+      <h2>Telefonische Erreichbarkeit<br/>ist teuer – oder<br/><em>lückenhaft.</em></h2>
+      <p>Viele Unternehmen verlieren täglich potenzielle Kunden, weil niemand rangeht, die Leitung besetzt ist oder Anfragen zu spät bearbeitet werden. Gleichzeitig bindet telefonischer Kundenservice wertvolle Kapazitäten.</p>
+    </div>
+    <div>
+      <div class="problem-list">
+        <div class="problem-item stagger-item">
+          <span class="problem-dash">—</span>
+          <div class="problem-text"><strong>Verpasste Anrufe = verlorene Anfragen</strong>Wer nicht erreichbar ist, verliert. Gerade außerhalb der Bürozeiten entscheidet die Erreichbarkeit über Umsatz.</div>
+        </div>
+        <div class="problem-item stagger-item">
+          <span class="problem-dash">—</span>
+          <div class="problem-text"><strong>Qualifizierung kostet Manpower</strong>Mitarbeitende verbringen Stunden damit, Anrufe zu sortieren, die nur zu einem Bruchteil wirklich relevant sind.</div>
+        </div>
+        <div class="problem-item stagger-item">
+          <span class="problem-dash">—</span>
+          <div class="problem-text"><strong>Keine skalierbare Lösung</strong>Mit wachsendem Anrufaufkommen skaliert der manuelle Ansatz nicht – ohne proportional mehr Personal.</div>
+        </div>
+        <div class="problem-item stagger-item">
+          <span class="problem-dash">—</span>
+          <div class="problem-text"><strong>Inkonsistente Erstgespräche</strong>Je nach Mitarbeitendem variiert die Gesprächsführung stark – dabei entscheidet der erste Eindruck.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNG -->
+<section id="leistung">
+  <div class="leistung-header">
+    <div class="section-eyebrow">Was VETES baut</div>
+    <h2 class="reveal">Sprachsysteme, die<br/><em>tatsächlich sprechen.</em></h2>
+    <p class="reveal">Wir entwickeln Voice-AI-Systeme, die sich wie echte Gespräche anfühlen – nicht wie Sprachmenüs aus den 90ern. Individuell auf Ihre Situation, Ihre Kunden und Ihre Prozesse abgestimmt.</p>
+  </div>
+  <div class="leistung-grid">
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="9" stroke="#c8ad72" stroke-width="1"/>
+          <path d="M14 9v5l3 3" stroke="#c8ad72" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>24/7 Erreichbarkeit</h3>
+      <p>Das System nimmt Anrufe zu jeder Uhrzeit entgegen – an Wochenenden, Feiertagen und nach Feierabend. Kein Anruf bleibt unbeantwortet.</p>
+    </div>
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 20 Q14 8 22 20" stroke="#c8ad72" stroke-width="1.2" stroke-linecap="round" fill="rgba(200,173,114,0.06)"/>
+          <circle cx="14" cy="14" r="2.5" fill="#c8ad72" opacity="0.8"/>
+        </svg>
+      </div>
+      <h3>Natürliche Spracherkennung</h3>
+      <p>Das System versteht Dialekte, Umgangsprache und Abweichungen. Keine starren Befehle, kein Frust für Anrufende.</p>
+    </div>
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="#c8ad72" stroke-width="1"/>
+          <rect x="16" y="4" width="8" height="8" rx="1.5" stroke="#c8ad72" stroke-width="1"/>
+          <rect x="4" y="16" width="8" height="8" rx="1.5" stroke="#c8ad72" stroke-width="1"/>
+          <rect x="16" y="16" width="8" height="8" rx="1.5" fill="#c8ad72" opacity="0.35"/>
+        </svg>
+      </div>
+      <h3>Strukturierte Qualifizierung</h3>
+      <p>Das System stellt die richtigen Fragen und sortiert Anfragen – sodass Ihr Team nur mit wirklich relevanten Kontakten weitermacht.</p>
+    </div>
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="3" y="4" width="14" height="18" rx="2" stroke="#c8ad72" stroke-width="1"/>
+          <path d="M7 8h6M7 12h6M7 16h4" stroke="#c8ad72" stroke-width="0.9" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="21" cy="19" r="5" fill="#c8ad72" opacity="0.15" stroke="#c8ad72" stroke-width="1"/>
+          <path d="M19 19l1.5 1.5L23 17" stroke="#c8ad72" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Automatische Terminbuchung</h3>
+      <p>Direktes Buchen in Ihren Kalender während des Gesprächs – inklusive Bestätigungs-SMS oder E-Mail an den Anrufenden.</p>
+    </div>
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M5 14 C5 9.03 9.03 5 14 5 C18.97 5 23 9.03 23 14" stroke="#c8ad72" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M23 14 C23 18.97 18.97 23 14 23" stroke="#c8ad72" stroke-width="1.1" stroke-linecap="round" opacity="0.4"/>
+          <path d="M19 10 L23 14 L27 10M14 23 L14 17" stroke="#c8ad72" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="14" r="2.5" fill="#c8ad72" opacity="0.65"/>
+        </svg>
+      </div>
+      <h3>CRM-Integration</h3>
+      <p>Alle Gesprächsdaten fließen direkt in Ihr CRM – ohne manuelle Nacharbeit, ohne Datenverlust, ohne Medienbrüche.</p>
+    </div>
+    <div class="leistung-item stagger-item">
+      <div class="leistung-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M4 7 L14 2 L24 7 L24 21 L14 26 L4 21 Z" stroke="#c8ad72" stroke-width="1" opacity="0.5" fill="rgba(200,173,114,0.04)"/>
+          <path d="M14 2 L14 26M4 7 L24 7M4 21 L24 21" stroke="#c8ad72" stroke-width="0.7" opacity="0.3"/>
+        </svg>
+      </div>
+      <h3>Individuelle Sprach-Persona</h3>
+      <p>Ton, Stil, Wortwahl – alles auf Ihre Marke zugeschnitten. Das System klingt so, wie Ihre besten Mitarbeitenden klingen sollten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="usecase-header">
+    <div class="section-eyebrow">Einsatzbereiche</div>
+    <h2 class="reveal">Wo Voice AI<br/><em>tatsächlich hilft.</em></h2>
+    <p class="reveal">Nicht für jedes Unternehmen gleich. Wir analysieren, wo telefonische Kommunikation bei Ihnen den größten Engpass darstellt.</p>
+  </div>
+  <div class="usecase-grid">
+    <div class="usecase-card stagger-item">
+      <span class="usecase-num">01</span>
+      <h3>Terminvergabe & Buchungsanfragen</h3>
+      <p>Dienstleister, Praxen und Beratungsunternehmen, bei denen ein Großteil der Anrufe auf Terminbuchungen entfällt. Das System übernimmt die Buchung vollständig – inklusive Erinnerungen und Umbuchungen.</p>
+    </div>
+    <div class="usecase-card stagger-item">
+      <span class="usecase-num">02</span>
+      <h3>Lead-Qualifizierung im Vertrieb</h3>
+      <p>Eingehende Interessenanfragen werden strukturiert vorqualifiziert. Das System klärt Budget, Zeitrahmen und konkreten Bedarf – bevor das Vertriebsteam übernimmt.</p>
+    </div>
+    <div class="usecase-card stagger-item">
+      <span class="usecase-num">03</span>
+      <h3>Erstgespräch & Informationsabfrage</h3>
+      <p>Für Anfragen, bei denen zunächst Informationen gesammelt werden müssen – z.B. Schadensmeldungen, Beratungsanfragen oder Reklamationen.</p>
+    </div>
+    <div class="usecase-card stagger-item">
+      <span class="usecase-num">04</span>
+      <h3>Abwesenheitsmanagement</h3>
+      <p>Außerhalb der Bürozeiten arbeitet das System wie ein vollwertiger Empfang – nimmt Anliegen auf, gibt Informationen aus und steuert Rückrufe zu den richtigen Mitarbeitenden.</p>
+    </div>
+  </div>
+
+  <!-- Mid CTA -->
+  <div class="mid-cta">
+    <div class="mid-cta-left">
+      <h3>Welche Anrufe kosten<br/>Ihr Team die meiste<br/><em>Zeit?</em></h3>
+      <p>In einem ersten Gespräch analysieren wir gemeinsam, wo Voice AI bei Ihnen den größten Entlastungseffekt erzielt. Kein Aufwand Ihrerseits.</p>
+    </div>
+    <div class="mid-cta-right">
+      <a href="mailto:info@vetes.de" class="btn-primary">
+        Jetzt analysieren lassen
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROZESS -->
+<section id="prozess">
+  <div class="prozess-header">
+    <div>
+      <div class="section-eyebrow">Zusammenarbeit</div>
+      <h2 class="reveal">Wie Ihr System<br/><em>entsteht.</em></h2>
+    </div>
+    <p class="reveal">Klarer Ablauf, transparente Kommunikation. Sie wissen zu jedem Zeitpunkt, wo wir stehen und was als nächstes kommt.</p>
+  </div>
+  <div class="prozess-steps">
+    <div class="prozess-step stagger-item">
+      <span class="step-num">01</span>
+      <div class="step-body">
+        <h3>Analyse Ihrer Anrufstruktur</h3>
+        <p>Wir verstehen, welche Arten von Anrufen bei Ihnen eingehen, welche Fragen häufig gestellt werden und welche Schritte das Gespräch typischerweise durchläuft. Erst dann entwerfen wir eine Lösung.</p>
+      </div>
+    </div>
+    <div class="prozess-step stagger-item">
+      <span class="step-num">02</span>
+      <div class="step-body">
+        <h3>Konzeption des Gesprächsdesigns</h3>
+        <p>Wir entwerfen die Gesprächslogik: Einstieg, Qualifizierungsfragen, Routing-Entscheidungen, Fallback-Szenarien. Sie erhalten ein konkretes Konzept zur Freigabe.</p>
+      </div>
+    </div>
+    <div class="prozess-step stagger-item">
+      <span class="step-num">03</span>
+      <div class="step-body">
+        <h3>Entwicklung & Sprach-Training</h3>
+        <p>Das System wird entwickelt und auf Ihre spezifischen Anforderungen trainiert – inklusive Fachvokabular, Tonalität und typischen Gesprächsverläufen.</p>
+      </div>
+    </div>
+    <div class="prozess-step stagger-item">
+      <span class="step-num">04</span>
+      <div class="step-body">
+        <h3>Integration & Testphase</h3>
+        <p>Einbindung in Ihre Telefonanlage, Ihr CRM und Ihren Kalender. Ausgiebige Tests mit realen Szenarien, bevor das System live geht.</p>
+      </div>
+    </div>
+    <div class="prozess-step stagger-item">
+      <span class="step-num">05</span>
+      <div class="step-body">
+        <h3>Laufende Optimierung</h3>
+        <p>Nach dem Go-live analysieren wir Gesprächsverläufe und optimieren kontinuierlich – damit das System mit Ihrem Unternehmen besser wird.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY VETES -->
+<section id="warum">
+  <div class="warum-grid">
+    <div class="warum-left">
+      <div class="section-eyebrow">Warum VETES</div>
+      <h2 class="reveal">Kein System<br/>von der Stange.<br/><em>Nie.</em></h2>
+      <p class="reveal">Voice AI ist kein Produkt, das man einfach kauft und einschaltet. Jedes gute System beginnt mit dem Verständnis dafür, wie Ihre Kunden wirklich sprechen und was sie brauchen.</p>
+    </div>
+    <div class="warum-list">
+      <div class="warum-item stagger-item">
+        <span class="warum-dash">—</span>
+        <div>
+          <h3>Individuelle Entwicklung</h3>
+          <p>Keine Vorlage, kein Template. Jedes System wird von Grund auf auf Ihre Prozesse zugeschnitten.</p>
+        </div>
+      </div>
+      <div class="warum-item stagger-item">
+        <span class="warum-dash">—</span>
+        <div>
+          <h3>Integration in bestehende Systeme</h3>
+          <p>Wir binden das System in Ihre bestehende Telefonanlage, Ihr CRM und Ihren Kalender ein – kein Systemwechsel notwendig.</p>
+        </div>
+      </div>
+      <div class="warum-item stagger-item">
+        <span class="warum-dash">—</span>
+        <div>
+          <h3>Natürliche Gesprächsführung</h3>
+          <p>Kein Sprachmenü aus den Neunzigern. Das System führt echte Gespräche, die sich nicht nach Automatisierung anfühlen.</p>
+        </div>
+      </div>
+      <div class="warum-item stagger-item">
+        <span class="warum-dash">—</span>
+        <div>
+          <h3>Volle Transparenz</h3>
+          <p>Sie erhalten Einblick in alle Gesprächsverläufe, Qualifizierungsergebnisse und Systemkennzahlen – jederzeit.</p>
+        </div>
+      </div>
+      <div class="warum-item stagger-item">
+        <span class="warum-dash">—</span>
+        <div>
+          <h3>Langfristige Begleitung</h3>
+          <p>Die Zusammenarbeit endet nicht mit dem Launch. Wir optimieren das System kontinuierlich auf Basis realer Gesprächsdaten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-eyebrow">Kundenstimmen</div>
+    <h2 class="reveal">Was Unternehmen<br/><em>wirklich berichten.</em></h2>
+    <p class="reveal">Ehrliche Einschätzungen von Unternehmen, die VETES Voice-AI-Systeme im Einsatz haben.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card stagger-item">
+      <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+      <div class="t-quote">„Unser Telefon war früher ein Flaschenhals. Heute läuft es einfach."</div>
+      <p class="t-text">Wir haben täglich 40–60 eingehende Anrufe – die meisten für Terminbuchungen. Das System übernimmt das vollständig. Unser Team konzentriert sich jetzt auf die Kunden, die wirklich da sind.</p>
+      <div class="t-author">Geschäftsführer · Dienstleistungsunternehmen, München</div>
+    </div>
+    <div class="testimonial-card stagger-item">
+      <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+      <div class="t-quote">„Die Qualität der Leads, die unser Vertrieb bekommt, hat sich deutlich verbessert."</div>
+      <p class="t-text">Vorher hat jeder Mitarbeitende die Erstgespräche anders geführt. Jetzt gibt es eine einheitliche, strukturierte Qualifizierung – und das Vertriebsteam bekommt nur noch die wirklich passenden Kontakte.</p>
+      <div class="t-author">Vertriebsleiter · B2B-Unternehmen, Hamburg</div>
+    </div>
+    <div class="testimonial-card stagger-item">
+      <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+      <div class="t-quote">„Erreichbarkeit außerhalb der Öffnungszeiten war für uns nie möglich – bis jetzt."</div>
+      <p class="t-text">VETES hat das System so gebaut, dass es sich nahtlos in unsere Abläufe einfügt. Die Integration in unser CRM lief ohne Probleme. Und das Feedback unserer Kunden ist durchgehend positiv.</p>
+      <div class="t-author">Inhaberin · Beratungsunternehmen, Berlin</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="cases-header">
+    <div class="section-eyebrow">Praxisbeispiele</div>
+    <h2 class="reveal">Voice AI in der<br/><em>Praxis.</em></h2>
+    <p class="reveal">Strukturierte Einblicke, wie Voice-AI-Lösungen konkrete Probleme in Unternehmen gelöst haben.</p>
+  </div>
+  <div class="case-list">
+    <div class="case-item stagger-item">
+      <div>
+        <div class="case-label">Branche</div>
+        <div class="case-branche">Handwerks&shy;betrieb · 12 Mitarbeitende</div>
+      </div>
+      <div class="case-col">
+        <h4>Ausgangssituation</h4>
+        <p>Täglich 20–30 Anrufe für Terminanfragen, oft zu Zeiten, in denen niemand im Büro ist. Hoher Anteil verpasster Anrufe und manuelle Rückrufe am nächsten Tag.</p>
+      </div>
+      <div class="case-col">
+        <h4>Lösung & Ergebnis</h4>
+        <div class="case-result-value">~80%</div>
+        <div class="case-result-label">der Terminanfragen werden vollautomatisch gebucht</div>
+      </div>
+    </div>
+    <div class="case-item stagger-item">
+      <div>
+        <div class="case-label">Branche</div>
+        <div class="case-branche">Beratungs&shy;unternehmen · B2B-Vertrieb</div>
+      </div>
+      <div class="case-col">
+        <h4>Ausgangssituation</h4>
+        <p>Eingehende Anfragen über Marketing-Kampagnen mussten manuell vorgefiltert werden. Vertrieb investierte viel Zeit in unqualifizierte Erstgespräche.</p>
+      </div>
+      <div class="case-col">
+        <h4>Lösung & Ergebnis</h4>
+        <div class="case-result-value">60%</div>
+        <div class="case-result-label">weniger Zeitaufwand im Vertrieb für Erstqualifizierung</div>
+      </div>
+    </div>
+    <div class="case-item stagger-item">
+      <div>
+        <div class="case-label">Branche</div>
+        <div class="case-branche">Immobilien&shy;verwaltung · Regionaler Anbieter</div>
+      </div>
+      <div class="case-col">
+        <h4>Ausgangssituation</h4>
+        <p>Häufige, wiederkehrende Anfragen zu Mietobjekten, Besichtigungsterminen und Reparaturmeldungen banden täglich mehrere Arbeitsstunden.</p>
+      </div>
+      <div class="case-col">
+        <h4>Lösung & Ergebnis</h4>
+        <div class="case-result-value">3+ h</div>
+        <div class="case-result-label">tägliche Zeitersparnis durch automatisierte Anrufbearbeitung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-header-centered">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="reveal">Häufige Fragen<br/>zu <em>Voice AI.</em></h2>
+    <p class="reveal">Konkrete Antworten auf die Fragen, die vor einer Entscheidung typischerweise entstehen.</p>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Klingt das System wirklich natürlich?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Ja – und das ist der entscheidende Unterschied. Wir entwickeln keine starren Sprachmenüs, sondern echte Dialogsysteme, die Kontext verstehen und flexibel reagieren. In der Praxis berichten viele Anrufende, dass sie nicht bemerkt haben, mit einem KI-System zu sprechen.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">In welche Telefonsysteme kann das integriert werden?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Wir haben Erfahrung mit den gängigen Business-Telefonanlagen und SIP-Lösungen. Im Analysegespräch klären wir, welche Lösung für Ihre bestehende Infrastruktur am besten passt. In der Regel ist keine vollständige Umstellung der Telefonanlage erforderlich.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Was passiert, wenn ein Anrufer ein komplexes Anliegen hat?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Das System erkennt, wann ein Anliegen die Grenzen seiner Kompetenz überschreitet, und leitet zuverlässig an einen menschlichen Mitarbeitenden weiter – oder nimmt das Anliegen auf und veranlasst einen Rückruf. Kein Anrufer wird im System steckengelassen.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Können die Gesprächsdaten ins CRM übertragen werden?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Ja. Wir integrieren das System in Ihr CRM, sodass alle relevanten Gesprächsdaten – Kontaktinfos, Anliegen, Qualifizierungsergebnisse, vereinbarte Termine – automatisch übertragen werden. Manuelle Nacharbeit entfällt.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Wie lange dauert die Umsetzung?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Ein einfacheres System ist typischerweise in zwei bis vier Wochen einsatzbereit. Komplexere Lösungen mit mehreren Gesprächspfaden und tiefer CRM-Integration benötigen in der Regel vier bis acht Wochen. Nach der Analyse erhalten Sie eine realistische Einschätzung.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Müssen wir die Telefonanlage wechseln?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">In den meisten Fällen nicht. Wir bauen das System auf Ihrer bestehenden Telefoninfrastruktur auf. Falls ein technischer Wechsel sinnvoller wäre, klären wir das transparent im Vorfeld.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q"><span class="faq-q-text">Ist das auch für kleine Unternehmen geeignet?</span><div class="faq-icon"></div></summary>
+      <p class="faq-a">Ja. Gerade kleine Teams profitieren besonders, weil telefonischer Kundenservice dort überproportional viel Kapazität bindet. VETES entwickelt skalierbare Lösungen – vom Einpersonen-Betrieb bis zum mittelständischen Unternehmen.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final-cta">
+  <div class="cta-eyebrow">Bereit für den nächsten Schritt</div>
+  <h2 class="reveal">Lassen Sie uns über<br/><em>Ihre Anrufe sprechen.</em></h2>
+  <p class="reveal">Kein Verkaufsgespräch. Ein strukturiertes Erstgespräch, in dem wir gemeinsam prüfen, ob und wie Voice AI bei Ihnen echten Mehrwert schafft.</p>
+  <div class="cta-actions reveal">
+    <a href="mailto:info@vetes.de" class="btn-primary">
+      Gespräch vereinbaren
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="mailto:info@vetes.de" class="btn-outline">info@vetes.de</a>
+  </div>
+  <p class="cta-note">Kostenfreies Erstgespräch · Keine Verbindlichkeit · Antwort innerhalb von 24 Stunden</p>
+</section>
+
+<!-- WEITERE LEISTUNGEN -->
+<section id="more-leistungen">
+  <div class="more-label">Weitere Leistungen</div>
+  <div class="more-grid">
+    <a href="ai-agents.html" class="more-card">
+      <div>
+        <div class="more-card-title">AI Agents</div>
+        <div class="more-card-sub">Autonome Systeme · Prozessautomatisierung</div>
+      </div>
+      <span class="more-arrow">→</span>
+    </a>
+    <a href="automatisierung.html" class="more-card">
+      <div>
+        <div class="more-card-title">Automatisierung</div>
+        <div class="more-card-sub">Workflows · Integrationen · Datenflüsse</div>
+      </div>
+      <span class="more-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">VETE<span>S</span></div>
+    <div class="footer-tagline">Individuelle KI- & Automationslösungen</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Impressum</a></li>
+    <li><a href="#">Datenschutz</a></li>
+    <li><a href="mailto:info@vetes.de">Kontakt</a></li>
+  </ul>
+  <div style="font-size:12px;color:var(--text-muted);">© 2025 VETES</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('js-ready');
+  try {
+    const nav = document.getElementById('navbar');
+    if (nav) { const f=()=>nav.classList.toggle('scrolled',scrollY>60); addEventListener('scroll',f,{passive:true}); f(); }
+  } catch(e){}
+  try {
+    const SEL = '.reveal, .stagger-item';
+    function show(el) { el.classList.add('visible'); }
+    function checkAll() { document.querySelectorAll(SEL).forEach(el=>{ const r=el.getBoundingClientRect(); if(r.top<innerHeight*1.1&&r.bottom>0) show(el); }); }
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        const el=e.target;
+        const p=el.closest('section')||el.parentElement;
+        const sib=p?[...p.querySelectorAll('.stagger-item')]:[el];
+        const idx=Math.max(0,sib.indexOf(el));
+        if(el.classList.contains('stagger-item')) setTimeout(()=>show(el),idx*90);
+        else show(el);
+        io.unobserve(el);
+      });
+    },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+    document.querySelectorAll(SEL).forEach(el=>io.observe(el));
+    setTimeout(checkAll,120);
+    setTimeout(()=>document.querySelectorAll(SEL).forEach(show),2500);
+  } catch(e){document.querySelectorAll('.reveal,.stagger-item').forEach(el=>el.classList.add('visible'));}
+  try{document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});}catch(e){}
+});
+</script>
+</body>
+</html>
