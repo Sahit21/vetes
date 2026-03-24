@@ -1248,7 +1248,7 @@
     .reviews-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 28px;
     }
     /* 7 cards: first row 3, second row 4 */
     .reviews-grid .review-card-new:nth-child(4),
@@ -1261,7 +1261,7 @@
     .review-card-new {
       background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface-3) 100%);
       border-radius: 10px;
-      padding: 44px 40px;
+      padding: 40px 36px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 12px 50px rgba(0,0,0,0.45);
@@ -1467,6 +1467,11 @@
     }
     @media (max-width: 640px) {
       #integrations { padding: 96px 24px; }
+      #reviews { padding: 80px 24px; }
+      .reviews-grid { gap: 12px; }
+      .review-card-new { padding: 28px 24px; }
+      .int-cta-wrap { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .int-cta-wrap .btn-outline { white-space: normal; width: 100%; justify-content: center; }
     }
 
     /* ─── FAQ ─────────────────────────────────────── */
@@ -1563,7 +1568,8 @@
     @media (max-width: 900px) {
       #referenzen { padding: 56px 40px; }
       .reviews-top { flex-direction: column; align-items: flex-start; gap: 32px; }
-      .reviews-grid { grid-template-columns: 1fr; }
+      .reviews-top { margin-bottom: 48px; }
+      .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
       .faq-header { max-width: 100%; }
       .faq-header p { max-width: 100%; }
       #reviews, #faq { padding: 80px 40px; }
@@ -1780,8 +1786,14 @@
       #hero { padding: 90px 20px 60px; }
       section { padding: 60px 20px; }
       #cta { padding: 80px 20px; }
+      #reviews { padding: 60px 20px; }
+      #integrations { padding: 60px 20px; }
       nav { padding: 18px 20px; }
       footer { padding: 32px 20px; }
+      .review-card-new { padding: 24px 20px; }
+      .reviews-top { margin-bottom: 36px; }
+      .int-cta-left p { font-size: clamp(18px, 5vw, 24px); }
+      .int-cta-wrap { margin-top: 48px; padding-top: 40px; gap: 24px; }
       .hero-headline { font-size: clamp(2rem, 10vw, 3rem); }
       .hero-sub { font-size: 14px; max-width: 100%; }
       .hero-actions { flex-direction: column; gap: 12px; }
@@ -2444,20 +2456,20 @@
     </div>
   </div>
 
-  <div class="reviews-grid" style="grid-template-columns: repeat(3,1fr); gap: 28px;">
-    <div class="review-card-new" style="padding: 40px 36px;">
+  <div class="reviews-grid">
+    <div class="review-card-new">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Feb 2025</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Endlich eine Agentur, die wirklich zuhört</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">VETES hat unseren gesamten Angebotsprozess automatisiert. Was vorher 2 Stunden dauerte, läuft jetzt vollautomatisch. Die Lösung ist exakt auf unsere Abläufe zugeschnitten – kein Kompromiss.</p>
       <div class="rcn-author" style="font-size:11.5px;letter-spacing:0.12em;">Markus H.</div>
     </div>
-    <div class="review-card-new" style="padding: 40px 36px;">
+    <div class="review-card-new">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Dez 2024</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Klarer ROI nach 6 Wochen</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">Wir haben mit VETES unsere interne Kommunikation und Kundennachverfolgung automatisiert. Der Return war schneller da als erwartet. Absolut empfehlenswert.</p>
       <div class="rcn-author" style="font-size:11.5px;letter-spacing:0.12em;">Thomas R.</div>
     </div>
-    <div class="review-card-new" style="padding: 40px 36px;">
+    <div class="review-card-new">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Okt 2024</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Unser Team spart täglich 3 Stunden</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">Durch den AI Agent, den VETES für uns entwickelt hat, kümmert sich unser Team nur noch um wirklich wichtige Aufgaben. Die Zeitersparnis ist enorm und die Qualität beeindruckend.</p>
