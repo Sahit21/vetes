@@ -1670,6 +1670,59 @@
     /* reveal state managed by js-ready gate above */
     .reveal { transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
 
+    /* ─── HAMBURGER & MOBILE MENU ────────────────── */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px;
+      position: relative; z-index: 110;
+    }
+    .nav-burger span {
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--text);
+      transition: transform 0.35s, opacity 0.25s;
+      transform-origin: center;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-nav {
+      position: fixed; inset: 0;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(28px);
+      z-index: 105;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: auto; }
+    .mobile-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 18px 0; width: 240px; text-align: center;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-nav a:first-child { border-top: 1px solid var(--border); }
+    .mobile-nav a:hover { color: var(--text); }
+    .mobile-nav .mobile-cta {
+      margin-top: 28px;
+      color: var(--accent) !important;
+      border: 1px solid rgba(200,173,114,0.3) !important;
+      padding: 14px 32px !important;
+      border-radius: 2px;
+      width: auto !important;
+    }
+
     /* ─── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 1100px) {
       nav, section, footer { padding-left: 40px; padding-right: 40px; }
@@ -1683,6 +1736,7 @@
     @media (max-width: 640px) {
       nav { padding: 20px 24px; }
       .nav-links { display: none; }
+      .nav-burger { display: flex; }
       #hero { padding: 100px 24px 72px; }
       section { padding: 80px 24px; }
       .services-grid { grid-template-columns: 1fr; }
@@ -1713,7 +1767,17 @@
     <li><a href="#trust">Referenzen</a></li>
     <li><a href="#cta" class="nav-cta">Gespräch vereinbaren</a></li>
   </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="leistungen/voice-ai.html">Voice AI</a>
+  <a href="leistungen/ai-agents.html">AI Agents</a>
+  <a href="leistungen/automatisierung.html">Automatisierung</a>
+  <a href="#prozess">Prozess</a>
+  <a href="#trust">Referenzen</a>
+  <a href="#cta" class="mobile-cta">Gespräch vereinbaren</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -2910,6 +2974,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
       setTimeout(draw, 200);
     })();
+  } catch(e) {}
+
+  // ── HAMBURGER MENU ─────────────────────────────────────
+  try {
+    const burger = document.getElementById('navBurger');
+    const mobileNav = document.getElementById('mobileNav');
+    if (burger && mobileNav) {
+      burger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        burger.classList.toggle('open', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      mobileNav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          burger.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
   } catch(e) {}
 
 }); // end DOMContentLoaded
