@@ -1699,29 +1699,56 @@
       z-index: 105;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 0;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.35s;
+      gap: 0; opacity: 0; pointer-events: none; transition: opacity 0.35s;
     }
     .mobile-nav.open { opacity: 1; pointer-events: auto; }
-    .mobile-nav a {
-      color: var(--text-secondary);
-      text-decoration: none;
+    .mobile-nav > a {
+      color: var(--text-secondary); text-decoration: none;
       font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
       padding: 18px 0; width: 240px; text-align: center;
+      border-bottom: 1px solid var(--border); transition: color 0.2s;
+    }
+    .mobile-nav > a:hover { color: var(--text); }
+    .mobile-nav .mobile-cta {
+      margin-top: 28px; color: var(--accent) !important;
+      border: 1px solid rgba(200,173,114,0.3) !important;
+      padding: 14px 32px !important; border-radius: 2px; width: auto !important;
+    }
+    .mobile-nav-close {
+      position: absolute; top: 28px; right: 28px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 20px; line-height: 1;
+      padding: 8px; transition: color 0.2s;
+    }
+    .mobile-nav-close:hover { color: var(--text-secondary); }
+    .mobile-acc { width: 240px; }
+    .mobile-acc-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 18px 0; border: none;
       border-bottom: 1px solid var(--border);
+      background: none; cursor: pointer;
+      color: var(--text-secondary); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
       transition: color 0.2s;
     }
-    .mobile-nav a:first-child { border-top: 1px solid var(--border); }
-    .mobile-nav a:hover { color: var(--text); }
-    .mobile-nav .mobile-cta {
-      margin-top: 28px;
-      color: var(--accent) !important;
-      border: 1px solid rgba(200,173,114,0.3) !important;
-      padding: 14px 32px !important;
-      border-radius: 2px;
-      width: auto !important;
+    .mobile-acc-trigger:hover { color: var(--text); }
+    .mobile-acc.open .mobile-acc-trigger { border-bottom-color: transparent; }
+    .mobile-acc-arrow {
+      display: block; width: 6px; height: 6px;
+      border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
+      transform: rotate(45deg); transition: transform 0.3s;
+      flex-shrink: 0; margin-top: -2px;
     }
+    .mobile-acc.open .mobile-acc-arrow { transform: rotate(-135deg); margin-top: 3px; }
+    .mobile-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+    .mobile-acc.open .mobile-acc-body { max-height: 200px; }
+    .mobile-acc-body a {
+      display: block; padding: 13px 16px; width: 240px;
+      text-align: left; color: var(--text-muted); text-decoration: none;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border); transition: color 0.2s;
+    }
+    .mobile-acc-body a:hover { color: var(--text-secondary); }
 
     /* ─── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 1100px) {
@@ -1771,9 +1798,15 @@
 </nav>
 
 <div class="mobile-nav" id="mobileNav">
-  <a href="leistungen/voice-ai.html">Voice AI</a>
-  <a href="leistungen/ai-agents.html">AI Agents</a>
-  <a href="leistungen/automatisierung.html">Automatisierung</a>
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Menü schließen">&#x2715;</button>
+  <div class="mobile-acc" id="mobileAcc">
+    <button class="mobile-acc-trigger">Leistungen<span class="mobile-acc-arrow"></span></button>
+    <div class="mobile-acc-body">
+      <a href="leistungen/voice-ai.html">Voice AI</a>
+      <a href="leistungen/ai-agents.html">AI Agents</a>
+      <a href="leistungen/automatisierung.html">Automatisierung</a>
+    </div>
+  </div>
   <a href="#prozess">Prozess</a>
   <a href="#trust">Referenzen</a>
   <a href="#cta" class="mobile-cta">Gespräch vereinbaren</a>
@@ -2980,19 +3013,25 @@ document.addEventListener('DOMContentLoaded', function () {
   try {
     const burger = document.getElementById('navBurger');
     const mobileNav = document.getElementById('mobileNav');
+    const closeBtn = document.getElementById('mobileNavClose');
+    const acc = document.getElementById('mobileAcc');
     if (burger && mobileNav) {
+      const closeMenu = () => {
+        mobileNav.classList.remove('open');
+        burger.classList.remove('open');
+        document.body.style.overflow = '';
+      };
       burger.addEventListener('click', () => {
         const isOpen = mobileNav.classList.toggle('open');
         burger.classList.toggle('open', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
       });
-      mobileNav.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          mobileNav.classList.remove('open');
-          burger.classList.remove('open');
-          document.body.style.overflow = '';
-        });
-      });
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (acc) {
+        const t = acc.querySelector('.mobile-acc-trigger');
+        if (t) t.addEventListener('click', () => acc.classList.toggle('open'));
+      }
+      mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
     }
   } catch(e) {}
 
