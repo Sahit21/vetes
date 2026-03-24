@@ -37,6 +37,16 @@
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
     .nav-cta { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3); padding: 10px 24px; border-radius: 2px; position: relative; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s !important; }
     .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
+    .nav-item-dropdown { position: relative; }
+    .nav-item-dropdown > a { display: inline-flex; align-items: center; gap: 5px; }
+    .nav-item-dropdown > a::after { content: ''; display: block; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-1px); opacity: 0.4; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0; }
+    .nav-item-dropdown:hover > a::after { transform: rotate(-135deg) translateY(2px); opacity: 0.7; }
+    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(12,11,10,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
+    .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 2px; font-size: 11.5px !important; letter-spacing: 0.1em !important; color: var(--text-secondary) !important; text-decoration: none !important; transition: background 0.18s, color 0.18s; white-space: nowrap; text-transform: uppercase; }
+    .nav-dropdown a:hover { background: rgba(200,173,114,0.07); color: var(--text) !important; }
+    .nav-dd-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.5; flex-shrink: 0; transition: opacity 0.18s; }
+    .nav-dropdown a:hover .nav-dd-dot { opacity: 1; }
 
     /* Buttons */
     .btn-primary { display: inline-flex; align-items: center; gap: 14px; background: linear-gradient(140deg, #cdb476 0%, #b8944c 100%); color: #090700; font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 17px 34px; border-radius: 2px; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(200,173,114,0.22), 0 1px 4px rgba(0,0,0,0.4); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s; }
@@ -283,7 +293,14 @@
   <a href="../index.html" class="nav-logo">VETE<span>S</span></a>
   <ul class="nav-links">
     <li><a href="../index.html#trust">Über uns</a></li>
-    <li><a href="../index.html#services" class="active">Leistungen</a></li>
+    <li class="nav-item-dropdown">
+      <a href="../index.html#services" class="active">Leistungen</a>
+      <div class="nav-dropdown">
+        <a href="voice-ai.html"><span class="nav-dd-dot"></span>Voice AI</a>
+        <a href="ai-agents.html"><span class="nav-dd-dot"></span>AI Agents</a>
+        <a href="automatisierung.html"><span class="nav-dd-dot"></span>Automatisierung</a>
+      </div>
+    </li>
     <li><a href="../index.html#integrations">Integrationen</a></li>
     <li><a href="../index.html#prozess">Prozess</a></li>
     <li><a href="../index.html#faq">FAQ</a></li>
