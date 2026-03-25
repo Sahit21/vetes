@@ -723,25 +723,49 @@
       gap: 0;
       position: relative;
     }
-    /* ── Wide atmospheric glow behind the full logo block ── */
+    /* ── Layered atmospheric glow behind the logo ── */
     .brand-logo-wrap::before {
       content: '';
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -48%);
-      width: 560px; height: 520px;
+      width: 600px; height: 560px;
       background:
-        radial-gradient(ellipse 65% 55% at 50% 38%,
-          rgba(200,173,114,0.13) 0%,
-          rgba(200,173,114,0.07) 30%,
-          rgba(200,173,114,0.03) 58%,
-          transparent 80%),
-        radial-gradient(ellipse 45% 30% at 50% 82%,
-          rgba(200,173,114,0.08) 0%,
-          rgba(200,173,114,0.03) 50%,
-          transparent 70%);
+        radial-gradient(ellipse 50% 45% at 50% 42%,
+          rgba(200,173,114,0.18) 0%,
+          rgba(200,173,114,0.09) 25%,
+          transparent 60%),
+        radial-gradient(ellipse 70% 60% at 50% 40%,
+          rgba(200,173,114,0.06) 0%,
+          rgba(200,173,114,0.025) 45%,
+          transparent 75%),
+        radial-gradient(ellipse 40% 25% at 50% 80%,
+          rgba(200,173,114,0.07) 0%,
+          transparent 65%);
       pointer-events: none;
       border-radius: 50%;
+      animation: glowPulse 8s ease-in-out infinite;
+    }
+    .brand-logo-wrap::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 380px; height: 380px;
+      border: 1px solid rgba(200,173,114,0.06);
+      border-radius: 50%;
+      animation: ringExpand 10s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.7; transform: translate(-50%, -48%) scale(1); }
+      50%      { opacity: 1;   transform: translate(-50%, -48%) scale(1.04); }
+    }
+    @keyframes ringExpand {
+      0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+      15%      { opacity: 1; }
+      85%      { opacity: 1; }
+      100%     { opacity: 0; transform: translate(-50%, -50%) scale(1.25); border-color: rgba(200,173,114,0.02); }
     }
     /* Brand V wrap — holds the real SVG logo */
     .brand-v-wrap {
@@ -753,37 +777,39 @@
       position: relative;
       z-index: 1;
       overflow: hidden;
-      animation: vGlow 6s ease-in-out infinite;
+      animation: vGlow 7s ease-in-out infinite;
     }
     .brand-v-svg {
       width: 100%;
       height: 100%;
     }
-    /* Shimmer sweep over the V */
+    /* Refined shimmer sweep */
     .brand-v-wrap::after {
       content: '';
       position: absolute;
       top: 0; left: -100%;
-      width: 55%; height: 100%;
+      width: 40%; height: 100%;
       background: linear-gradient(
-        108deg,
-        transparent 15%,
-        rgba(255,248,220,0.15) 50%,
-        transparent 85%
+        105deg,
+        transparent 20%,
+        rgba(255,250,230,0.08) 40%,
+        rgba(255,248,220,0.14) 50%,
+        rgba(255,250,230,0.08) 60%,
+        transparent 80%
       );
-      animation: vShimmerSweep 5.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      animation-delay: 1.6s;
+      animation: vShimmerSweep 7s cubic-bezier(0.25, 0, 0.6, 1) infinite;
+      animation-delay: 2.5s;
       pointer-events: none;
     }
     @keyframes vShimmerSweep {
       0%   { left: -100%; opacity: 0; }
-      5%   { opacity: 1; }
-      95%  { opacity: 1; }
-      100% { left: 160%;  opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { left: 180%;  opacity: 0; }
     }
     @keyframes vGlow {
-      0%, 100% { filter: drop-shadow(0 0 40px rgba(200,173,114,0.08)); }
-      50%       { filter: drop-shadow(0 0 70px rgba(200,173,114,0.18)); }
+      0%, 100% { filter: drop-shadow(0 0 50px rgba(200,173,114,0.06)) drop-shadow(0 0 20px rgba(200,173,114,0.04)); }
+      50%       { filter: drop-shadow(0 0 80px rgba(200,173,114,0.16)) drop-shadow(0 0 30px rgba(200,173,114,0.08)); }
     }
 
     /* ─── PROZESS — PINNED JOURNEY ───────────────────── */
@@ -2500,42 +2526,10 @@
 
     <details class="faq-item">
       <summary class="faq-question">
-        <span class="faq-q-text">Arbeiten Sie mit Standardlösungen oder entwickeln Sie individuell?</span>
-        <div class="faq-icon"></div>
-      </summary>
-      <p class="faq-answer">Ausschließlich individuell. Es gibt bei VETES keine Pakete, keine Templates und keine vorkonfigurierten Produkte, die einfach lizenziert werden. Jede Lösung entsteht auf Basis Ihrer konkreten Prozesse, Systeme und Ziele. Das ist aufwendiger – aber es ist der einzige Weg, der langfristig funktioniert.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-question">
-        <span class="faq-q-text">Müssen bestehende Systeme ersetzt werden?</span>
-        <div class="faq-icon"></div>
-      </summary>
-      <p class="faq-answer">Nein. Wir bauen um das herum, was bereits in Ihrem Unternehmen funktioniert. Unser Ansatz ist Integration, nicht Disruption. Wir verbinden neue KI- und Automatisierungsschichten mit Ihren bestehenden CRM-, ERP- und Kommunikationssystemen – ohne Systemwechsel, ohne Datenverlust, ohne Betriebsunterbrechung.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-question">
-        <span class="faq-q-text">Wie läuft die Zusammenarbeit ab?</span>
-        <div class="faq-icon"></div>
-      </summary>
-      <p class="faq-answer">Die Zusammenarbeit folgt einem klar strukturierten Ablauf: Analyse Ihrer Prozesse und Ziele → Konzeption einer Lösungsarchitektur → Umsetzung in iterativen Schritten → Integration in Ihre Systeme → laufende Optimierung. Sie werden in jeden Schritt eingebunden und wissen jederzeit, wo wir stehen. Keine Überraschungen, keine unklaren Übergaben.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-question">
         <span class="faq-q-text">Wie lange dauert die Umsetzung?</span>
         <div class="faq-icon"></div>
       </summary>
       <p class="faq-answer">Das hängt vom Umfang und der Komplexität des Projekts ab. Einfachere Automatisierungen können innerhalb von zwei bis vier Wochen einsatzbereit sein. Komplexere Systemarchitekturen mit mehreren Integrationen benötigen typischerweise sechs bis zwölf Wochen. In der Analysephase erhalten Sie eine realistische Einschätzung – keine Schönwetterprognosen.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-question">
-        <span class="faq-q-text">Können bestehende Tools und Software integriert werden?</span>
-        <div class="faq-icon"></div>
-      </summary>
-      <p class="faq-answer">Ja, in der Regel vollständig. Wir verfügen über umfangreiche Erfahrung in der Anbindung gängiger Unternehmenssoftware wie HubSpot, Salesforce, SAP, Microsoft 365, Pipedrive, Slack, Notion und viele weitere. Auch proprietäre oder weniger verbreitete Systeme können über APIs oder individuelle Schnittstellen angebunden werden.</p>
     </details>
 
     <details class="faq-item">
@@ -2548,26 +2542,18 @@
 
     <details class="faq-item">
       <summary class="faq-question">
-        <span class="faq-q-text">Wie aufwendig ist die Einführung im Unternehmen?</span>
+        <span class="faq-q-text">Müssen bestehende Systeme ersetzt werden?</span>
         <div class="faq-icon"></div>
       </summary>
-      <p class="faq-answer">Deutlich weniger aufwendig als erwartet. Wir übernehmen den gesamten technischen Aufwand. Ihr Team muss keine komplexen Schulungen absolvieren und keinen laufenden Betrieb unterbrechen. Wir begleiten die Einführung aktiv, schulen die relevanten Mitarbeiter praxisnah und stellen sicher, dass das System von Anfang an reibungslos funktioniert.</p>
+      <p class="faq-answer">Nein. Wir bauen um das herum, was bereits in Ihrem Unternehmen funktioniert. Unser Ansatz ist Integration, nicht Disruption. Wir verbinden neue KI- und Automatisierungsschichten mit Ihren bestehenden CRM-, ERP- und Kommunikationssystemen – ohne Systemwechsel, ohne Datenverlust, ohne Betriebsunterbrechung.</p>
     </details>
 
     <details class="faq-item">
       <summary class="faq-question">
-        <span class="faq-q-text">Was passiert nach dem Launch?</span>
+        <span class="faq-q-text">Warum VETES und nicht eine große Agentur?</span>
         <div class="faq-icon"></div>
       </summary>
-      <p class="faq-answer">Die Zusammenarbeit endet nicht mit der Übergabe. Wir begleiten Sie in der Optimierungsphase, analysieren Performance-Daten und entwickeln Ihre Lösung kontinuierlich weiter. Unsere Systeme sind darauf ausgelegt, mit Ihrem Unternehmen zu wachsen – nicht statisch zu bleiben.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-question">
-        <span class="faq-q-text">Warum VETES und nicht eine große Agentur oder ein Softwareanbieter?</span>
-        <div class="faq-icon"></div>
-      </summary>
-      <p class="faq-answer">Große Agenturen liefern oft generische Konzepte, die an der Realität des Mittelstands vorbeigehen. Softwareanbieter haben Lösungen, die Sie an ihre Plattform binden. Wir liefern weder das eine noch das andere: Wir bauen Systeme, die Ihnen gehören, die exakt auf Ihre Situation passen und die wir dauerhaft mit Ihnen betreiben. Das ist ein anderes Versprechen.</p>
+      <p class="faq-answer">Große Agenturen liefern oft generische Konzepte, die an der Realität des Mittelstands vorbeigehen. Softwareanbieter haben Lösungen, die Sie an ihre Plattform binden. Wir bauen Systeme, die Ihnen gehören, die exakt auf Ihre Situation passen und die wir dauerhaft mit Ihnen betreiben.</p>
     </details>
 
   </div>
