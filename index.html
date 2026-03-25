@@ -2973,28 +2973,27 @@ document.addEventListener('DOMContentLoaded', function () {
       const wrap = canvas.parentElement;
       const DPR  = Math.min(window.devicePixelRatio || 1, 2);
       let W, H, CX, CY;
+      let rafId = null;
 
       function resize() {
         const w = wrap.clientWidth || 480;
-        const h = wrap.clientHeight || window.innerHeight * 0.7;
         W = Math.min(w, 560); H = W;
         canvas.width  = W * DPR; canvas.height = H * DPR;
         canvas.style.width  = W + 'px';
         canvas.style.height = H + 'px';
-        ctx.scale(DPR, DPR);
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
         CX = W / 2; CY = H / 2;
+        setRingRadii();
       }
-      resize();
-      window.addEventListener('resize', () => { ctx.setTransform(1,0,0,1,0,0); resize(); });
 
       const GOLD       = 'rgba(200,173,114,';
       const GOLD_SOLID = '#c8ad72';
       const IVORY      = 'rgba(242,237,226,';
 
       const RINGS = [
-        { r: 0, speed:  0.00018, opacity: 0.22, dash: []      },
-        { r: 0, speed: -0.00012, opacity: 0.15, dash: [3, 9]  },
-        { r: 0, speed:  0.00008, opacity: 0.10, dash: [1, 14] },
+        { r: 0, speed:  0.18, opacity: 0.22, dash: []      },
+        { r: 0, speed: -0.12, opacity: 0.15, dash: [3, 9]  },
+        { r: 0, speed:  0.08, opacity: 0.10, dash: [1, 14] },
       ];
 
       function setRingRadii() {
@@ -3002,26 +3001,35 @@ document.addEventListener('DOMContentLoaded', function () {
         RINGS[1].r = W * 0.285;
         RINGS[2].r = W * 0.395;
       }
-      setRingRadii();
+
+      resize();
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 100);
+      });
 
       const NODES = [
-        { ring: 0, angle: 0,              label: 'Analyse',     pulse: 0   },
-        { ring: 0, angle: Math.PI,        label: 'Optimierung', pulse: 0.9 },
-        { ring: 1, angle: Math.PI/5,      label: 'Voice AI',    pulse: 0.3 },
-        { ring: 1, angle: Math.PI+Math.PI/4, label: 'AI Agents',pulse: 1.5 },
-        { ring: 2, angle: Math.PI*0.6,    label: 'Automations', pulse: 0.6 },
-        { ring: 2, angle: Math.PI*1.7,    label: 'Integration', pulse: 1.2 },
+        { ring: 0, angle: 0,                   label: 'Analyse',     pulse: 0   },
+        { ring: 0, angle: Math.PI,             label: 'Optimierung', pulse: 0.9 },
+        { ring: 1, angle: Math.PI / 5,         label: 'Voice AI',    pulse: 0.3 },
+        { ring: 1, angle: Math.PI + Math.PI/4, label: 'AI Agents',   pulse: 1.5 },
+        { ring: 2, angle: Math.PI * 0.6,       label: 'Automations', pulse: 0.6 },
+        { ring: 2, angle: Math.PI * 1.7,       label: 'Integration', pulse: 1.2 },
       ];
 
       let mx = 0, my = 0, smoothMx = 0, smoothMy = 0;
-      document.addEventListener('mousemove', e => {
-        mx = e.clientX / window.innerWidth  - 0.5;
-        my = e.clientY / window.innerHeight - 0.5;
+      canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+        my = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
       });
+      canvas.addEventListener('mouseleave', () => { mx = 0; my = 0; });
 
-      let t = 0;
+      let startTime = 0;
 
       function drawGlow(x, y, r, colorStr, alpha) {
+        if (r <= 0) return;
         const g = ctx.createRadialGradient(x, y, 0, x, y, r);
         g.addColorStop(0,   colorStr + alpha + ')');
         g.addColorStop(0.5, colorStr + (alpha * 0.3) + ')');
@@ -3030,30 +3038,28 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.fillStyle = g; ctx.fill();
       }
 
-      function nodePos(node) {
+      function nodePos(node, t) {
         const ring  = RINGS[node.ring];
         const angle = node.angle + ring.speed * t;
-        const depth = (node.ring + 1) * 0.018;
+        const depth = (node.ring + 1) * 0.008;
         return {
-          x: CX + Math.cos(angle) * ring.r + smoothMx * depth * W * 12,
-          y: CY + Math.sin(angle) * ring.r + smoothMy * depth * H * 12,
+          x: CX + Math.cos(angle) * ring.r + smoothMx * depth * W,
+          y: CY + Math.sin(angle) * ring.r + smoothMy * depth * H,
           angle
         };
       }
 
       function drawConnection(x, y, alpha) {
-        ctx.save();
         ctx.beginPath(); ctx.moveTo(CX, CY); ctx.lineTo(x, y);
         const grad = ctx.createLinearGradient(CX, CY, x, y);
         grad.addColorStop(0,   GOLD + (alpha * 0.4) + ')');
         grad.addColorStop(0.6, GOLD + (alpha * 0.25) + ')');
         grad.addColorStop(1,   GOLD + '0)');
         ctx.strokeStyle = grad; ctx.lineWidth = 0.6; ctx.stroke();
-        ctx.restore();
       }
 
-      function drawNode(x, y, label, pulsePhase) {
-        const pulse = 0.55 + 0.45 * Math.sin(t * 0.0008 + pulsePhase);
+      function drawNode(x, y, label, pulsePhase, t) {
+        const pulse = 0.55 + 0.45 * Math.sin(t * 0.8 + pulsePhase);
         const dotR  = 3.5;
         drawGlow(x, y, dotR * 6, GOLD, 0.06 * pulse);
         ctx.beginPath(); ctx.arc(x, y, dotR, 0, Math.PI * 2);
@@ -3064,20 +3070,22 @@ document.addEventListener('DOMContentLoaded', function () {
         const dx = x - CX, dy = y - CY;
         const dist = Math.hypot(dx, dy) || 1;
         const lx = x + (dx / dist) * 18, ly = y + (dy / dist) * 18;
-        ctx.font = `300 11px 'DM Sans', sans-serif`;
+        ctx.font = '300 11px "DM Sans", sans-serif';
         ctx.textAlign   = dx > 0 ? 'left' : (dx < -1 ? 'right' : 'center');
         ctx.textBaseline = dy > 0 ? 'top' : 'bottom';
         ctx.fillStyle   = IVORY + (0.55 + 0.35 * pulse) + ')';
         ctx.fillText(label, lx, ly);
       }
 
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        smoothMx += (mx - smoothMx) * 0.04;
-        smoothMy += (my - smoothMy) * 0.04;
-        t++;
+      function draw(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const t = (timestamp - startTime) / 1000;
 
-        const tiltX = smoothMy * 0.04, tiltY = smoothMx * -0.04;
+        ctx.clearRect(0, 0, W, H);
+        smoothMx += (mx - smoothMx) * 0.03;
+        smoothMy += (my - smoothMy) * 0.03;
+
+        const tiltX = smoothMy * 0.015, tiltY = smoothMx * -0.015;
         ctx.save();
         ctx.transform(1, tiltX, tiltY, 1, -CX * tiltY, -CY * tiltX);
 
@@ -3093,12 +3101,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         NODES.forEach(node => {
-          const pos   = nodePos(node);
-          const pulse = 0.4 + 0.6 * Math.sin(t * 0.0008 + node.pulse);
+          const pos   = nodePos(node, t);
+          const pulse = 0.4 + 0.6 * Math.sin(t * 0.8 + node.pulse);
           drawConnection(pos.x, pos.y, pulse);
         });
 
-        const coreBreath = 0.85 + 0.15 * Math.sin(t * 0.001);
+        const coreBreath = 0.85 + 0.15 * Math.sin(t);
         drawGlow(CX, CY, 28 * coreBreath, GOLD, 0.22);
         drawGlow(CX, CY, 12 * coreBreath, GOLD, 0.5);
 
@@ -3107,21 +3115,31 @@ document.addEventListener('DOMContentLoaded', function () {
         cG.addColorStop(0, '#f5e8c0'); cG.addColorStop(0.5, GOLD_SOLID); cG.addColorStop(1, '#9a7a3a');
         ctx.fillStyle = cG; ctx.fill();
 
-        ctx.font = `300 9.5px 'DM Sans', sans-serif`;
+        ctx.font = '300 9.5px "DM Sans", sans-serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillStyle = GOLD + '0.45)';
         ctx.fillText('VETES', CX, CY + 18);
 
         NODES.forEach(node => {
-          const pos = nodePos(node);
-          drawNode(pos.x, pos.y, node.label, node.pulse);
+          const pos = nodePos(node, t);
+          drawNode(pos.x, pos.y, node.label, node.pulse, t);
         });
 
         ctx.restore();
-        requestAnimationFrame(draw);
+        rafId = requestAnimationFrame(draw);
       }
 
-      setTimeout(draw, 200);
+      // Pause when tab is hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        } else {
+          startTime = 0;
+          if (!rafId) rafId = requestAnimationFrame(draw);
+        }
+      });
+
+      setTimeout(() => { rafId = requestAnimationFrame(draw); }, 200);
     })();
   } catch(e) {}
 
