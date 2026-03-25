@@ -723,25 +723,26 @@
       gap: 0;
       position: relative;
     }
-    /* ── Layered atmospheric glow behind the logo ── */
+    /* ── Bright atmospheric glow behind the logo ── */
     .brand-logo-wrap::before {
       content: '';
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -48%);
-      width: 600px; height: 560px;
+      width: 620px; height: 580px;
       background:
-        radial-gradient(ellipse 50% 45% at 50% 42%,
-          rgba(200,173,114,0.18) 0%,
-          rgba(200,173,114,0.09) 25%,
-          transparent 60%),
-        radial-gradient(ellipse 70% 60% at 50% 40%,
-          rgba(200,173,114,0.06) 0%,
-          rgba(200,173,114,0.025) 45%,
-          transparent 75%),
-        radial-gradient(ellipse 40% 25% at 50% 80%,
-          rgba(200,173,114,0.07) 0%,
-          transparent 65%);
+        radial-gradient(ellipse 45% 40% at 50% 44%,
+          rgba(200,173,114,0.28) 0%,
+          rgba(200,173,114,0.15) 20%,
+          rgba(200,173,114,0.06) 45%,
+          transparent 65%),
+        radial-gradient(ellipse 65% 55% at 50% 42%,
+          rgba(200,173,114,0.10) 0%,
+          rgba(200,173,114,0.04) 40%,
+          transparent 70%),
+        radial-gradient(ellipse 35% 20% at 50% 78%,
+          rgba(200,173,114,0.09) 0%,
+          transparent 60%);
       pointer-events: none;
       border-radius: 50%;
       animation: glowPulse 8s ease-in-out infinite;
@@ -783,33 +784,10 @@
       width: 100%;
       height: 100%;
     }
-    /* Refined shimmer sweep */
-    .brand-v-wrap::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 40%; height: 100%;
-      background: linear-gradient(
-        105deg,
-        transparent 20%,
-        rgba(255,250,230,0.08) 40%,
-        rgba(255,248,220,0.14) 50%,
-        rgba(255,250,230,0.08) 60%,
-        transparent 80%
-      );
-      animation: vShimmerSweep 7s cubic-bezier(0.25, 0, 0.6, 1) infinite;
-      animation-delay: 2.5s;
-      pointer-events: none;
-    }
-    @keyframes vShimmerSweep {
-      0%   { left: -100%; opacity: 0; }
-      8%   { opacity: 1; }
-      92%  { opacity: 1; }
-      100% { left: 180%;  opacity: 0; }
-    }
+    /* No shimmer — clean logo presentation */
     @keyframes vGlow {
-      0%, 100% { filter: drop-shadow(0 0 50px rgba(200,173,114,0.06)) drop-shadow(0 0 20px rgba(200,173,114,0.04)); }
-      50%       { filter: drop-shadow(0 0 80px rgba(200,173,114,0.16)) drop-shadow(0 0 30px rgba(200,173,114,0.08)); }
+      0%, 100% { filter: drop-shadow(0 0 50px rgba(200,173,114,0.10)) drop-shadow(0 0 20px rgba(200,173,114,0.06)); }
+      50%       { filter: drop-shadow(0 0 90px rgba(200,173,114,0.22)) drop-shadow(0 0 35px rgba(200,173,114,0.12)); }
     }
 
     /* ─── PROZESS — PINNED JOURNEY ───────────────────── */
@@ -1173,7 +1151,7 @@
 
     /* ─── REFERENZEN — LOGO BAR ───────────────────── */
     #referenzen {
-      padding: 72px 64px;
+      padding: 40px 64px;
       position: relative;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -1651,7 +1629,7 @@
     }
 
     @media (max-width: 900px) {
-      #referenzen { padding: 56px 40px; }
+      #referenzen { padding: 32px 40px; }
       .reviews-top { flex-direction: column; align-items: flex-start; gap: 32px; }
       .reviews-top { margin-bottom: 48px; }
       .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -1660,7 +1638,7 @@
       #reviews, #faq { padding: 80px 40px; }
     }
     @media (max-width: 640px) {
-      #referenzen { padding: 48px 24px; }
+      #referenzen { padding: 28px 24px; }
       .ref-logo-item { padding: 0 32px; }
       #reviews, #faq { padding: 72px 24px; }
     }
