@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Über uns — VETES</title>
+  <meta name="description" content="VETES ist ein spezialisiertes KI-Studio für individuelle Sprach-, Agenten- und Automationslösungen. Lerne das Team und unsere Mission kennen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080808; --surface: #0f0e0c; --surface-2: #151310; --surface-3: #1c1a17;
+      --border: rgba(255,255,255,0.055); --border-light: rgba(255,255,255,0.09);
+      --text: #eae5db; --text-secondary: #6e6860; --text-muted: #3a3630;
+      --accent: #c8ad72; --accent-soft: rgba(200,173,114,0.13);
+      --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-float: 0 28px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    /* ── Ambient ── */
+    .site-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .site-ambient::before { content: ''; position: absolute; top: -20%; right: -10%; width: 70vw; height: 80vh; background: radial-gradient(ellipse at 60% 30%, rgba(200,173,114,0.055) 0%, transparent 65%); animation: ambA 18s ease-in-out infinite alternate; }
+    .site-ambient::after { content: ''; position: absolute; bottom: 5%; left: -15%; width: 60vw; height: 70vh; background: radial-gradient(ellipse at 40% 65%, rgba(120,90,50,0.04) 0%, transparent 65%); animation: ambB 22s ease-in-out infinite alternate; }
+    @keyframes ambA { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-3%,5%) scale(1.06); } }
+    @keyframes ambB { 0% { transform: translate(0,0); } 100% { transform: translate(5%,-6%) scale(1.09); } }
+    nav, section, footer, main, header { position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 30px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s; }
+    nav.scrolled { background: rgba(8,8,8,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 44px; list-style: none; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3); padding: 10px 24px; border-radius: 2px; transition: border-color 0.3s, box-shadow 0.3s !important; }
+    .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
+    .nav-item-dropdown { position: relative; }
+    .nav-item-dropdown > a { display: inline-flex; align-items: center; gap: 5px; }
+    .nav-item-dropdown > a::after { content: ''; display: block; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-1px); opacity: 0.4; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0; }
+    .nav-item-dropdown:hover > a::after { transform: rotate(-135deg) translateY(2px); opacity: 0.7; }
+    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(12,11,10,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
+    .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 2px; font-size: 11.5px !important; letter-spacing: 0.1em !important; color: var(--text-secondary) !important; text-decoration: none !important; transition: background 0.18s, color 0.18s; white-space: nowrap; text-transform: uppercase; }
+    .nav-dropdown a:hover { background: rgba(200,173,114,0.07); color: var(--text) !important; }
+    .nav-dd-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.5; flex-shrink: 0; transition: opacity 0.18s; }
+    .nav-dropdown a:hover .nav-dd-dot { opacity: 1; }
+
+    /* ── Hamburger & Mobile Nav ── */
+    .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px; position: relative; z-index: 110; }
+    .nav-burger span { display: block; width: 20px; height: 1px; background: var(--text); transition: transform 0.35s, opacity 0.25s; transform-origin: center; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-nav { position: fixed; inset: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(28px); z-index: 105; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; opacity: 0; pointer-events: none; transition: opacity 0.35s; }
+    .mobile-nav.open { opacity: 1; pointer-events: auto; }
+    .mobile-nav a { color: var(--text-secondary); text-decoration: none; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 0; width: 240px; text-align: center; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-nav a:first-child { border-top: 1px solid var(--border); }
+    .mobile-nav a:hover { color: var(--text); }
+    .mobile-nav .mobile-cta { margin-top: 28px; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3) !important; padding: 14px 32px !important; border-radius: 2px; width: auto !important; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 64px; }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .breadcrumb a:hover { color: var(--text-secondary); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    /* ── Page Hero ── */
+    .page-hero { padding: 160px 64px 100px; max-width: 1200px; margin: 0 auto; }
+    .page-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; display: flex; align-items: center; gap: 16px; opacity: 0.75; }
+    .page-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); opacity: 0.45; }
+    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6vw, 88px); font-weight: 300; line-height: 1.03; letter-spacing: -0.02em; color: #f2ede2; max-width: 820px; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.8; max-width: 600px; margin-top: 32px; }
+
+    /* ── Section base ── */
+    section { max-width: 1200px; margin: 0 auto; padding: 0 64px 100px; }
+
+    .section-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 48px; display: flex; align-items: center; gap: 16px; opacity: 0.7; }
+    .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); opacity: 0.45; }
+
+    /* ── Mission ── */
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .mission-cell { background: var(--surface); padding: 52px 48px; }
+    .mission-cell:first-child { border-right: 1px solid var(--border); }
+    .mission-cell h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; letter-spacing: -0.01em; color: var(--text); margin-bottom: 20px; line-height: 1.2; }
+    .mission-cell p { font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
+
+    /* ── Numbers ── */
+    .numbers-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 100px; }
+    .number-item { background: var(--surface); padding: 44px 40px; text-align: center; }
+    .number-value { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 5vw, 64px); font-weight: 300; color: var(--accent); line-height: 1; display: block; margin-bottom: 10px; }
+    .number-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* ── Values ── */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .value-card { background: var(--surface); padding: 40px 36px; transition: background 0.25s; }
+    .value-card:hover { background: var(--surface-2); }
+    .value-icon { width: 36px; height: 36px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+    .value-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.2; opacity: 0.8; }
+    .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 14px; letter-spacing: 0.01em; }
+    .value-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    /* ── Approach ── */
+    .approach-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .approach-item { background: var(--surface); padding: 36px 44px; display: grid; grid-template-columns: 56px 1fr; gap: 32px; align-items: start; transition: background 0.25s; }
+    .approach-item:hover { background: var(--surface-2); }
+    .approach-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 400; color: var(--accent); opacity: 0.5; letter-spacing: 0.12em; padding-top: 4px; }
+    .approach-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+    .approach-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    /* ── CTA band ── */
+    .cta-band { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 64px 72px; display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 100px; }
+    .cta-band-copy h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 300; color: var(--text); line-height: 1.15; margin-bottom: 12px; }
+    .cta-band-copy p { font-size: 14px; color: var(--text-secondary); }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); padding: 16px 36px; border-radius: 2px; text-decoration: none; transition: opacity 0.25s, box-shadow 0.25s; white-space: nowrap; flex-shrink: 0; }
+    .btn-primary:hover { opacity: 0.88; box-shadow: 0 8px 32px rgba(200,173,114,0.2); }
+
+    /* ── Divider ── */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0 64px 100px; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 64px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 6px; }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.06em; transition: color 0.25s; }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      nav { padding: 24px 40px; } nav.scrolled { padding: 16px 40px; }
+      .nav-links { display: none; } .nav-burger { display: flex; }
+      .page-hero { padding: 140px 40px 80px; }
+      section { padding: 0 40px 80px; }
+      .mission-grid { grid-template-columns: 1fr; }
+      .mission-cell:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .numbers-row { grid-template-columns: 1fr 1fr; }
+      .cta-band { flex-direction: column; padding: 48px 40px; text-align: center; }
+      footer { padding: 40px 40px; flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .section-divider { margin: 0 40px 80px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 20px 24px; }
+      .page-hero { padding: 120px 24px 64px; }
+      section { padding: 0 24px 64px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .numbers-row { grid-template-columns: 1fr; }
+      .mission-cell { padding: 36px 28px; }
+      .approach-item { grid-template-columns: 40px 1fr; gap: 20px; padding: 28px 24px; }
+      .cta-band { padding: 40px 24px; }
+      footer { padding: 32px 24px; }
+      .section-divider { margin: 0 24px 64px; }
+    }
+  </style>
+</head>
+<body>
+<div class="site-ambient"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">VETE<span>S</span></a>
+  <ul class="nav-links">
+    <li class="nav-item-dropdown">
+      <a href="index.html#services">Leistungen</a>
+      <div class="nav-dropdown">
+        <a href="leistungen/voice-ai.html"><span class="nav-dd-dot"></span>Voice AI</a>
+        <a href="leistungen/ai-agents.html"><span class="nav-dd-dot"></span>AI Agents</a>
+        <a href="leistungen/automatisierung.html"><span class="nav-dd-dot"></span>Automatisierung</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+    <li><a href="index.html#integrations">Integrationen</a></li>
+    <li><a href="index.html#prozess">Prozess</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="mailto:info@vetes.de" class="nav-cta">Gespräch vereinbaren</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="leistungen/voice-ai.html">Voice AI</a>
+  <a href="leistungen/ai-agents.html">AI Agents</a>
+  <a href="leistungen/automatisierung.html">Automatisierung</a>
+  <a href="ueber-uns.html">Über uns</a>
+  <a href="index.html#prozess">Prozess</a>
+  <a href="index.html#faq">FAQ</a>
+  <a href="mailto:info@vetes.de" class="mobile-cta">Gespräch vereinbaren</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">VETES</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Über uns</span>
+  </nav>
+
+  <div class="page-eyebrow">Über uns</div>
+  <h1>KI, die wirklich<br><em>für dich arbeitet.</em></h1>
+  <p class="hero-sub">Wir sind ein spezialisiertes Studio für individuelle KI- und Automationslösungen — kein Produkt von der Stange, sondern Systeme, die exakt auf dein Unternehmen zugeschnitten sind.</p>
+</div>
+
+<!-- MISSION -->
+<section>
+  <div class="section-label">Mission & Vision</div>
+  <div class="mission-grid">
+    <div class="mission-cell">
+      <h2>Warum VETES?</h2>
+      <p>Die meisten Unternehmen wissen, dass KI ihnen helfen könnte — aber sie wissen nicht, wo sie anfangen sollen. Fertige Tools passen selten genau. Eigene Entwicklung ist teuer und langwierig.</p>
+      <p style="margin-top:16px;">VETES schließt diese Lücke. Wir bauen gezielt die Systeme, die du brauchst: durchdacht, schlankt, und so konzipiert, dass sie langfristig funktionieren.</p>
+    </div>
+    <div class="mission-cell">
+      <h2>Unsere Vision</h2>
+      <p>Wir glauben, dass KI kein Luxus für Großkonzerne sein sollte. Jedes ambitionierte Unternehmen verdient Zugang zu intelligenter Automatisierung — ohne jahrelange Einführungsprojekte.</p>
+      <p style="margin-top:16px;">Unser Ziel: Systeme bauen, die wirklich im Alltag genutzt werden — messbar, wartbar und auf Wachstum ausgelegt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section>
+  <div class="numbers-row">
+    <div class="number-item">
+      <span class="number-value">100%</span>
+      <span class="number-label">Individuelle Lösungen</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">24/7</span>
+      <span class="number-label">Systeme ohne Pause</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">3–6 Wo.</span>
+      <span class="number-label">Typische Projektlaufzeit</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- VALUES -->
+<section>
+  <div class="section-label">Unsere Werte</div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Präzision</h3>
+      <p>Jede Lösung entsteht mit klarem Fokus auf das, was wirklich gebraucht wird — ohne Schnörkel, ohne unnötige Komplexität.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <h3>Geschwindigkeit</h3>
+      <p>Wir liefern schnell — nicht weil wir Abkürzungen nehmen, sondern weil wir wissen, wie man effizient baut.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Partnerschaft</h3>
+      <p>Wir arbeiten eng mit unseren Kunden zusammen — als verlängerter Arm des Teams, nicht als anonymer Dienstleister.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Messbarkeit</h3>
+      <p>Automatisierung muss sich rechnen. Wir definieren gemeinsam klare Erfolgskriterien — und liefern daran.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Verlässlichkeit</h3>
+      <p>Systeme, die wir bauen, laufen. Wenn etwas nicht stimmt, sind wir da — auch nach dem Launch.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+      <h3>Transparenz</h3>
+      <p>Keine Black Boxes. Du verstehst, was wir bauen und warum — und behältst jederzeit die Kontrolle.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- APPROACH -->
+<section>
+  <div class="section-label">Wie wir arbeiten</div>
+  <div class="approach-list">
+    <div class="approach-item">
+      <span class="approach-num">01</span>
+      <div class="approach-body">
+        <h3>Verstehen, bevor wir bauen</h3>
+        <p>Jedes Projekt beginnt mit einem tiefen Verständnis deines Unternehmens, deiner Prozesse und deiner Ziele. Erst dann entscheiden wir, welche Technologie die richtige ist.</p>
+      </div>
+    </div>
+    <div class="approach-item">
+      <span class="approach-num">02</span>
+      <div class="approach-body">
+        <h3>Schlanke Prototypen, schnelle Iterationen</h3>
+        <p>Wir zeigen früh echte Ergebnisse. Kein monatelanges Entwickeln im Verborgenen — sondern iteratives Arbeiten, bei dem du jederzeit Feedback geben kannst.</p>
+      </div>
+    </div>
+    <div class="approach-item">
+      <span class="approach-num">03</span>
+      <div class="approach-body">
+        <h3>Integration in bestehende Systeme</h3>
+        <p>Unsere Lösungen fügen sich in das ein, was du bereits nutzt. Kein Austausch der gesamten Infrastruktur — sondern intelligente Ergänzungen, die sofort Wert schaffen.</p>
+      </div>
+    </div>
+    <div class="approach-item">
+      <span class="approach-num">04</span>
+      <div class="approach-body">
+        <h3>Übergabe & langfristige Begleitung</h3>
+        <p>Nach dem Launch bist du nicht allein. Wir dokumentieren sorgfältig, schulen dein Team und stehen für Anpassungen und Weiterentwicklungen bereit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-band">
+    <div class="cta-band-copy">
+      <h2>Bereit, gemeinsam<br>etwas zu bauen?</h2>
+      <p>Erzähl uns von deinem Unternehmen — wir melden uns innerhalb von 24 Stunden.</p>
+    </div>
+    <a href="mailto:info@vetes.de" class="btn-primary">
+      Gespräch vereinbaren
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">VETE<span>S</span></div>
+    <div class="footer-tagline">Individuelle KI- &amp; Automationslösungen</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="ueber-uns.html">Über uns</a></li>
+    <li><a href="impressum.html">Impressum</a></li>
+    <li><a href="datenschutz.html">Datenschutz</a></li>
+    <li><a href="mailto:info@vetes.de">Kontakt</a></li>
+  </ul>
+  <div style="font-size:12px;color:var(--text-muted);">© 2025 VETES</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  try { const n=document.getElementById('navbar'); if(n){const f=()=>n.classList.toggle('scrolled',scrollY>60);addEventListener('scroll',f,{passive:true});f();} } catch(e){}
+  try{const burger=document.getElementById('navBurger'),mNav=document.getElementById('mobileNav');if(burger&&mNav){burger.addEventListener('click',()=>{const o=mNav.classList.toggle('open');burger.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';});mNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}));}}catch(e){}
+});
+</script>
+</body>
+</html>
