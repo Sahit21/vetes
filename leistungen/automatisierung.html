@@ -199,6 +199,27 @@
     .case-result-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 6px; }
     .case-result-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; }
 
+    /* ── Stats / Proof ── */
+    #stats { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 30%, var(--surface) 70%, var(--bg) 100%); }
+    .stats-intro { margin-bottom: 72px; }
+    .stats-intro h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 56px); font-weight: 300; line-height: 1.08; margin-bottom: 16px; }
+    .stats-intro h2 em { font-style: italic; color: var(--accent); }
+    .stats-intro p { font-size: 15px; color: var(--text-secondary); max-width: 500px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .stat-item { background: var(--surface); padding: 44px 32px; text-align: center; transition: background 0.3s; }
+    .stat-item:hover { background: var(--surface-2); }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 5vw, 68px); font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 14px; }
+    .stat-value em { font-style: normal; color: var(--accent); }
+    .stat-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); line-height: 1.55; }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .stat-item { padding: 28px 20px; } }
+
+    /* ── Testimonial Avatar ── */
+    .t-author-block { display: flex; align-items: center; gap: 14px; padding-top: 24px; border-top: 1px solid var(--border); margin-top: 20px; }
+    .t-avatar { flex-shrink: 0; }
+    .t-author-name { font-size: 13px; font-weight: 400; color: var(--text); }
+    .t-author-role { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+
     /* FAQ */
     .faq-header-centered { text-align: center; margin-bottom: 72px; }
     .faq-header-centered h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4vw, 56px); font-weight: 300; margin-bottom: 16px; }
@@ -740,6 +761,33 @@
   </div>
 </section>
 
+<!-- STATS / PROOF -->
+<section id="stats">
+  <div class="stats-intro">
+    <div class="section-eyebrow">Ergebnisse</div>
+    <h2 class="reveal">Automatisierung in<br/><em>Zahlen.</em></h2>
+    <p class="reveal">Messbare Wirkung aus laufenden Automatisierungsprojekten.</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-item stagger-item">
+      <div class="stat-value">90<em>%</em></div>
+      <div class="stat-label">Zeitersparnis bei Routineaufgaben</div>
+    </div>
+    <div class="stat-item stagger-item">
+      <div class="stat-value">0</div>
+      <div class="stat-label">manuelle Übertragungsfehler nach Implementierung</div>
+    </div>
+    <div class="stat-item stagger-item">
+      <div class="stat-value">3<em>+h</em></div>
+      <div class="stat-label">eingesparte Arbeitszeit pro Tag</div>
+    </div>
+    <div class="stat-item stagger-item">
+      <div class="stat-value">2<em>–4W</em></div>
+      <div class="stat-label">bis zum ersten produktiven Workflow</div>
+    </div>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
 <section id="testimonials" style="background: var(--bg);">
   <div class="testimonials-header">
@@ -752,19 +800,28 @@
       <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
       <div class="t-quote">„Wir haben Prozesse automatisiert, die ich nicht für automatisierbar gehalten hatte."</div>
       <p class="t-text">VETES hat sich unsere internen Abläufe angeschaut und innerhalb von zwei Wochen drei Workflows entwickelt, die zusammen täglich über eine Stunde Arbeit abnehmen. Ich war überrascht, wie schnell das ging.</p>
-      <div class="t-author">Geschäftsführer · Dienstleistungsunternehmen, Stuttgart</div>
+      <div class="t-author-block">
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#151310" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="16" font-weight="400" fill="#c8ad72">PB</text></svg>
+        <div><div class="t-author-name">Peter B.</div><div class="t-author-role">Geschäftsführer · Dienstleistungsunternehmen, Stuttgart</div></div>
+      </div>
     </div>
     <div class="testimonial-card stagger-item">
       <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
       <div class="t-quote">„Das CRM arbeitet jetzt, wie ich es mir immer vorgestellt habe."</div>
       <p class="t-text">Wir hatten HubSpot seit Jahren – aber wirklich genutzt haben wir nur einen Bruchteil. VETES hat die Workflows gebaut, die fehlten: Zuweisungen, Follow-ups, Statusübergaben. Jetzt läuft der Vertriebsprozess einfach.</p>
-      <div class="t-author">Vertriebsleitung · Beratungsunternehmen, Köln</div>
+      <div class="t-author-block">
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#151310" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="16" font-weight="400" fill="#c8ad72">LM</text></svg>
+        <div><div class="t-author-name">Laura M.</div><div class="t-author-role">Vertriebsleitung · Beratungsunternehmen, Köln</div></div>
+      </div>
     </div>
     <div class="testimonial-card stagger-item">
       <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
       <div class="t-quote">„Kein Medienbruch mehr zwischen unseren Systemen. Das klingt klein – das ist riesig."</div>
       <p class="t-text">Zwischen CRM, Buchhaltung und Projektmanagement gab es ständig manuelle Übergaben. VETES hat das vollständig automatisiert. Was früher Freitagabend-Arbeit war, erledigt sich jetzt allein.</p>
-      <div class="t-author">COO · Mittelständisches Unternehmen, Nürnberg</div>
+      <div class="t-author-block">
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#151310" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="16" font-weight="400" fill="#c8ad72">RN</text></svg>
+        <div><div class="t-author-name">Robert N.</div><div class="t-author-role">COO · Mittelständisches Unternehmen, Nürnberg</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -907,7 +964,7 @@
   </div>
   <ul class="footer-links">
     <li><a href="../impressum.html">Impressum</a></li>
-    <li><a href="#">Datenschutz</a></li>
+    <li><a href="../datenschutz.html">Datenschutz</a></li>
     <li><a href="mailto:info@vetes.de">Kontakt</a></li>
   </ul>
   <div style="font-size:12px;color:var(--text-muted);">© 2025 VETES</div>
