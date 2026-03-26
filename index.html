@@ -1163,6 +1163,79 @@
       #prozess { padding: 72px 24px; }
     }
 
+    /* ─── REFERENZEN — LOGO BAR ───────────────────── */
+    #referenzen {
+      padding: 40px 64px;
+      position: relative;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .ref-header {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 52px;
+    }
+    .ref-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .ref-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Marquee track */
+    .ref-marquee-wrap {
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .ref-marquee {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marqueeScroll 42s linear infinite;
+    }
+    .ref-marquee:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Each logo item */
+    .ref-logo-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 52px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+    .ref-logo-item svg,
+    .ref-logo-item span {
+      opacity: 0.28;
+      transition: opacity 0.4s ease;
+      filter: grayscale(1);
+    }
+    .ref-logo-item:hover svg,
+    .ref-logo-item:hover span { opacity: 0.55; }
+
+    /* Wordmark style for placeholder logos */
+    .ref-wordmark {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
     /* ─── REVIEWS (bottom) ────────────────────────── */
     #reviews {
       padding: 120px 64px;
@@ -1579,6 +1652,8 @@
       #reviews, #faq { padding: 80px 40px; }
     }
     @media (max-width: 640px) {
+      #referenzen { padding: 28px 24px; }
+      .ref-logo-item { padding: 0 32px; }
       #reviews, #faq { padding: 72px 24px; }
     }
 
@@ -1810,6 +1885,7 @@
       .faq-item { padding: 20px; }
       .cta-actions { gap: 12px; }
       .footer-links { gap: 12px; }
+      .ref-marquee-wrap { padding: 16px 0; }
     }
   </style>
 </head>
@@ -1893,6 +1969,27 @@
   <!-- RIGHT: Orchestration visual -->
   <div class="hero-visual-wrap">
     <canvas id="orchestrationCanvas"></canvas>
+  </div>
+</section>
+
+<!-- INTEGRATION PARTNERS — directly after hero -->
+<section id="referenzen">
+  <div class="ref-header">
+    <span class="ref-eyebrow">Wir integrieren mit</span>
+    <div class="ref-rule"></div>
+  </div>
+  <div class="ref-marquee-wrap">
+    <div class="ref-marquee" id="ref-marquee">
+      <div class="ref-logo-item"><span class="ref-wordmark">Lexware</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">DATEV</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">SAP</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">Lexware</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">DATEV</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">SAP</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">Lexware</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">DATEV</span></div>
+      <div class="ref-logo-item"><span class="ref-wordmark">SAP</span></div>
+    </div>
   </div>
 </section>
 
