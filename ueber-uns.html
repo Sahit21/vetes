@@ -168,8 +168,6 @@
       .section-divider { margin: 0 24px 64px; }
     }
   </style>
-<!-- Leadfeeder Tracking -->
-<script>(function(ss,ex){window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));};(function(d,s){fs=d.getElementsByTagName(s)[0];function ce(src){var cs=d.createElement(s);cs.src=src;cs.async=1;fs.parentNode.insertBefore(cs,fs);};ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js');})(document,'script');})('YEgkB8ld3X18ep3Z');</script>
 </head>
 <body>
 <div class="site-ambient"></div>
@@ -376,5 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
   try{const burger=document.getElementById('navBurger'),mNav=document.getElementById('mobileNav');if(burger&&mNav){burger.addEventListener('click',()=>{const o=mNav.classList.toggle('open');burger.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';});mNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}));}}catch(e){}
 });
 </script>
+<!-- Leadfeeder Tracking -->
+<script> (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('YEgkB8ld3X18ep3Z'); </script>
 </body>
 </html>
