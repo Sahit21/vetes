@@ -1200,7 +1200,7 @@
       display: flex;
       gap: 0;
       width: max-content;
-      animation: marqueeScroll 20s linear infinite;
+      animation: marqueeScroll 28s linear infinite;
     }
     .ref-marquee:hover { animation-play-state: paused; }
     @keyframes marqueeScroll {
@@ -1229,6 +1229,10 @@
     .ref-logo-item img.logo-light {
       filter: none;
       opacity: 0.4;
+    }
+    .ref-logo-item img.logo-pastel {
+      filter: brightness(2) saturate(0.2);
+      opacity: 0.7;
     }
     .ref-logo-item:hover img { opacity: 0.85; }
 
@@ -1977,16 +1981,14 @@
   <div class="ref-marquee-wrap">
     <div class="ref-marquee" id="ref-marquee">
       <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
-      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beautyroom Fulda" class="logo-pastel" loading="lazy"></div>
       <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy"></div>
       <!-- duplicate set for seamless marquee -->
       <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
-      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beautyroom Fulda" class="logo-pastel" loading="lazy"></div>
       <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
-      <!-- triple for smooth loop -->
-      <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
-      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
-      <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy"></div>
     </div>
   </div>
 </section>
