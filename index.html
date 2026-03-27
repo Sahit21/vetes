@@ -1200,7 +1200,7 @@
       display: flex;
       gap: 0;
       width: max-content;
-      animation: marqueeScroll 42s linear infinite;
+      animation: marqueeScroll 20s linear infinite;
     }
     .ref-marquee:hover { animation-play-state: paused; }
     @keyframes marqueeScroll {
@@ -1217,24 +1217,20 @@
       height: 56px;
       flex-shrink: 0;
     }
-    .ref-logo-item svg,
-    .ref-logo-item span {
-      opacity: 0.28;
+    .ref-logo-item img {
+      height: 36px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      opacity: 0.5;
       transition: opacity 0.4s ease;
-      filter: grayscale(1);
+      filter: brightness(0) invert(1);
     }
-    .ref-logo-item:hover svg,
-    .ref-logo-item:hover span { opacity: 0.55; }
-
-    /* Wordmark style for placeholder logos */
-    .ref-wordmark {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text);
+    .ref-logo-item img.logo-light {
+      filter: none;
+      opacity: 0.4;
     }
+    .ref-logo-item:hover img { opacity: 0.85; }
 
     /* ─── REVIEWS (bottom) ────────────────────────── */
     #reviews {
@@ -1980,22 +1976,17 @@
   </div>
   <div class="ref-marquee-wrap">
     <div class="ref-marquee" id="ref-marquee">
-      <div class="ref-logo-item"><span class="ref-wordmark">Meridian Group</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Vogt & Partner</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Astralis GmbH</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Nordform AG</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Falkner Logistik</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Elaris Solutions</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Brandt & Co.</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Kestrel Consulting</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Meridian Group</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Vogt & Partner</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Astralis GmbH</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Nordform AG</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Falkner Logistik</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Elaris Solutions</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Brandt & Co.</span></div>
-      <div class="ref-logo-item"><span class="ref-wordmark">Kestrel Consulting</span></div>
+      <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
+      <!-- duplicate set for seamless marquee -->
+      <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
+      <!-- triple for smooth loop -->
+      <div class="ref-logo-item"><img src="assets/logos/bl-trockenbau.png" alt="BL Trockenbau" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/beautyroom.png" alt="Beauty Room" loading="lazy"></div>
+      <div class="ref-logo-item"><img src="assets/logos/dsg.svg" alt="DSG" class="logo-light" loading="lazy"></div>
     </div>
   </div>
 </section>
