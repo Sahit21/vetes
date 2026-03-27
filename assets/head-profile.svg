@@ -1,33 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620" fill="none">
   <defs>
     <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5e8c0" stop-opacity="0.9"/>
-      <stop offset="40%" stop-color="#c8ad72" stop-opacity="0.8"/>
-      <stop offset="70%" stop-color="#9a7a3a" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#c8ad72" stop-opacity="0.4"/>
+      <stop offset="0%" stop-color="#f5e8c0" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#c8ad72" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#9a7a3a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c8ad72" stop-opacity="0.35"/>
     </linearGradient>
     <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5e8c0" stop-opacity="0.15"/>
-      <stop offset="50%" stop-color="#c8ad72" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#9a7a3a" stop-opacity="0.03"/>
+      <stop offset="0%" stop-color="#f5e8c0" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#c8ad72" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#9a7a3a" stop-opacity="0.02"/>
     </linearGradient>
   </defs>
-  <!-- Subtle glow behind -->
-  <path d="M200 45 C145 45, 95 70, 75 115 C55 160, 50 200, 55 240 C58 265, 52 285, 48 300 C44 315, 50 330, 60 340 C70 350, 72 355, 70 365 C68 375, 75 385, 85 390 C95 395, 105 398, 110 405 C115 412, 118 420, 125 428 C132 436, 140 440, 148 442 C156 444, 162 445, 170 448 L170 498"
-        stroke="url(#goldGlow)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Main profile line -->
-  <path d="M200 45 C145 45, 95 70, 75 115 C55 160, 50 200, 55 240 C58 265, 52 285, 48 300 C44 315, 50 330, 60 340 C70 350, 72 355, 70 365 C68 375, 75 385, 85 390 C95 395, 105 398, 110 405 C115 412, 118 420, 125 428 C132 436, 140 440, 148 442 C156 444, 162 445, 170 448 L170 498"
-        stroke="url(#goldStroke)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Forehead to back of head -->
-  <path d="M200 45 C240 42, 280 55, 305 85 C330 115, 340 160, 335 210 C330 260, 310 295, 285 320 C260 345, 240 365, 225 390 C215 405, 205 425, 195 450 L195 498"
-        stroke="url(#goldStroke)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-  <!-- Ear hint -->
-  <path d="M55 240 C45 245, 38 260, 40 275 C42 290, 48 298, 48 300"
-        stroke="url(#goldStroke)" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
-  <!-- Eye socket hint -->
-  <path d="M80 195 C85 192, 100 190, 108 193"
-        stroke="url(#goldStroke)" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
-  <!-- Nose bridge detail -->
-  <path d="M75 175 C68 210, 52 270, 48 300"
-        stroke="url(#goldStroke)" stroke-width="0.8" stroke-linecap="round" opacity="0.25" stroke-dasharray="3 6"/>
+
+  <!-- Glow layer -->
+  <path d="M250 30 C175 30, 105 65, 75 130 C45 195, 35 255, 42 310
+           C47 345, 38 375, 30 400 C22 425, 30 450, 48 465
+           C66 480, 72 490, 68 508 C64 526, 78 542, 95 550
+           C112 558, 130 562, 140 575 C150 588, 158 600, 175 610 L175 618"
+        stroke="url(#goldGlow)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Face profile - front line (forehead → nose → chin → neck) -->
+  <path d="M250 30 C175 30, 105 65, 75 130 C45 195, 35 255, 42 310
+           C47 345, 38 375, 30 400 C22 425, 30 450, 48 465
+           C66 480, 72 490, 68 508 C64 526, 78 542, 95 550
+           C112 558, 130 562, 140 575 C150 588, 158 600, 175 610 L175 618"
+        stroke="url(#goldStroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Back of head - crown → back → neck -->
+  <path d="M250 30 C320 26, 385 58, 420 110 C455 162, 468 230, 460 300
+           C452 370, 420 415, 385 445 C350 475, 320 500, 295 530
+           C275 555, 255 580, 240 610 L240 618"
+        stroke="url(#goldStroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+
+  <!-- Ear -->
+  <path d="M42 310 C28 318, 18 340, 22 362 C26 384, 35 396, 30 400"
+        stroke="url(#goldStroke)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Eye hint -->
+  <path d="M88 248 C96 244, 118 242, 130 246"
+        stroke="url(#goldStroke)" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Nose bridge subtle -->
+  <path d="M80 210 C65 270, 40 360, 30 400"
+        stroke="url(#goldStroke)" stroke-width="0.7" stroke-linecap="round" opacity="0.18" stroke-dasharray="4 8"/>
+
+  <!-- Brow ridge hint -->
+  <path d="M80 225 C90 218, 105 215, 115 218"
+        stroke="url(#goldStroke)" stroke-width="0.8" stroke-linecap="round" opacity="0.2"/>
 </svg>
