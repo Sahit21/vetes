@@ -212,12 +212,28 @@
       height: 100%;
     }
 
+    /* Head profile silhouette */
+    .hero-head-profile {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 400px;
+      opacity: 0;
+      animation: fadeUp 2s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     /* The orchestration canvas */
     #orchestrationCanvas {
       display: block;
       cursor: none;
       opacity: 0;
       animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.9s forwards;
+      position: relative;
+      z-index: 2;
     }
 
     /* ── Hero text ───────────────────────────────── */
@@ -2009,6 +2025,7 @@
 
   <!-- RIGHT: Orchestration visual -->
   <div class="hero-visual-wrap">
+    <img src="assets/head-profile.svg" alt="" class="hero-head-profile" aria-hidden="true">
     <canvas id="orchestrationCanvas"></canvas>
   </div>
 </section>
