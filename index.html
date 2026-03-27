@@ -1390,10 +1390,45 @@
       margin-bottom: 20px;
     }
     .rcn-author {
-      font-size: 11px;
-      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: auto;
+    }
+    .rcn-author-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .rcn-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .rcn-author-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .rcn-author-role {
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
+    }
+    a.review-card-new {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    a.review-card-new:hover {
+      border-color: rgba(200,173,114,0.15);
     }
 
     /* ─── INTEGRATIONS ───────────────────────────── */
@@ -2543,24 +2578,42 @@
   </div>
 
   <div class="reviews-grid">
-    <div class="review-card-new">
+    <a class="review-card-new" href="https://de.trustpilot.com/reviews/68e37be16396446c8c7ae066" target="_blank" rel="noopener">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Feb 2025</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Endlich eine Agentur, die wirklich zuhört</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">VETES hat unseren gesamten Angebotsprozess automatisiert. Was vorher 2 Stunden dauerte, läuft jetzt vollautomatisch. Die Lösung ist exakt auf unsere Abläufe zugeschnitten – kein Kompromiss.</p>
-      <div class="rcn-author" style="font-size:11.5px;letter-spacing:0.12em;">Markus H.</div>
-    </div>
-    <div class="review-card-new">
+      <div class="rcn-author">
+        <div class="rcn-author-photo" style="background:linear-gradient(135deg,#2a2520,#3a3025);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--accent);">M</div>
+        <div class="rcn-author-info">
+          <span class="rcn-author-name">Markus H.</span>
+          <span class="rcn-author-role">Geschäftsführer</span>
+        </div>
+      </div>
+    </a>
+    <a class="review-card-new" href="https://de.trustpilot.com/reviews/68e37be16396446c8c7ae066" target="_blank" rel="noopener">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Dez 2024</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Klarer ROI nach 6 Wochen</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">Wir haben mit VETES unsere interne Kommunikation und Kundennachverfolgung automatisiert. Der Return war schneller da als erwartet. Absolut empfehlenswert.</p>
-      <div class="rcn-author" style="font-size:11.5px;letter-spacing:0.12em;">Thomas R.</div>
-    </div>
-    <div class="review-card-new">
+      <div class="rcn-author">
+        <div class="rcn-author-photo" style="background:linear-gradient(135deg,#2a2520,#3a3025);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--accent);">T</div>
+        <div class="rcn-author-info">
+          <span class="rcn-author-name">Thomas R.</span>
+          <span class="rcn-author-role">Geschäftsführer</span>
+        </div>
+      </div>
+    </a>
+    <a class="review-card-new" href="https://de.trustpilot.com/reviews/68e37be16396446c8c7ae066" target="_blank" rel="noopener">
       <div class="rcn-header" style="margin-bottom:20px;"><div class="rcn-stars"><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div><div class="rcn-star"></div></div><span class="rcn-date">Okt 2024</span></div>
       <div class="rcn-title" style="font-size:19px;margin-bottom:14px;">Unser Team spart täglich 3 Stunden</div>
       <p class="rcn-text" style="font-size:14px;line-height:1.8;margin-bottom:28px;">Durch den AI Agent, den VETES für uns entwickelt hat, kümmert sich unser Team nur noch um wirklich wichtige Aufgaben. Die Zeitersparnis ist enorm und die Qualität beeindruckend.</p>
-      <div class="rcn-author" style="font-size:11.5px;letter-spacing:0.12em;">Andreas F.</div>
-    </div>
+      <div class="rcn-author">
+        <div class="rcn-author-photo" style="background:linear-gradient(135deg,#2a2520,#3a3025);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--accent);">A</div>
+        <div class="rcn-author-info">
+          <span class="rcn-author-name">Andreas F.</span>
+          <span class="rcn-author-role">Geschäftsführer</span>
+        </div>
+      </div>
+    </a>
   </div>
 </section>
 
