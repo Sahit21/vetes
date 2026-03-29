@@ -2770,6 +2770,7 @@
     -webkit-backdrop-filter: blur(6px);
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
   }
   .booking-overlay.active {
     display: flex;
@@ -2783,10 +2784,15 @@
     background: #1a1a1a;
     border: 1px solid rgba(200,173,114,0.2);
     border-radius: 16px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
     box-shadow: 0 24px 80px rgba(0,0,0,0.6);
     animation: bookingIn 0.3s ease-out;
+  }
+  .booking-modal iframe {
+    pointer-events: auto;
+    width: 100%;
+    height: 100%;
+    border: none;
   }
   @keyframes bookingIn {
     from { opacity: 0; transform: scale(0.95) translateY(20px); }
