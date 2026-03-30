@@ -442,7 +442,7 @@
     <li><a href="../index.html#reviews">Bewertungen</a></li>
     <li><a href="../index.html#prozess">Prozess</a></li>
     <li><a href="../index.html#faq">FAQ</a></li>
-    <li><a href="mailto:info@vetes.de" class="nav-cta">Gespräch vereinbaren</a></li>
+    <li><a href="#" class="nav-cta booking-trigger">Gespräch vereinbaren</a></li>
   </ul>
   <button class="nav-burger" id="navBurger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
 </nav>
@@ -461,7 +461,7 @@
   <a href="../index.html#reviews">Bewertungen</a>
   <a href="../index.html#prozess">Prozess</a>
   <a href="../index.html#faq">FAQ</a>
-  <a href="mailto:info@vetes.de" class="mobile-cta">Gespräch vereinbaren</a>
+  <a href="#" class="mobile-cta booking-trigger">Gespräch vereinbaren</a>
 </div>
 
 <!-- HERO -->
@@ -504,7 +504,7 @@
     <h1>Systeme, die<br/>arbeiten –<br/><em>ohne Pause.</em></h1>
     <p class="hero-sub">Intelligente Agenten, die Aufgaben eigenständig übernehmen, Informationen verarbeiten und Prozesse vorantreiben. Ohne Rückfragen, ohne Wartezeiten, ohne manuelle Zwischenschritte.</p>
     <div class="hero-actions">
-      <a href="mailto:info@vetes.de" class="btn-primary">
+      <a href="#" class="btn-primary booking-trigger">
         Gespräch vereinbaren
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -687,7 +687,7 @@
       <p>In einem ersten Gespräch zeigen wir Ihnen, welche davon sich für einen Agenten eignen – und was konkret möglich wäre. Kein Pitch, keine Hochglanzpräsentation.</p>
     </div>
     <div class="mid-cta-right">
-      <a href="mailto:info@vetes.de" class="btn-primary">
+      <a href="#" class="btn-primary booking-trigger">
         Jetzt besprechen
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -957,7 +957,7 @@
   <h2 class="reveal">Lassen Sie uns einen<br/><em>Agenten entwerfen.</em></h2>
   <p class="reveal">In einem ersten Gespräch analysieren wir gemeinsam, welche Prozesse sich für einen AI Agent eignen und was realistisch in Ihrem Unternehmen möglich ist.</p>
   <div class="cta-actions reveal">
-    <a href="mailto:info@vetes.de" class="btn-primary">
+    <a href="#" class="btn-primary booking-trigger">
       Gespräch vereinbaren
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -1055,5 +1055,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <!-- Leadfeeder Tracking -->
 <script> (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('YEgkB8ld3X18ep3Z'); </script>
+<!-- BOOKING POPUP -->
+<div class="booking-overlay" id="bookingOverlay">
+  <div class="booking-modal">
+    <button class="booking-close" id="bookingClose" aria-label="Schließen">&times;</button>
+    <iframe src="https://api.leadconnectorhq.com/widget/booking/vXFzt3zoVGayr6dcCoHD" style="width:100%;min-height:1200px;border:none;" scrolling="yes"></iframe>
+  </div>
+</div>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+<style>
+  .booking-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;overflow-y:auto}
+  .booking-overlay.active{display:flex}
+  .booking-modal{position:relative;width:90vw;max-width:620px;height:85vh;max-height:900px;background:#1a1a1a;border:1px solid rgba(200,173,114,0.2);border-radius:16px;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 24px 80px rgba(0,0,0,0.6);animation:bookingIn .3s ease-out}
+  .booking-modal iframe{pointer-events:auto;width:100%;height:100%;border:none}
+  @keyframes bookingIn{from{opacity:0;transform:scale(.95) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .booking-close{position:absolute;top:12px;right:14px;z-index:10;background:rgba(30,30,30,0.85);border:1px solid rgba(200,173,114,0.2);color:#fff;font-size:1.5rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  .booking-close:hover{background:rgba(200,173,114,0.2)}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded",function(){var o=document.getElementById("bookingOverlay"),c=document.getElementById("bookingClose"),t=document.querySelectorAll(".booking-trigger");if(o){t.forEach(function(b){b.addEventListener("click",function(e){e.preventDefault();o.classList.add("active");document.body.style.overflow="hidden"})});c.addEventListener("click",function(){o.classList.remove("active");document.body.style.overflow=""});o.addEventListener("click",function(e){if(e.target===o){o.classList.remove("active");document.body.style.overflow=""}})}});
+</script>
 </body>
 </html>
