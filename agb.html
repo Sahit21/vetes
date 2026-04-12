@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGB | VETES</title>
+  <meta name="description" content="Allgemeine Geschäftsbedingungen der VETES – Inhaber Sahit Luma." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080808; --surface: #0f0e0c; --surface-2: #151310; --surface-3: #1c1a17;
+      --border: rgba(255,255,255,0.055); --border-light: rgba(255,255,255,0.09);
+      --text: #eae5db; --text-secondary: #6e6860; --text-muted: #3a3630;
+      --accent: #c8ad72; --accent-soft: rgba(200,173,114,0.13);
+      --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    .site-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .site-ambient::before { content: ''; position: absolute; top: -20%; left: -10%; width: 70vw; height: 80vh; background: radial-gradient(ellipse at 40% 30%, rgba(200,173,114,0.045) 0%, transparent 65%); animation: ambA 20s ease-in-out infinite alternate; }
+    .site-ambient::after { content: ''; position: absolute; bottom: 10%; right: -15%; width: 60vw; height: 70vh; background: radial-gradient(ellipse at 60% 65%, rgba(120,90,50,0.03) 0%, transparent 65%); animation: ambB 24s ease-in-out infinite alternate; }
+    @keyframes ambA { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(4%,6%) scale(1.07); } }
+    @keyframes ambB { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%) scale(1.08); } }
+    nav, section, footer, main { position: relative; z-index: 1; }
+
+    /* Nav */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 30px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s; }
+    nav.scrolled { background: rgba(8,8,8,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 44px; list-style: none; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3); padding: 10px 24px; border-radius: 2px; transition: border-color 0.3s, box-shadow 0.3s !important; }
+    .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
+    .nav-item-dropdown { position: relative; }
+    .nav-item-dropdown > a { display: inline-flex; align-items: center; gap: 5px; }
+    .nav-item-dropdown > a::after { content: ''; display: block; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-1px); opacity: 0.4; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0; }
+    .nav-item-dropdown:hover > a::after { transform: rotate(-135deg) translateY(2px); opacity: 0.7; }
+    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(12,11,10,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
+    .nav-dropdown::before { content: ''; position: absolute; top: -22px; left: 0; right: 0; height: 22px; background: transparent; }
+    .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 2px; font-size: 11.5px !important; letter-spacing: 0.1em !important; color: var(--text-secondary) !important; text-decoration: none !important; transition: background 0.18s, color 0.18s; white-space: nowrap; text-transform: uppercase; }
+    .nav-dropdown a:hover { background: rgba(200,173,114,0.07); color: var(--text) !important; }
+    .nav-dd-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.5; flex-shrink: 0; transition: opacity 0.18s; }
+    .nav-dropdown a:hover .nav-dd-dot { opacity: 1; }
+
+    /* Breadcrumb */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 56px; }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .breadcrumb a:hover { color: var(--text-secondary); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    /* Main content */
+    main { padding: 160px 64px 120px; max-width: 860px; margin: 0 auto; }
+
+    .page-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; display: flex; align-items: center; gap: 16px; opacity: 0.75; }
+    .page-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); opacity: 0.45; }
+
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -0.015em; color: #f2ede2; margin-bottom: 16px; }
+
+    .page-subtitle { font-size: 14px; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 80px; border-bottom: 1px solid var(--border); padding-bottom: 48px; }
+
+    /* Sections */
+    .agb-header { margin-bottom: 64px; }
+    .agb-header p { font-size: 14px; line-height: 1.85; color: var(--text-muted); margin-bottom: 4px; }
+
+    .agb-section { margin-bottom: 64px; }
+    .agb-section:last-child { margin-bottom: 0; }
+
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; letter-spacing: 0.04em; color: var(--text); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+    p, .agb-section li { font-size: 15px; line-height: 1.85; color: var(--text-secondary); margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    .agb-section ol { list-style: none; counter-reset: agb-item; padding-left: 0; }
+    .agb-section ol > li { counter-increment: agb-item; padding-left: 28px; position: relative; margin-bottom: 16px; }
+    .agb-section ol > li::before { content: "(" counter(agb-item) ")"; position: absolute; left: 0; color: var(--text-muted); font-size: 13px; }
+    .agb-section ol > li:last-child { margin-bottom: 0; }
+
+    .agb-sublist { margin-top: 12px; padding-left: 0; }
+    .agb-sublist li { padding-left: 20px; position: relative; margin-bottom: 8px; }
+    .agb-sublist li::before { content: '–'; position: absolute; left: 0; color: var(--accent); opacity: 0.5; }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.25s; }
+    a:hover { opacity: 0.75; }
+
+    /* Footer */
+    footer { padding: 64px 64px 40px; border-top: 1px solid var(--border); background: var(--bg); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; line-height: 1.6; max-width: 280px; }
+    .footer-col h4 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; transition: color 0.25s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-col p { font-size: 13px; color: var(--text-muted); line-height: 1.7; letter-spacing: 0.03em; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; }
+    .footer-bottom span { font-size: 12px; color: var(--text-muted); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: var(--text-muted); transition: color 0.25s; display: flex; align-items: center; }
+    .footer-social a:hover { color: var(--accent); }
+    .footer-social svg { width: 18px; height: 18px; }
+
+    /* HAMBURGER & MOBILE MENU */
+    .nav-burger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 40px; height: 40px; background: none; border: none; cursor: pointer;
+      padding: 6px; position: relative; z-index: 110;
+    }
+    .nav-burger span {
+      display: block; width: 20px; height: 1px; background: var(--text);
+      transition: transform 0.35s, opacity 0.25s; transform-origin: center;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-nav {
+      position: fixed; inset: 0; background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(28px); z-index: 105;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0; opacity: 0; pointer-events: none; transition: opacity 0.35s;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: auto; }
+    .mobile-nav > a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 18px 0; width: 240px; text-align: center;
+      border-bottom: 1px solid var(--border); transition: color 0.2s;
+    }
+    .mobile-nav > a:hover { color: var(--text); }
+    .mobile-nav .mobile-cta {
+      margin-top: 28px; color: var(--accent) !important;
+      border: 1px solid rgba(200,173,114,0.3) !important;
+      padding: 14px 32px !important; border-radius: 2px; width: auto !important;
+    }
+    .mobile-nav-close {
+      position: absolute; top: 28px; right: 28px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 20px; line-height: 1;
+      padding: 8px; transition: color 0.2s;
+    }
+    .mobile-nav-close:hover { color: var(--text-secondary); }
+    .mobile-acc { width: 240px; }
+    .mobile-acc-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 18px 0; border: none;
+      border-bottom: 1px solid var(--border);
+      background: none; cursor: pointer;
+      color: var(--text-secondary); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .mobile-acc-trigger:hover { color: var(--text); }
+    .mobile-acc.open .mobile-acc-trigger { border-bottom-color: transparent; }
+    .mobile-acc-arrow {
+      display: block; width: 6px; height: 6px;
+      border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
+      transform: rotate(45deg); transition: transform 0.3s;
+      flex-shrink: 0; margin-top: -2px;
+    }
+    .mobile-acc.open .mobile-acc-arrow { transform: rotate(-135deg); margin-top: 3px; }
+    .mobile-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+    .mobile-acc.open .mobile-acc-body { max-height: 200px; }
+    .mobile-acc-body a {
+      display: block; padding: 13px 16px; width: 240px;
+      text-align: left; color: var(--text-muted); text-decoration: none;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border); transition: color 0.2s;
+    }
+    .mobile-acc-body a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 1100px) {
+      nav { padding: 24px 40px; }
+      nav.scrolled { padding: 16px 40px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      main { padding: 140px 40px 100px; }
+      footer { padding: 40px 40px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { align-items: center; text-align: center; grid-column: 1 / -1; }
+      .footer-tagline { max-width: 100%; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 20px 24px; }
+      main { padding: 120px 24px 80px; }
+      footer { padding: 32px 24px 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .footer-col { align-items: center; }
+      .footer-col ul { align-items: center; }
+      .footer-social { justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 18px 20px; }
+      main { padding: 100px 20px 60px; }
+      footer { padding: 28px 20px 20px; }
+      .footer-top { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+      .footer-col { align-items: center; }
+      .footer-col ul { align-items: center; }
+      .footer-social { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="site-ambient"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">VETE<span>S</span></a>
+  <ul class="nav-links">
+    <li class="nav-item-dropdown">
+      <a href="index.html#services">Leistungen</a>
+      <div class="nav-dropdown">
+        <a href="leistungen/voice-ai.html"><span class="nav-dd-dot"></span>Voice AI</a>
+        <a href="leistungen/ai-agents.html"><span class="nav-dd-dot"></span>AI Agents</a>
+        <a href="leistungen/automatisierung.html"><span class="nav-dd-dot"></span>Automatisierung</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über uns</a></li>
+    <li><a href="index.html#reviews">Bewertungen</a></li>
+    <li><a href="index.html#prozess">Prozess</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="#" class="nav-cta booking-trigger">Gespräch vereinbaren</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Menü schließen">&#x2715;</button>
+  <div class="mobile-acc" id="mobileAcc">
+    <button class="mobile-acc-trigger">Leistungen<span class="mobile-acc-arrow"></span></button>
+    <div class="mobile-acc-body">
+      <a href="leistungen/voice-ai.html">Voice AI</a>
+      <a href="leistungen/ai-agents.html">AI Agents</a>
+      <a href="leistungen/automatisierung.html">Automatisierung</a>
+    </div>
+  </div>
+  <a href="ueber-uns.html">Über uns</a>
+  <a href="index.html#prozess">Prozess</a>
+  <a href="index.html#faq">FAQ</a>
+  <a href="#" class="mobile-cta booking-trigger">Gespräch vereinbaren</a>
+</div>
+
+<!-- MAIN -->
+<main>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">VETES</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>AGB</span>
+  </nav>
+
+  <div class="page-eyebrow">Rechtliches</div>
+  <h1>Allgemeine Geschäftsbedingungen</h1>
+  <p class="page-subtitle">Vetes – Inhaber Sahit Luma</p>
+
+  <div class="agb-header">
+    <p>Flemingstraße 18, 36041 Fulda, Deutschland</p>
+    <p>E-Mail: <a href="mailto:info@vetes.de">info@vetes.de</a> &nbsp;|&nbsp; Telefon: +49 157 88720205</p>
+    <p>Steuernummer: 18 843 30091 &nbsp;|&nbsp; Website: vetes-ai.de</p>
+    <p>Stand: April 2026</p>
+  </div>
+
+  <!-- § 1 -->
+  <div class="agb-section">
+    <h2>§ 1 – Geltungsbereich und Vertragspartner</h2>
+    <ol>
+      <li>Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB") gelten für sämtliche Verträge, Leistungen und Lieferungen, die Sahit Luma, handelnd unter der Geschäftsbezeichnung „Vetes" (nachfolgend „Auftragnehmer" oder „Vetes"), gegenüber dem Auftraggeber (nachfolgend auch „Kunde") erbringt.</li>
+      <li>Die Leistungen von Vetes richten sich ausschließlich an Unternehmer im Sinne des § 14 BGB, juristische Personen des öffentlichen Rechts sowie öffentlich-rechtliche Sondervermögen. Verbraucher im Sinne des § 13 BGB sind von der Leistungserbringung ausdrücklich ausgeschlossen. Mit Vertragsschluss bestätigt der Auftraggeber, in Ausübung einer gewerblichen oder selbstständigen beruflichen Tätigkeit zu handeln.</li>
+      <li>Diese AGB gelten ausschließlich. Abweichende, entgegenstehende oder ergänzende Geschäftsbedingungen des Auftraggebers werden nicht Vertragsbestandteil, es sei denn, Vetes hat ihrer Geltung ausdrücklich in Textform (gemäß § 126b BGB) zugestimmt. Dies gilt auch dann, wenn Vetes in Kenntnis entgegenstehender Bedingungen des Auftraggebers die Leistung vorbehaltlos erbringt.</li>
+      <li>Änderungen und Ergänzungen dieser AGB bedürfen der Textform. Dies gilt auch für die Aufhebung des Textformerfordernisses selbst.</li>
+      <li>Bei Widerspüchen gilt folgende Rangfolge: (a) das individuelle Angebot bzw. der Einzelvertrag, (b) diese AGB, (c) etwaige Anlagen, (d) die gesetzlichen Vorschriften.</li>
+    </ol>
+  </div>
+
+  <!-- § 2 -->
+  <div class="agb-section">
+    <h2>§ 2 – Vertragsschluss</h2>
+    <ol>
+      <li>Angebote von Vetes sind freibleibend und unverbindlich, sofern sie nicht ausdrücklich als verbindlich gekennzeichnet sind.</li>
+      <li>Der Vertrag kommt mit der Annahme des Angebots durch den Auftraggeber zustande. Die Annahme kann insbesondere durch Unterzeichnung (auch elektronisch), durch Bestätigung in Textform (z. B. E-Mail) oder durch Leistung der vereinbarten (An-)Zahlung erfolgen.</li>
+      <li>Die konkreten Leistungen, Preise, Zahlungsbedingungen und sonstigen Vertragsinhalte ergeben sich aus dem jeweiligen Angebot (Einzelvertrag) in Verbindung mit diesen AGB.</li>
+      <li>Mündliche Nebenabreden bestehen nicht. Sämtliche wesentlichen Vertragsinhalte ergeben sich aus dem Angebot und diesen AGB.</li>
+      <li>Der Auftraggeber ist an sein Angebot oder seine Bestellung für eine Dauer von 14 Kalendertagen nach Zugang bei Vetes gebunden.</li>
+    </ol>
+  </div>
+
+  <!-- § 3 -->
+  <div class="agb-section">
+    <h2>§ 3 – Leistungsgegenstand</h2>
+    <ol>
+      <li>Vetes erbringt Leistungen im Bereich der Konzeption, Einrichtung und des Betriebs von KI-basierten Lösungen. Der Leistungsgegenstand umfasst nach Maßgabe des jeweiligen Angebots insbesondere:
+        <ul class="agb-sublist">
+          <li>Konzeption, Einrichtung, Konfiguration und Inbetriebnahme von KI-Voice-Agents für Telefonie (eingehend und/oder ausgehend);</li>
+          <li>Konzeption und Einrichtung von KI-Agents, Chatbots und textbasierten KI-Assistenten;</li>
+          <li>Entwicklung und Einrichtung von Automatisierungen und Workflows (z. B. über n8n, Make, Zapier oder vergleichbare Plattformen);</li>
+          <li>Anbindung von Drittsystemen über APIs und vergleichbare Schnittstellen (CRM, Kalender, Ticketing, Telefonie-Gateways etc.);</li>
+          <li>Erstellung und Anpassung von Prompts, System-Rollen und Gesprächslogiken;</li>
+          <li>Übergabe der vereinbarten Zugangsdaten und eine funktionale Einweisung im vereinbarten Umfang;</li>
+          <li>laufendes Hosting und Betrieb nach Abnahme, soweit im Angebot vereinbart;</li>
+          <li>optionale Supportleistungen nach Abnahme, soweit im Angebot vereinbart.</li>
+        </ul>
+      </li>
+      <li>Der Auftraggeber stellt die erforderlichen Drittanbieter-Accounts (z. B. Telefonie-Provider, KI-Plattformen wie OpenAI, ElevenLabs, Retell, VoiceGlow, Make.com etc.) auf eigene Kosten bereit und trägt die dort anfallenden laufenden Kosten (API-Nutzung, Telefonieminuten, Lizenzen). Vetes ist nicht Vertragspartner dieser Drittanbieter.</li>
+      <li>Leistungen außerhalb des vereinbarten Umfangs gelten als Zusatzleistungen und werden nur nach vorheriger Beauftragung in Textform gegen gesonderte Vergütung zu den jeweils gültigen Stunden- bzw. Tagessätzen von Vetes erbracht.</li>
+      <li>Vetes schuldet ausschließlich die im Angebot ausdrücklich beschriebenen Leistungen. Nicht geschuldet sind insbesondere Leistungen, die nicht ausdrücklich vereinbart sind, etwa: Schulungen über den vereinbarten Umfang hinaus, Erstellung von Marketing- oder Vertriebsunterlagen, Lead- oder Datenbeschaffung, Rechts-, Datenschutz- oder Steuerberatung, Erstellung rechtlich erforderlicher Texte (z. B. Datenschutzerklärungen, Einwilligungstexte, AGB des Auftraggebers).</li>
+    </ol>
+  </div>
+
+  <!-- § 4 -->
+  <div class="agb-section">
+    <h2>§ 4 – Vertragstyp; Werk- und Dienstvertragsrecht</h2>
+    <ol>
+      <li>Die Einrichtung und Konfiguration von KI-Voice-Agents, KI-Agents und Automatisierungen (Setup-Phase) ist ein Werkvertrag im Sinne der §§ 631 ff. BGB, sofern im Angebot nicht ausdrücklich etwas anderes vereinbart ist. Vetes schuldet die Herstellung des im Angebot beschriebenen Werkes (z. B. eines funktionierenden KI-Voice-Agents gemäß den vereinbarten Spezifikationen).</li>
+      <li>Laufende Leistungen – insbesondere Hosting, Betrieb, Wartung und optionaler Support – sind Dienstverträge im Sinne der §§ 611 ff. BGB, sofern im Angebot nicht ausdrücklich etwas anderes vereinbart ist.</li>
+      <li>Die Parteien können im Einzelvertrag (Angebot) abweichende vertragstypologische Einordnungen treffen. Die jeweilige Einordnung bestimmt das anwendbare Leistungsstörungsrecht.</li>
+      <li>Das Kündigungsrecht des Auftraggebers nach § 648 Satz 1 BGB (Werkvertrag) bleibt unberührt; in diesem Fall steht Vetes die volle Vergütung abzüglich ersparter Aufwendungen zu. Die ersparten Aufwendungen werden pauschal mit 10 % der auf die nicht erbrachten Leistungen entfallenden Vergütung angesetzt, es sei denn, eine Partei weist höhere oder geringere Ersparnisse nach.</li>
+      <li>Das Recht zur Kündigung aus wichtigem Grund (§ 648a BGB, § 314 BGB) bleibt für beide Parteien unberührt.</li>
+      <li>Eine Kündigung der dienstvertraglichen Bestandteile (Hosting, Support) aus einem Vertrauensverhältnis gemäß § 627 BGB wird ausgeschlossen, soweit dies gesetzlich zulässig ist. Die Leistungen von Vetes sind nicht als Dienste höherer Art im Sinne dieser Vorschrift zu qualifizieren.</li>
+    </ol>
+  </div>
+
+  <!-- § 5 -->
+  <div class="agb-section">
+    <h2>§ 5 – Leistungserbringung und Fristen</h2>
+    <ol>
+      <li>Vetes erbringt die Leistungen in der im Angebot beschriebenen Weise und Reihenfolge. Sofern im Angebot keine Fristen genannt sind, erbringt Vetes die Leistungen innerhalb eines angemessenen Zeitraums.</li>
+      <li>Liefertermine und Fristen sind nur verbindlich, wenn sie im Angebot ausdrücklich als verbindlich bezeichnet sind. Alle übrigen Terminangaben sind unverbindliche Schätzungen.</li>
+      <li>Soweit Vetes zur Leistungserbringung auf die Mitwirkung des Auftraggebers angewiesen ist (insbesondere Zugangs- und Accountdaten, Inhalte, Freigaben, Rückmeldungen), verlängern sich etwaige Fristen um den Zeitraum der verzögerten Mitwirkung.</li>
+      <li>Vetes ist berechtigt, zur Erfüllung seiner vertraglichen Pflichten qualifizierte Dritte (Subunternehmer) einzusetzen. Vetes bleibt dem Auftraggeber gegenüber für die ordnungsgemäße Erfüllung verantwortlich.</li>
+      <li>Höhere Gewalt, Pandemien, behördliche Anordnungen und sonstige unvorhersehbare, unabwendbare Ereignisse außerhalb des Einflussbereichs von Vetes befreien Vetes für die Dauer und im Umfang der Beeinträchtigung von der Leistungspflicht. Vetes wird den Auftraggeber unverzüglich über solche Umstände informieren.</li>
+    </ol>
+  </div>
+
+  <!-- § 6 -->
+  <div class="agb-section">
+    <h2>§ 6 – Mitwirkungspflichten des Auftraggebers</h2>
+    <ol>
+      <li>Der Auftraggeber ist verpflichtet, die für die Leistungserbringung erforderlichen Mitwirkungshandlungen rechtzeitig und vollständig zu erbringen. Dazu gehören insbesondere:
+        <ul class="agb-sublist">
+          <li>Bereitstellung von Zugangsdaten zu Drittanbieter-Accounts (Telefonie-Provider, KI-Plattformen, CRM etc.);</li>
+          <li>Bereitstellung von Informationen, Texten, Daten und Materialien, die für die Konfiguration erforderlich sind;</li>
+          <li>zeitnahe Rückmeldungen, Freigaben und Entscheidungen;</li>
+          <li>Benennung eines festen Ansprechpartners, der entscheidungsbefugt ist;</li>
+          <li>Sicherstellung, dass die vom Auftraggeber bereitgestellten Drittanbieter-Accounts aktiv und funktionsfähig sind.</li>
+        </ul>
+      </li>
+      <li>Kommt der Auftraggeber einer Mitwirkungspflicht trotz Mahnung in Textform nicht innerhalb von 14 Kalendertagen nach, gerät er in Annahmeverzug (§§ 293 ff. BGB). In diesem Fall ist Vetes berechtigt, die durch den Verzug entstehenden Mehrkosten geltend zu machen und etwaige Fristen entsprechend zu verlängern.</li>
+      <li>Reagiert der Auftraggeber auf Anfragen von Vetes (insbesondere zu Freigaben, Zugangsdaten, Feedback oder Abnahme) 30 Kalendertage lang nicht trotz mindestens zweimaliger Erinnerung in Textform, gilt dies als Verweigerung der weiteren Mitwirkung. Vetes ist in diesem Fall berechtigt, (a) die bis dahin erbrachten Leistungen als abgenommen zu betrachten und (b) die volle vereinbarte Vergütung in Rechnung zu stellen („Ghosting-Klausel"). Das Recht zur fristlosen Kündigung aus wichtigem Grund bleibt unberührt.</li>
+    </ol>
+  </div>
+
+  <!-- § 7 -->
+  <div class="agb-section">
+    <h2>§ 7 – Abnahme</h2>
+    <ol>
+      <li>Soweit der Vertrag als Werkvertrag einzuordnen ist (§ 4 Abs. 1), unterliegen die Leistungen der Abnahme gemäß § 640 BGB.</li>
+      <li>Vetes teilt dem Auftraggeber die Fertigstellung des Werkes in Textform mit und fordert ihn zur Abnahme auf. Der Auftraggeber hat die Leistung innerhalb von 14 Kalendertagen nach Zugang der Fertigstellungsmitteilung zu prüfen und die Abnahme zu erklären oder etwaige Mängel in Textform mitzuteilen.</li>
+      <li>Die Abnahme gilt als erfolgt (Abnahmefiktion), wenn der Auftraggeber (a) die Leistung nicht innerhalb der 14-Tages-Frist in Textform rügt, (b) die Leistung produktiv nutzt (insbesondere den KI-Agent im Live-Betrieb einsetzt), oder (c) die vereinbarte Schlusszahlung leistet. Vetes weist den Auftraggeber in der Fertigstellungsmitteilung auf die Abnahmefiktion und deren Rechtsfolgen hin.</li>
+      <li>Die Abnahme darf nicht wegen unwesentlicher Mängel verweigert werden. Unwesentlich sind Mängel, die die Funktionalität und den bestimmungsgemäßen Einsatz des KI-Agents nicht mehr als geringfügig beeinträchtigen.</li>
+      <li>Soweit der Vertrag als Dienstvertrag einzuordnen ist (§ 4 Abs. 2), findet keine Abnahme statt; die Leistungen gelten als erbracht, wenn sie vertragskonform ausgeführt wurden.</li>
+    </ol>
+  </div>
+
+  <!-- § 8 -->
+  <div class="agb-section">
+    <h2>§ 8 – Mängelrechte</h2>
+    <ol>
+      <li>Mängelrechte bestehen nur für werkvertragliche Leistungen (§ 4 Abs. 1) und setzen voraus, dass der Auftraggeber den Mangel unverzüglich nach Entdeckung in Textform anzeigt und so beschreibt, dass Vetes den Mangel nachvollziehen und reproduzieren kann.</li>
+      <li>Im Falle eines Mangels ist Vetes zunächst zur Nacherfüllung berechtigt und verpflichtet. Vetes kann nach eigener Wahl den Mangel beseitigen (Nachbesserung) oder das Werk neu erstellen (Neuherstellung). Vetes stehen hierfür zwei Nachbesserungsversuche zu.</li>
+      <li>Schlägt die Nacherfüllung fehl oder verweigert Vetes die Nacherfüllung endgültig, stehen dem Auftraggeber die gesetzlichen Rechte (Minderung, Rücktritt, Schadensersatz) nach Maßgabe dieser AGB zu.</li>
+      <li>Die Verjährungsfrist für Mängelansprüche beträgt 12 Monate ab Abnahme, sofern nicht zwingende gesetzliche Vorschriften eine längere Frist vorsehen.</li>
+      <li>Keine Gewährleistung besteht für Mängel, die (a) auf einer Verletzung der Mitwirkungspflichten des Auftraggebers beruhen, (b) durch eigene Eingriffe des Auftraggebers oder Dritter in die Konfiguration verursacht wurden, (c) auf Veränderungen der Drittanbieter-Plattformen (z. B. API-Änderungen, Modell-Updates, Preiserhöhungen) zurückzuführen sind, die nicht im Einflussbereich von Vetes liegen, oder (d) auf nicht bestimmungsgemäßer Nutzung beruhen.</li>
+    </ol>
+  </div>
+
+  <!-- § 9 -->
+  <div class="agb-section">
+    <h2>§ 9 – Vergütung und Zahlungsbedingungen</h2>
+    <ol>
+      <li>Die Vergütung ergibt sich aus dem jeweiligen Angebot. Alle Preise verstehen sich in Euro und zuzüglich der gesetzlichen Umsatzsteuer, soweit diese anfällt.</li>
+      <li>Rechnungen von Vetes sind, soweit im Angebot nichts anderes vereinbart ist, innerhalb von 14 Kalendertagen nach Rechnungsdatum ohne Abzug zur Zahlung fällig.</li>
+      <li>Ist eine Ratenzahlung vereinbart und gerät der Auftraggeber mit einer Rate ganz oder teilweise in Verzug, so werden sämtliche noch offenen Raten sofort zur Zahlung fällig (Verfälligung der Gesamtforderung). Dies gilt nicht, wenn der Auftraggeber die Pflichtverletzung nicht zu vertreten hat.</li>
+      <li>Im Falle des Zahlungsverzugs ist Vetes berechtigt, Verzugszinsen in Höhe von 9 Prozentpunkten über dem jeweiligen Basiszinssatz (§ 288 Abs. 2 BGB) zu verlangen. Daneben steht Vetes eine Verzugspauschale in Höhe von 40,00 EUR (§ 288 Abs. 5 BGB) zu. Die Geltendmachung eines weitergehenden Verzugsschadens bleibt unberührt.</li>
+      <li>Der Auftraggeber kann nur mit Forderungen aufrechnen, die unbestritten oder rechtskräftig festgestellt sind. Ein Zurückbehaltungsrecht steht dem Auftraggeber nur zu, soweit es auf Ansprüchen aus demselben Vertragsverhältnis beruht.</li>
+      <li>Die laufende Vergütung für Hosting und Betrieb ergibt sich aus dem Angebot und wird monatlich im Voraus in Rechnung gestellt. Änderungen der laufenden Vergütung (z. B. aufgrund gestiegener Drittanbieterkosten) werden dem Auftraggeber mit einer Frist von einem Monat zum nächsten Abrechnungszeitraum in Textform mitgeteilt. Dem Auftraggeber steht in diesem Fall ein Sonderkündigungsrecht zum Zeitpunkt des Inkrafttretens der Änderung zu.</li>
+    </ol>
+  </div>
+
+  <!-- § 10 -->
+  <div class="agb-section">
+    <h2>§ 10 – Laufzeit und Kündigung</h2>
+    <ol>
+      <li>Werkvertragliche Leistungen (§ 4 Abs. 1) enden mit der Abnahme oder Kündigung gemäß § 4 Abs. 4 und 5.</li>
+      <li>Dienstvertragliche Leistungen – insbesondere Hosting und Betrieb – werden auf unbestimmte Zeit geschlossen und sind von beiden Seiten mit einer Frist von einem Monat zum Monatsende kündbar, sofern im Angebot keine abweichende Laufzeit oder Kündigungsfrist vereinbart ist.</li>
+      <li>Die Kündigung bedarf der Textform.</li>
+      <li>Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt für Vetes insbesondere vor, wenn (a) der Auftraggeber mit der Zahlung fälliger Beträge trotz Mahnung länger als 30 Kalendertage in Verzug ist, (b) der Auftraggeber gegen wesentliche Vertragspflichten verstößt und den Verstoß trotz Abmahnung nicht innerhalb von 14 Kalendertagen abstellt, oder (c) über das Vermögen des Auftraggebers ein Insolvenzverfahren beantragt oder eröffnet wird.</li>
+      <li>Bei Beendigung des Hostings stellt Vetes dem Auftraggeber die zu diesem Zeitpunkt vorhandenen Konfigurationsdaten und Prompts innerhalb von 30 Kalendertagen in einem gängigen Format zur Verfügung. Nach Ablauf dieser Frist ist Vetes zur Löschung der Daten berechtigt.</li>
+    </ol>
+  </div>
+
+  <!-- § 11 -->
+  <div class="agb-section">
+    <h2>§ 11 – Nutzungsrechte und geistiges Eigentum</h2>
+    <ol>
+      <li>Vetes räumt dem Auftraggeber mit vollständiger Bezahlung der vereinbarten Vergütung ein einfaches, nicht übertragbares, zeitlich unbeschränktes Nutzungsrecht an den vertragsgegenständlichen Arbeitsergebnissen ein, soweit im Angebot nichts anderes vereinbart ist.</li>
+      <li>Allgemeine Methoden, Frameworks, Bibliotheken, Prompting-Techniken, Workflow-Templates und sonstige nicht auftragsspezifische Bausteine, die Vetes bei der Leistungserbringung einsetzt oder entwickelt, verbleiben im geistigen Eigentum von Vetes. Der Auftraggeber erhält hieran keine Rechte, es sei denn, dies ist ausdrücklich im Angebot vereinbart.</li>
+      <li>Eine Übertragung, Unterlizenzierung, Veröffentlichung oder Weitergabe der Arbeitsergebnisse an Dritte ist nur mit vorheriger Zustimmung von Vetes in Textform gestattet.</li>
+      <li>Im Falle einer Verletzung der in diesem Paragraphen genannten Nutzungsrechte durch den Auftraggeber ist Vetes berechtigt, für jeden Einzelfall der Zuwiderhandlung eine Vertragsstrafe in Höhe von 10.000,00 EUR zu verlangen. Die Gesamtsumme der Vertragsstrafen aus diesem Paragraphen ist auf 30.000,00 EUR je Vertrag begrenzt. Die Geltendmachung eines darüber hinausgehenden Schadensersatzes bleibt unberührt. Die Vertragsstrafe wird auf etwaige Schadensersatzansprüche angerechnet.</li>
+      <li>Das Eigentum an der von Vetes erstellten Konfiguration (Prompts, Workflows, Agent-Setups) geht erst mit vollständiger Zahlung der vereinbarten Vergütung auf den Auftraggeber über (Eigentumsvorbehalt).</li>
+    </ol>
+  </div>
+
+  <!-- § 12 -->
+  <div class="agb-section">
+    <h2>§ 12 – Vertraulichkeit</h2>
+    <ol>
+      <li>Die Parteien verpflichten sich, alle im Rahmen des Vertragsverhältnisses erlangten vertraulichen Informationen der jeweils anderen Partei streng vertraulich zu behandeln und nur zur Vertragsdurchführung zu verwenden.</li>
+      <li>Vertrauliche Informationen sind alle Informationen, die als vertraulich gekennzeichnet sind oder deren Vertraulichkeit sich nach den Umständen ergibt, insbesondere Geschäfts- und Betriebsgeheimnisse, technische Details, Kundendaten, Preise und Kalkulationen.</li>
+      <li>Die Vertraulichkeitsverpflichtung besteht nicht für Informationen, die (a) öffentlich bekannt sind oder werden, ohne dass dies auf einer Pflichtverletzung beruht, (b) dem Empfänger bereits vor der Offenlegung bekannt waren, (c) dem Empfänger von einem Dritten befugterweise ohne Vertraulichkeitsverpflichtung mitgeteilt werden, oder (d) aufgrund gesetzlicher Verpflichtung oder behördlicher Anordnung offengelegt werden müssen.</li>
+      <li>Die Vertraulichkeitsverpflichtung besteht während der Vertragslaufzeit und für einen Zeitraum von drei Jahren nach Beendigung des Vertrages fort.</li>
+    </ol>
+  </div>
+
+  <!-- § 13 -->
+  <div class="agb-section">
+    <h2>§ 13 – Datenschutz</h2>
+    <ol>
+      <li>Soweit Vetes im Rahmen der Leistungserbringung personenbezogene Daten im Auftrag des Auftraggebers verarbeitet, handelt Vetes als Auftragsverarbeiter im Sinne des Art. 28 DSGVO. Die Parteien schließen in diesem Fall einen gesonderten Auftragsverarbeitungsvertrag (AVV) ab, der die Einzelheiten der Datenverarbeitung regelt.</li>
+      <li>Der Auftraggeber bleibt als Verantwortlicher im Sinne des Art. 4 Nr. 7 DSGVO für die Zulässigkeit der Datenverarbeitung verantwortlich. Der Auftraggeber stellt sicher, dass er über die erforderlichen Rechtsgrundlagen (insbesondere Art. 6 Abs. 1 DSGVO) für den Einsatz des KI-Agents und die damit verbundene Verarbeitung personenbezogener Daten verfügt.</li>
+      <li>Insbesondere beim Einsatz von KI-Voice-Agents für Telefonie ist der Auftraggeber dafür verantwortlich, dass die Informationspflichten gemäß Art. 13 und 14 DSGVO gegenüber den betroffenen Personen erfüllt werden und dass der Einsatz automatisierter Kommunikation den Anforderungen des § 7 UWG (Gesetz gegen den unlauteren Wettbewerb) entspricht.</li>
+      <li>Der Auftraggeber stellt Vetes von sämtlichen Ansprüchen Dritter frei, die aufgrund einer rechtswidrigen oder nicht datenschutzkonformen Nutzung der von Vetes eingerichteten Lösungen durch den Auftraggeber oder auf dessen Veranlassung entstehen. Dies umfasst auch die Kosten einer angemessenen Rechtsverteidigung.</li>
+      <li>Vetes informiert den Auftraggeber unverzüglich, wenn Vetes Kenntnis von einer Verletzung des Schutzes personenbezogener Daten (Art. 33 DSGVO) erlangt, soweit die Verletzung die im Auftrag verarbeiteten Daten betrifft.</li>
+    </ol>
+  </div>
+
+  <!-- § 14 -->
+  <div class="agb-section">
+    <h2>§ 14 – Haftung</h2>
+    <ol>
+      <li>Vetes haftet unbeschränkt (a) für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit, die auf einer vorsätzlichen oder fahrlässigen Pflichtverletzung von Vetes oder seiner gesetzlichen Vertreter oder Erfüllungsgehilfen beruhen, (b) bei Vorsatz und grober Fahrlässigkeit, und (c) soweit eine Haftungsbeschränkung nach zwingenden gesetzlichen Vorschriften unzulässig ist.</li>
+      <li>Bei der Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), deren Erfüllung die ordnungsgemäße Durchführung des Vertrages überhaupt erst ermöglicht und auf deren Einhaltung der Auftraggeber regelmäßig vertrauen darf, haftet Vetes bei leichter Fahrlässigkeit nur auf den vertragstypischen, vorhersehbaren Schaden.</li>
+      <li>Im Übrigen ist die Haftung von Vetes für leichte Fahrlässigkeit ausgeschlossen.</li>
+      <li>Die Haftung von Vetes für Sach- und Vermögensschäden ist – gleich aus welchem Rechtsgrund – auf einen Betrag von 25.000,00 EUR je Schadensfall und auf die Höhe der für den jeweiligen Vertrag vereinbarten Nettovergütung je Vertragsjahr begrenzt. Die in Satz 1 genannten Haftungsausschlüsse und -beschränkungen gelten nicht für die in Abs. 1 genannten Fälle.</li>
+      <li>Schadensersatzansprüche des Auftraggebers verjähren innerhalb von 12 Monaten nach Entstehung des Anspruchs, sofern nicht zwingende gesetzliche Vorschriften eine längere Frist vorsehen.</li>
+    </ol>
+  </div>
+
+  <!-- § 15 -->
+  <div class="agb-section">
+    <h2>§ 15 – Besonderheiten bei KI-basierten Leistungen</h2>
+    <ol>
+      <li>Die von Vetes eingesetzten KI-Modelle (insbesondere Large Language Models, Text-to-Speech- und Speech-to-Text-Modelle) arbeiten probabilistisch. Ihre Ausgaben können Ungenauigkeiten, Halluzinationen oder kontextfremde Inhalte enthalten. Vetes übernimmt keine Gewähr für die inhaltliche Richtigkeit, Vollständigkeit oder Rechtskonformität der KI-generierten Ausgaben.</li>
+      <li>Eine Garantie für bestimmte wirtschaftliche Ergebnisse (z. B. Conversion-Raten, Umsatzsteigerungen, Terminbuchungen) wird ausdrücklich nicht übernommen. Vetes schuldet die vertragsgerechte Einrichtung und Konfiguration, nicht jedoch den wirtschaftlichen Erfolg des Einsatzes.</li>
+      <li>Die KI-Modelle werden von Drittanbietern (z. B. OpenAI, ElevenLabs, Google, Anthropic) bereitgestellt und unterliegen deren Nutzungsbedingungen. Änderungen, Einschränkungen, Preiserhöhungen oder die Einstellung dieser Dienste durch den jeweiligen Drittanbieter liegen außerhalb des Einflussbereichs von Vetes und begründen keine Mängelansprüche oder Schadensersatzansprüche gegen Vetes.</li>
+      <li>Der Auftraggeber ist verpflichtet, die KI-generierten Ausgaben und Aktionen eigenverantwortlich auf Richtigkeit und Angemessenheit zu prüfen, bevor er sich auf diese verlässt oder sie Dritten gegenüber verwendet. Vetes empfiehlt dem Auftraggeber, geeignete Kontrollmechanismen zu implementieren.</li>
+    </ol>
+  </div>
+
+  <!-- § 16 -->
+  <div class="agb-section">
+    <h2>§ 16 – Abwerbeverbot</h2>
+    <ol>
+      <li>Der Auftraggeber verpflichtet sich, während der Vertragslaufzeit und für einen Zeitraum von 12 Monaten nach Vertragsbeendigung keine Mitarbeiter, freien Mitarbeiter oder Subunternehmer von Vetes, die an der Vertragsdurchführung beteiligt waren, abzuwerben oder unmittelbar oder mittelbar zu beschäftigen.</li>
+      <li>Ein Verstoß gegen das Abwerbeverbot verpflichtet den Auftraggeber zur Zahlung einer Vertragsstrafe in Höhe des zwölffachen Bruttomonatsentgelts der abgeworbenen Person, mindestens jedoch 25.000,00 EUR. Die Geltendmachung eines darüber hinausgehenden Schadensersatzes bleibt vorbehalten. Die Vertragsstrafe wird angerechnet.</li>
+    </ol>
+  </div>
+
+  <!-- § 17 -->
+  <div class="agb-section">
+    <h2>§ 17 – Referenznennung</h2>
+    <ol>
+      <li>Vetes ist berechtigt, den Auftraggeber und das durchgeführte Projekt als Referenz zu nennen und die Zusammenarbeit auf der eigenen Website, in sozialen Medien und in Vertriebs- und Marketingmaterialien darzustellen (z. B. „KI-Voice-Agent für [Branche des Auftraggebers]"). Vertrauliche Details werden nicht offengelegt.</li>
+      <li>Der Auftraggeber kann die Referenznennung jederzeit mit Wirkung für die Zukunft in Textform widerrufen.</li>
+    </ol>
+  </div>
+
+  <!-- § 18 -->
+  <div class="agb-section">
+    <h2>§ 18 – Schlussbestimmungen</h2>
+    <ol>
+      <li>Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG).</li>
+      <li>Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit diesem Vertrag ist Fulda, sofern der Auftraggeber Kaufmann, eine juristische Person des öffentlichen Rechts oder ein öffentlich-rechtliches Sondervermögen ist.</li>
+      <li>Sollten einzelne Bestimmungen dieses Vertrages unwirksam oder undurchführbar sein oder werden, so wird die Wirksamkeit der übrigen Bestimmungen hiervon nicht berührt. Die unwirksame oder undurchführbare Bestimmung ist durch eine wirksame Bestimmung zu ersetzen, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung möglichst nahe kommt (salvatorische Klausel).</li>
+      <li>Erfüllungsort für alle Leistungen aus diesem Vertrag ist der Sitz von Vetes in Fulda.</li>
+      <li>Es bestehen keine mündlichen Nebenabreden. Änderungen und Ergänzungen dieses Vertrages sowie die Aufhebung dieses Textformerfordernisses bedürfen der Textform.</li>
+    </ol>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">VETE<span>S</span></div>
+      <div class="footer-tagline">Individuelle KI- &amp; Automationslösungen für mittelständische Unternehmen. Keine Standardsoftware — Systeme, die wirklich funktionieren.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Unternehmen</h4>
+      <ul>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Leistungen</h4>
+      <ul>
+        <li><a href="leistungen/automatisierung.html">Automatisierung</a></li>
+        <li><a href="leistungen/voice-ai.html">Voice AI</a></li>
+        <li><a href="leistungen/ai-agents.html">AI Agents</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <p>Flemingstraße 18<br>36041 Fulda</p>
+      <p>+49 157 88720205</p>
+      <p>info@vetes.de</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 VETES. Alle Rechte vorbehalten.</span>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/company/vetes" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  try { const n=document.getElementById('navbar'); if(n){const f=()=>n.classList.toggle('scrolled',scrollY>60);addEventListener('scroll',f,{passive:true});f();} } catch(e){}
+  try{const burger=document.getElementById('navBurger'),mNav=document.getElementById('mobileNav'),closeBtn=document.getElementById('mobileNavClose'),acc=document.getElementById('mobileAcc');if(burger&&mNav){const close=()=>{mNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';};burger.addEventListener('click',()=>{const o=mNav.classList.toggle('open');burger.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';});if(closeBtn)closeBtn.addEventListener('click',close);if(acc){const t=acc.querySelector('.mobile-acc-trigger');if(t)t.addEventListener('click',()=>acc.classList.toggle('open'));}mNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));}}catch(e){}
+});
+</script>
+<!-- Leadfeeder Tracking -->
+<script> (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('YEgkB8ld3X18ep3Z'); </script>
+<!-- BOOKING POPUP -->
+<div class="booking-overlay" id="bookingOverlay">
+  <div class="booking-modal">
+    <button class="booking-close" id="bookingClose" aria-label="Schließen">&times;</button>
+    <iframe src="https://api.leadconnectorhq.com/widget/booking/vXFzt3zoVGayr6dcCoHD" style="width:100%;min-height:1200px;border:none;" scrolling="yes"></iframe>
+  </div>
+</div>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+<style>
+  .booking-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;overflow-y:auto}
+  .booking-overlay.active{display:flex}
+  .booking-modal{position:relative;width:90vw;max-width:620px;height:85vh;max-height:900px;background:#1a1a1a;border:1px solid rgba(200,173,114,0.2);border-radius:16px;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 24px 80px rgba(0,0,0,0.6);animation:bookingIn .3s ease-out}
+  .booking-modal iframe{pointer-events:auto;width:100%;height:100%;border:none}
+  @keyframes bookingIn{from{opacity:0;transform:scale(.95) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .booking-close{position:absolute;top:12px;right:14px;z-index:10;background:rgba(30,30,30,0.85);border:1px solid rgba(200,173,114,0.2);color:#fff;font-size:1.5rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  .booking-close:hover{background:rgba(200,173,114,0.2)}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded",function(){var o=document.getElementById("bookingOverlay"),c=document.getElementById("bookingClose"),t=document.querySelectorAll(".booking-trigger");if(o){t.forEach(function(b){b.addEventListener("click",function(e){e.preventDefault();o.classList.add("active");document.body.style.overflow="hidden"})});c.addEventListener("click",function(){o.classList.remove("active");document.body.style.overflow=""});o.addEventListener("click",function(e){if(e.target===o){o.classList.remove("active");document.body.style.overflow=""}})}});
+</script>
+</body>
+</html>
