@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /node_modules/
+Disallow: /outputs/
+Disallow: /brand-ci.html
+Disallow: /unternehmensvideo.html
+
+Sitemap: https://vetes-ai.de/sitemap.xml
