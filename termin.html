@@ -24,9 +24,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #080808; --surface: #0f0e0c; --surface-2: #151310; --surface-3: #1c1a17;
-      --border: rgba(255,255,255,0.055); --border-light: rgba(255,255,255,0.09);
-      --text: #eae5db; --text-secondary: #6e6860; --text-muted: #3a3630;
+      --bg: #131110; --surface: #1a1816; --surface-2: #201e1a; --surface-3: #2a2720;
+      --border: rgba(255,255,255,0.09); --border-light: rgba(255,255,255,0.15);
+      --text: #eae5db; --text-secondary: #968e82; --text-muted: #5e5850;
       --accent: #c8ad72; --accent-soft: rgba(200,173,114,0.13);
       --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
       --shadow-float: 0 28px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.35);
@@ -45,7 +45,7 @@
 
     /* ── Nav ── */
     #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 30px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s; }
-    #navbar.scrolled { background: rgba(8,8,8,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    #navbar.scrolled { background: rgba(19,17,16,0.90); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 44px; list-style: none; }
@@ -62,7 +62,7 @@
     .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; transition: transform 0.3s, opacity 0.3s; }
 
     /* ── Mobile nav ── */
-    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(19,17,16,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
     .mobile-nav.open { opacity: 1; visibility: visible; }
     .mobile-nav a { color: var(--text); text-decoration: none; font-size: 18px; letter-spacing: 0.06em; }
     .mobile-nav-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: var(--text); font-size: 28px; cursor: pointer; }
