@@ -554,8 +554,7 @@ function getNodeHTML(n) {
         <div class="sum-row"><span class="sum-label">Nicht Erreichbar</span><span class="sum-val" style="color:#ea580c">${totalNE}</span></div>
         <div class="sum-divider"></div>`;
       if (state.showMoney) {
-        html += `<div class="sum-row highlight"><span class="sum-label">Verpasster Umsatz</span><span class="sum-val">−${fmt(lossVal)} €</span></div>
-                 <div class="sum-row"><span class="sum-label">Erreichter Umsatz</span><span class="sum-val" style="color:#16a34a">${fmt(servVal)} €</span></div>`;
+        html += `<div class="sum-row highlight"><span class="sum-label">Verpasster Umsatz</span><span class="sum-val">−${fmt(lossVal)} €</span></div>`;
       }
       if (state.showTime) {
         const lostMin = totalNE * state.avgCallDuration;
