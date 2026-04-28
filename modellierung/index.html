@@ -392,15 +392,15 @@ const state = {
   avgCustomerValue: 3000,
   conversionRate: 5,
   showTime: false,
-  showMoney: true,
+  showMoney: false,
 };
 
 // Nodes: id, type, x, y, label, + type-specific fields
 const nodes = [
   { id: 1, type: 'start',    x: 80,   y: 300, label: 'Eingehende Anrufe' },
-  { id: 2, type: 'decision', x: 280,  y: 270, label: 'Hotel Rezeption', yesPercent: 60, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
+  { id: 2, type: 'decision', x: 280,  y: 270, label: 'Hotel Rezeption', yesPercent: 10, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
   { id: 3, type: 'ne',       x: 420,  y: 120, label: 'Nicht Erreichbar', ne: 0 },
-  { id: 4, type: 'decision', x: 480,  y: 430, label: 'Mitarbeiter', yesPercent: 40, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
+  { id: 4, type: 'decision', x: 480,  y: 430, label: 'Mitarbeiter', yesPercent: 10, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
   { id: 5, type: 'served',   x: 720,  y: 380, label: 'Bedient', ne: 0 },
   { id: 6, type: 'ne',       x: 620,  y: 560, label: 'Nicht Erreichbar', ne: 0 },
   { id: 7, type: 'summary',  x: 900,  y: 260, label: 'Zusammenfassung' },
@@ -864,7 +864,7 @@ function closeROI() { document.getElementById('roiOverlay').classList.remove('vi
 function closeROIOverlay(e) { if (e.target === document.getElementById('roiOverlay')) closeROI(); }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
-document.getElementById('btnMoney').classList.add('active');
+// showMoney is off by default
 
 // Center canvas a bit
 viewX = 260;
