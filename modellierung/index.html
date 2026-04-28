@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Flow Modellierung</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f5f0; color: #1c1917; min-height: 100vh; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; background: #fff; border-bottom: 1px solid #e7e5e4;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  }
+  .header h1 { font-size: 16px; font-weight: 600; color: #1c1917; }
+  .header-right { display: flex; gap: 8px; align-items: center; }
+  .toggle-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 6px; border: 1px solid #e7e5e4;
+    background: #fff; font-size: 13px; cursor: pointer; color: #78716c;
+    transition: all 0.15s;
+  }
+  .toggle-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+  .toggle-btn:hover:not(.active) { border-color: #a8a29e; color: #1c1917; }
+
+  /* Canvas area */
+  .canvas-wrap {
+    position: fixed; top: 53px; left: 0; right: 0; bottom: 0;
+    overflow: hidden; cursor: grab;
+  }
+  .canvas-wrap.grabbing { cursor: grabbing; }
+  .canvas-inner {
+    position: absolute; top: 0; left: 0;
+    transform-origin: 0 0;
+  }
+
+  /* Nodes */
+  .node {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+  }
+  .node:hover .node-body { filter: brightness(0.95); }
+
+  /* Start node */
+  .node-start .node-body {
+    background: #2563eb; color: #fff;
+    border-radius: 50px; padding: 10px 20px;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    white-space: nowrap; min-width: 120px;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+  }
+
+  /* Decision node */
+  .node-decision .node-body {
+    background: #fff; border: 2px solid #e7e5e4;
+    border-radius: 12px; padding: 14px 18px; min-width: 160px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .node-decision .node-title {
+    font-size: 11px; font-weight: 600; color: #78716c;
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+  }
+  .node-decision .node-label {
+    font-size: 14px; font-weight: 600; color: #1c1917; margin-bottom: 10px;
+  }
+  .node-decision .node-meta {
+    font-size: 12px; color: #78716c;
+  }
+  .node-decision .bar-wrap {
+    height: 4px; background: #f5f5f0; border-radius: 2px; margin-top: 8px;
+  }
+  .node-decision .bar-yes {
+    height: 4px; background: #16a34a; border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  /* Missed node */
+  .node-missed .node-body {
+    background: #fef2f2; border: 1.5px solid #fecaca;
+    border-radius: 10px; padding: 12px 16px; min-width: 140px;
+    box-shadow: 0 2px 8px rgba(220,38,38,0.08);
+  }
+  .node-missed .node-icon { font-size: 18px; margin-bottom: 4px; }
+  .node-missed .node-label { font-size: 13px; font-weight: 600; color: #dc2626; }
+  .node-missed .node-sub { font-size: 12px; color: #78716c; margin-top: 2px; }
+
+  /* Served node */
+  .node-served .node-body {
+    background: #f0fdf4; border: 1.5px solid #bbf7d0;
+    border-radius: 10px; padding: 12px 16px; min-width: 140px;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.08);
+  }
+  .node-served .node-icon { font-size: 18px; margin-bottom: 4px; }
+  .node-served .node-label { font-size: 13px; font-weight: 600; color: #16a34a; }
+  .node-served .node-sub { font-size: 12px; color: #78716c; margin-top: 2px; }
+
+  /* NE node */
+  .node-ne .node-body {
+    background: #fff8ed; border: 1.5px solid #fed7aa;
+    border-radius: 10px; padding: 12px 16px; min-width: 140px;
+    box-shadow: 0 2px 8px rgba(234,88,12,0.08);
+  }
+  .node-ne .node-icon { font-size: 18px; margin-bottom: 4px; }
+  .node-ne .node-label { font-size: 13px; font-weight: 600; color: #ea580c; }
+  .node-ne .node-sub { font-size: 12px; color: #78716c; margin-top: 2px; }
+
+  /* Summary node */
+  .node-summary .node-body {
+    background: #fff; border: 2px solid #2563eb;
+    border-radius: 12px; padding: 16px 20px; min-width: 200px;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+  }
+  .node-summary .node-title {
+    font-size: 11px; font-weight: 700; color: #2563eb;
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .node-summary .sum-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 0; font-size: 13px;
+  }
+  .node-summary .sum-row .sum-label { color: #78716c; }
+  .node-summary .sum-row .sum-val { font-weight: 600; color: #1c1917; }
+  .node-summary .sum-row.highlight .sum-val { color: #dc2626; font-size: 15px; }
+  .node-summary .sum-divider { height: 1px; background: #e7e5e4; margin: 6px 0; }
+
+  /* SVG connections */
+  .connections-svg {
+    position: absolute; top: 0; left: 0;
+    pointer-events: none; overflow: visible;
+  }
+  .conn-line {
+    fill: none; stroke: #d1c4b8; stroke-width: 1.5;
+  }
+  .conn-label-bg { fill: #f5f5f0; }
+  .conn-label-text { fill: #78716c; font-size: 11px; font-family: inherit; }
+
+  /* Popup */
+  .popup {
+    position: fixed; z-index: 9999;
+    background: #fff; border: 1px solid #e7e5e4;
+    border-radius: 12px; padding: 16px;
+    min-width: 260px; max-width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    display: none;
+  }
+  .popup.visible { display: block; }
+  .popup-title {
+    font-size: 13px; font-weight: 600; color: #1c1917;
+    margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 1px solid #e7e5e4;
+  }
+  .popup-row {
+    display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;
+  }
+  .popup-row label { font-size: 12px; color: #78716c; font-weight: 500; }
+  .popup-row input {
+    padding: 7px 10px; border: 1px solid #e7e5e4; border-radius: 6px;
+    font-size: 13px; color: #1c1917; background: #fafaf9;
+    outline: none; transition: border-color 0.15s;
+  }
+  .popup-row input:focus { border-color: #2563eb; background: #fff; }
+  .popup-close {
+    position: absolute; top: 10px; right: 12px;
+    background: none; border: none; font-size: 16px; cursor: pointer;
+    color: #78716c; line-height: 1;
+  }
+  .popup-note { font-size: 11px; color: #a8a29e; margin-top: 4px; }
+
+  /* Global settings panel */
+  .settings-panel {
+    position: fixed; top: 53px; left: 0; width: 240px; bottom: 0;
+    background: #fff; border-right: 1px solid #e7e5e4;
+    padding: 16px; overflow-y: auto; z-index: 50;
+  }
+  .settings-panel h2 { font-size: 13px; font-weight: 600; margin-bottom: 14px; color: #1c1917; }
+  .settings-row { margin-bottom: 12px; }
+  .settings-row label { display: block; font-size: 12px; color: #78716c; margin-bottom: 4px; font-weight: 500; }
+  .settings-row input {
+    width: 100%; padding: 7px 10px; border: 1px solid #e7e5e4;
+    border-radius: 6px; font-size: 13px; color: #1c1917;
+    background: #fafaf9; outline: none;
+  }
+  .settings-row input:focus { border-color: #2563eb; background: #fff; }
+  .settings-divider { height: 1px; background: #e7e5e4; margin: 14px 0; }
+  .settings-label { font-size: 11px; font-weight: 700; color: #a8a29e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+
+  /* ROI Panel */
+  .roi-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: #2563eb; color: #fff; border: none;
+    border-radius: 50px; padding: 12px 20px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.15s;
+  }
+  .roi-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+  .roi-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300;
+    display: none; align-items: center; justify-content: center;
+  }
+  .roi-overlay.visible { display: flex; }
+  .roi-modal {
+    background: #fff; border-radius: 16px;
+    width: 480px; max-width: 95vw; max-height: 90vh; overflow-y: auto;
+    padding: 28px; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .roi-modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .roi-modal .roi-sub { font-size: 13px; color: #78716c; margin-bottom: 20px; }
+  .roi-close {
+    position: absolute; top: 16px; right: 16px;
+    background: #f5f5f0; border: none; border-radius: 6px;
+    width: 28px; height: 28px; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #78716c;
+  }
+  .roi-section { margin-bottom: 20px; }
+  .roi-section h3 { font-size: 13px; font-weight: 700; color: #78716c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .roi-row { display: flex; gap: 12px; margin-bottom: 10px; }
+  .roi-row .roi-field { flex: 1; }
+  .roi-row .roi-field label { display: block; font-size: 12px; color: #78716c; margin-bottom: 4px; font-weight: 500; }
+  .roi-row .roi-field input {
+    width: 100%; padding: 8px 10px; border: 1px solid #e7e5e4;
+    border-radius: 8px; font-size: 14px; color: #1c1917; outline: none;
+    background: #fafaf9;
+  }
+  .roi-row .roi-field input:focus { border-color: #2563eb; background: #fff; }
+  .roi-divider { height: 1px; background: #e7e5e4; margin: 16px 0; }
+  .roi-result-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+  }
+  .roi-card {
+    background: #fafaf9; border-radius: 10px; padding: 14px;
+    border: 1px solid #e7e5e4;
+  }
+  .roi-card.red { background: #fef2f2; border-color: #fecaca; }
+  .roi-card.green { background: #f0fdf4; border-color: #bbf7d0; }
+  .roi-card.blue { background: #eff6ff; border-color: #bfdbfe; }
+  .roi-card .rc-label { font-size: 11px; color: #78716c; margin-bottom: 6px; font-weight: 500; }
+  .roi-card .rc-val { font-size: 20px; font-weight: 700; color: #1c1917; }
+  .roi-card.red .rc-val { color: #dc2626; }
+  .roi-card.green .rc-val { color: #16a34a; }
+  .roi-card.blue .rc-val { color: #2563eb; }
+  .roi-break {
+    background: #1c1917; color: #fff; border-radius: 10px;
+    padding: 16px; text-align: center; margin-top: 4px;
+  }
+  .roi-break .rb-label { font-size: 12px; color: #a8a29e; margin-bottom: 4px; }
+  .roi-break .rb-val { font-size: 28px; font-weight: 700; color: #fff; }
+  .roi-break .rb-sub { font-size: 12px; color: #78716c; margin-top: 4px; }
+
+  /* Hint */
+  .hint {
+    position: fixed; bottom: 20px; left: 260px;
+    font-size: 12px; color: #a8a29e; z-index: 50;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>📞 Call Flow Modellierung</h1>
+  <div class="header-right">
+    <button class="toggle-btn" id="btnTime" onclick="toggleTime()">⏱ Zeit</button>
+    <button class="toggle-btn" id="btnMoney" onclick="toggleMoney()">💶 Geldwert</button>
+  </div>
+</div>
+
+<!-- Settings Panel -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="settings-label">Basiswerte</div>
+
+  <div class="settings-row">
+    <label>Anrufe / Woche</label>
+    <input type="number" id="s_callsPerWeek" value="150" oninput="updateState('callsPerWeek', this.value)">
+  </div>
+  <div class="settings-row">
+    <label>Wochen / Monat</label>
+    <input type="number" id="s_weeksPerMonth" value="4" oninput="updateState('weeksPerMonth', this.value)">
+  </div>
+  <div class="settings-row">
+    <label>Ø Gesprächsdauer (Min)</label>
+    <input type="number" id="s_avgCallDuration" value="3" oninput="updateState('avgCallDuration', this.value)">
+  </div>
+
+  <div class="settings-divider"></div>
+  <div class="settings-label">Kundenwert</div>
+
+  <div class="settings-row">
+    <label>Kundenwert ø (€)</label>
+    <input type="number" id="s_avgCustomerValue" value="3000" oninput="updateState('avgCustomerValue', this.value)">
+  </div>
+  <div class="settings-row">
+    <label>Conversion Rate (%)</label>
+    <input type="number" id="s_conversionRate" value="5" step="0.1" oninput="updateState('conversionRate', this.value)">
+  </div>
+</div>
+
+<!-- Canvas -->
+<div class="canvas-wrap" id="canvasWrap">
+  <div class="canvas-inner" id="canvasInner">
+    <!-- SVG for connections -->
+    <svg class="connections-svg" id="connSvg" width="2000" height="1200"></svg>
+    <!-- Nodes rendered here -->
+    <div id="nodesContainer"></div>
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <button class="popup-close" onclick="closePopup()">×</button>
+  <div class="popup-title" id="popupTitle">Bearbeiten</div>
+  <div id="popupContent"></div>
+</div>
+
+<!-- ROI Button -->
+<button class="roi-btn" onclick="openROI()">📊 ROI Rechner</button>
+
+<!-- ROI Modal -->
+<div class="roi-overlay" id="roiOverlay" onclick="closeROIOverlay(event)">
+  <div class="roi-modal" onclick="event.stopPropagation()">
+    <button class="roi-close" onclick="closeROI()">×</button>
+    <h2>ROI Rechner</h2>
+    <div class="roi-sub">Verpasste Umsätze vs. KI-Kosten</div>
+
+    <div class="roi-section">
+      <h3>Aus Modell (automatisch)</h3>
+      <div class="roi-row">
+        <div class="roi-field">
+          <label>Verpasste Anrufe / Monat</label>
+          <input type="number" id="roi_missedCalls" readonly>
+        </div>
+        <div class="roi-field">
+          <label>Verlust / Monat (€)</label>
+          <input type="number" id="roi_lossPerMonth" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="roi-divider"></div>
+
+    <div class="roi-section">
+      <h3>KI Tool Kosten</h3>
+      <div class="roi-row">
+        <div class="roi-field">
+          <label>Setup-Gebühr (€)</label>
+          <input type="number" id="roi_setup" value="2500" oninput="calcROI()">
+        </div>
+        <div class="roi-field">
+          <label>Monatliche Kosten (€)</label>
+          <input type="number" id="roi_monthly" value="500" oninput="calcROI()">
+        </div>
+      </div>
+    </div>
+
+    <div class="roi-divider"></div>
+
+    <div class="roi-result-grid">
+      <div class="roi-card red">
+        <div class="rc-label">Verlust ohne KI / Monat</div>
+        <div class="rc-val" id="rc_loss">—</div>
+      </div>
+      <div class="roi-card green">
+        <div class="rc-label">Einsparung / Monat</div>
+        <div class="rc-val" id="rc_saving">—</div>
+      </div>
+    </div>
+
+    <div class="roi-break">
+      <div class="rb-label">Break-Even</div>
+      <div class="rb-val" id="rc_breakeven">—</div>
+      <div class="rb-sub">nach Setup-Kosten</div>
+    </div>
+  </div>
+</div>
+
+<div class="hint">💡 Klick auf Node = Werte bearbeiten &nbsp;|&nbsp; Ziehen = Verschieben &nbsp;|&nbsp; Scroll = Zoom</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+const state = {
+  callsPerWeek: 150,
+  weeksPerMonth: 4,
+  avgCallDuration: 3,
+  avgCustomerValue: 3000,
+  conversionRate: 5,
+  showTime: false,
+  showMoney: true,
+};
+
+// Nodes: id, type, x, y, label, + type-specific fields
+const nodes = [
+  { id: 1, type: 'start',    x: 80,   y: 300, label: 'Eingehende Anrufe' },
+  { id: 2, type: 'decision', x: 280,  y: 270, label: 'Hotel Rezeption', yesPercent: 60, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
+  { id: 3, type: 'ne',       x: 420,  y: 120, label: 'Nicht Erreichbar', ne: 0 },
+  { id: 4, type: 'decision', x: 480,  y: 430, label: 'Mitarbeiter', yesPercent: 40, yesLabel: 'Besetzt / N.E.', noLabel: 'Angenommen' },
+  { id: 5, type: 'served',   x: 720,  y: 380, label: 'Bedient', ne: 0 },
+  { id: 6, type: 'ne',       x: 620,  y: 560, label: 'Nicht Erreichbar', ne: 0 },
+  { id: 7, type: 'summary',  x: 900,  y: 260, label: 'Zusammenfassung' },
+];
+
+// Connections: from id → to id, branch 'yes'|'no'|''
+const conns = [
+  { from: 1, to: 2, branch: '' },
+  { from: 2, to: 3, branch: 'yes' },
+  { from: 2, to: 4, branch: 'no' },
+  { from: 4, to: 6, branch: 'yes' },
+  { from: 4, to: 5, branch: 'no' },
+  { from: 3, to: 7, branch: '' },
+  { from: 5, to: 7, branch: '' },
+  { from: 6, to: 7, branch: '' },
+];
+
+// ─── Viewport ─────────────────────────────────────────────────────────────────
+let viewX = 0, viewY = 0, viewScale = 1;
+let isPanning = false, panStartX = 0, panStartY = 0;
+let dragNodeId = null, dragOffX = 0, dragOffY = 0;
+let didDrag = false;
+let mouseDownNodeId = null;
+
+function applyTransform() {
+  const ci = document.getElementById('canvasInner');
+  ci.style.transform = `translate(${viewX}px, ${viewY}px) scale(${viewScale})`;
+}
+
+// ─── Auto-Calculate NE values ─────────────────────────────────────────────────
+function autoCalc() {
+  const callsPerMonth = state.callsPerWeek * state.weeksPerMonth;
+  // node 1 = start → callsPerMonth
+  // node 2 = decision, gets callsPerMonth input
+  const node2 = getNode(2);
+  const to3 = callsPerMonth * (node2.yesPercent / 100);
+  const to4 = callsPerMonth * ((100 - node2.yesPercent) / 100);
+  getNode(3).ne = Math.round(to3);
+
+  const node4 = getNode(4);
+  const to6 = to4 * (node4.yesPercent / 100);
+  const to5 = to4 * ((100 - node4.yesPercent) / 100);
+  getNode(5).ne = Math.round(to5);
+  getNode(6).ne = Math.round(to6);
+}
+
+function getNode(id) { return nodes.find(n => n.id === id); }
+
+function getTotalNE() {
+  return nodes.filter(n => n.type === 'ne').reduce((s, n) => s + (n.ne || 0), 0);
+}
+function getTotalServed() {
+  return nodes.filter(n => n.type === 'served').reduce((s, n) => s + (n.ne || 0), 0);
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  autoCalc();
+  renderNodes();
+  renderConns();
+}
+
+function renderNodes() {
+  const container = document.getElementById('nodesContainer');
+  container.innerHTML = '';
+  nodes.forEach(n => {
+    const div = document.createElement('div');
+    div.className = 'node node-' + n.type;
+    div.id = 'node-' + n.id;
+    div.style.left = n.x + 'px';
+    div.style.top  = n.y + 'px';
+    div.innerHTML = getNodeHTML(n);
+
+    // Mousedown: start drag or note potential click
+    div.addEventListener('mousedown', e => {
+      e.stopPropagation();
+      mouseDownNodeId = n.id;
+      didDrag = false;
+      const worldX = (e.clientX - viewX) / viewScale;
+      const worldY = (e.clientY - viewY) / viewScale;
+      dragNodeId = n.id;
+      dragOffX = worldX - n.x;
+      dragOffY = worldY - n.y;
+    });
+
+    container.appendChild(div);
+  });
+}
+
+function getNodeHTML(n) {
+  const callsPerMonth = state.callsPerWeek * state.weeksPerMonth;
+  switch(n.type) {
+    case 'start':
+      return `<div class="node-body">${n.label}<br><small style="font-weight:400;opacity:0.8">${callsPerMonth} Anrufe/Monat</small></div>`;
+
+    case 'decision': {
+      const yes = n.yesPercent;
+      const no  = 100 - yes;
+      return `<div class="node-body">
+        <div class="node-title">Entscheidung</div>
+        <div class="node-label">${n.label}</div>
+        <div class="node-meta">${n.yesLabel || 'Ja'}: <strong>${yes}%</strong> &nbsp;|&nbsp; ${n.noLabel || 'Nein'}: <strong>${no}%</strong></div>
+        <div class="bar-wrap"><div class="bar-yes" style="width:${yes}%"></div></div>
+      </div>`;
+    }
+
+    case 'ne': {
+      const lines = [`<div class="node-body">
+        <div class="node-icon">📵</div>
+        <div class="node-label">${n.label}</div>
+        <div class="node-sub">${n.ne} Anrufe/Monat</div>`];
+      if (state.showTime) {
+        const mins = n.ne * state.avgCallDuration;
+        lines.push(`<div class="node-sub">⏱ ${mins} Min verloren</div>`);
+      }
+      if (state.showMoney) {
+        const val = Math.round(n.ne * (state.conversionRate/100) * state.avgCustomerValue);
+        lines.push(`<div class="node-sub" style="color:#dc2626">💶 ${fmt(val)} €</div>`);
+      }
+      lines.push('</div>');
+      return lines.join('');
+    }
+
+    case 'served': {
+      const lines = [`<div class="node-body">
+        <div class="node-icon">✅</div>
+        <div class="node-label">${n.label}</div>
+        <div class="node-sub">${n.ne} Anrufe/Monat</div>`];
+      if (state.showTime) {
+        const mins = n.ne * state.avgCallDuration;
+        lines.push(`<div class="node-sub">⏱ ${mins} Min</div>`);
+      }
+      if (state.showMoney) {
+        const val = Math.round(n.ne * (state.conversionRate/100) * state.avgCustomerValue);
+        lines.push(`<div class="node-sub" style="color:#16a34a">💶 ${fmt(val)} €</div>`);
+      }
+      lines.push('</div>');
+      return lines.join('');
+    }
+
+    case 'summary': {
+      const totalNE = getTotalNE();
+      const totalServed = getTotalServed();
+      const callsPerMonth2 = state.callsPerWeek * state.weeksPerMonth;
+      const lossVal = Math.round(totalNE * (state.conversionRate/100) * state.avgCustomerValue);
+      const servVal = Math.round(totalServed * (state.conversionRate/100) * state.avgCustomerValue);
+      let html = `<div class="node-body">
+        <div class="node-title">📊 Zusammenfassung</div>
+        <div class="sum-row"><span class="sum-label">Gesamt Anrufe/Mon</span><span class="sum-val">${callsPerMonth2}</span></div>
+        <div class="sum-row"><span class="sum-label">Bedient</span><span class="sum-val" style="color:#16a34a">${totalServed}</span></div>
+        <div class="sum-row"><span class="sum-label">Nicht Erreichbar</span><span class="sum-val" style="color:#ea580c">${totalNE}</span></div>
+        <div class="sum-divider"></div>`;
+      if (state.showMoney) {
+        html += `<div class="sum-row highlight"><span class="sum-label">Verpasster Umsatz</span><span class="sum-val">−${fmt(lossVal)} €</span></div>
+                 <div class="sum-row"><span class="sum-label">Erreichter Umsatz</span><span class="sum-val" style="color:#16a34a">${fmt(servVal)} €</span></div>`;
+      }
+      if (state.showTime) {
+        const lostMin = totalNE * state.avgCallDuration;
+        html += `<div class="sum-row"><span class="sum-label">Zeit verloren</span><span class="sum-val" style="color:#ea580c">${lostMin} Min</span></div>`;
+      }
+      html += '</div>';
+      return html;
+    }
+  }
+  return '';
+}
+
+function fmt(n) { return n.toLocaleString('de-DE'); }
+
+// ─── SVG Connections ──────────────────────────────────────────────────────────
+function getNodeCenter(id) {
+  const el = document.getElementById('node-' + id);
+  const n = getNode(id);
+  if (!el) return { x: n.x, y: n.y };
+  return { x: n.x + el.offsetWidth / 2, y: n.y + el.offsetHeight / 2 };
+}
+
+function getNodeRight(id) {
+  const el = document.getElementById('node-' + id);
+  const n = getNode(id);
+  return { x: n.x + (el ? el.offsetWidth : 160), y: n.y + (el ? el.offsetHeight / 2 : 40) };
+}
+
+function getNodeBottom(id) {
+  const el = document.getElementById('node-' + id);
+  const n = getNode(id);
+  return { x: n.x + (el ? el.offsetWidth / 2 : 80), y: n.y + (el ? el.offsetHeight : 80) };
+}
+
+function getNodeLeft(id) {
+  const n = getNode(id);
+  const el = document.getElementById('node-' + id);
+  return { x: n.x, y: n.y + (el ? el.offsetHeight / 2 : 40) };
+}
+
+function renderConns() {
+  const svg = document.getElementById('connSvg');
+  svg.innerHTML = '';
+
+  conns.forEach(c => {
+    const fromN = getNode(c.from);
+    const toN   = getNode(c.to);
+    if (!fromN || !toN) return;
+
+    // Pick exit/entry points
+    let p1, p2;
+    const fc = getNodeCenter(c.from);
+    const tc = getNodeCenter(c.to);
+
+    // Simple: exit right of from, enter left of to
+    p1 = getNodeRight(c.from);
+    p2 = getNodeLeft(c.to);
+
+    // If target is significantly above, use top exit
+    if (tc.y < fc.y - 60) {
+      p1 = { x: fc.x, y: getNode(c.from).y };
+      p2 = getNodeLeft(c.to);
+    }
+    // If target is significantly below
+    if (tc.y > fc.y + 60) {
+      p1 = getNodeBottom(c.from);
+      p2 = getNodeLeft(c.to);
+    }
+
+    const midX = (p1.x + p2.x) / 2;
+    const d = `M ${p1.x} ${p1.y} C ${midX} ${p1.y}, ${midX} ${p2.y}, ${p2.x} ${p2.y}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'conn-line');
+    path.setAttribute('d', d);
+    svg.appendChild(path);
+
+    // Arrow
+    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    arrow.setAttribute('points', `${p2.x},${p2.y} ${p2.x-8},${p2.y-4} ${p2.x-8},${p2.y+4}`);
+    arrow.setAttribute('fill', '#d1c4b8');
+    svg.appendChild(arrow);
+
+    // Label
+    if (c.branch === 'yes' || c.branch === 'no') {
+      const lx = (p1.x + p2.x) / 2;
+      const ly = (p1.y + p2.y) / 2;
+      const fromDecision = getNode(c.from);
+      let labelText = '';
+      if (c.branch === 'yes') {
+        labelText = `${fromDecision.yesLabel || 'Ja'} (${fromDecision.yesPercent}%)`;
+      } else {
+        labelText = `${fromDecision.noLabel || 'Nein'} (${100 - fromDecision.yesPercent}%)`;
+      }
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', lx - 50); rect.setAttribute('y', ly - 10);
+      rect.setAttribute('width', 100); rect.setAttribute('height', 18);
+      rect.setAttribute('rx', 4); rect.setAttribute('class', 'conn-label-bg');
+      svg.appendChild(rect);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', lx); txt.setAttribute('y', ly + 4);
+      txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('class', 'conn-label-text');
+      txt.textContent = labelText;
+      svg.appendChild(txt);
+    }
+  });
+}
+
+// ─── Popup ────────────────────────────────────────────────────────────────────
+let activePopupNodeId = null;
+
+function showPopup(nodeId, screenX, screenY) {
+  const n = getNode(nodeId);
+  if (!n) return;
+  activePopupNodeId = nodeId;
+
+  const popup = document.getElementById('popup');
+  const title = document.getElementById('popupTitle');
+  const content = document.getElementById('popupContent');
+
+  title.textContent = n.label || 'Bearbeiten';
+  content.innerHTML = buildPopupContent(n);
+
+  // Position popup near click, keep on screen
+  const pw = 280, ph = 300;
+  let px = screenX + 12;
+  let py = screenY - 20;
+  if (px + pw > window.innerWidth) px = screenX - pw - 12;
+  if (py + ph > window.innerHeight) py = window.innerHeight - ph - 20;
+  if (py < 60) py = 60;
+
+  popup.style.left = px + 'px';
+  popup.style.top  = py + 'px';
+  popup.classList.add('visible');
+}
+
+function buildPopupContent(n) {
+  switch(n.type) {
+    case 'start':
+      return `<div class="popup-row"><label>Bezeichnung</label><input value="${n.label}" oninput="updateNode(${n.id},'label',this.value)"></div>`;
+
+    case 'decision':
+      return `
+        <div class="popup-row"><label>Bezeichnung</label><input value="${n.label}" oninput="updateNode(${n.id},'label',this.value)"></div>
+        <div class="popup-row"><label>% Nicht Erreichbar / Besetzt</label><input type="number" min="0" max="100" value="${n.yesPercent}" oninput="updateNode(${n.id},'yesPercent',+this.value)"></div>
+        <div class="popup-row"><label>Label Ja-Pfad</label><input value="${n.yesLabel||''}" oninput="updateNode(${n.id},'yesLabel',this.value)"></div>
+        <div class="popup-row"><label>Label Nein-Pfad</label><input value="${n.noLabel||''}" oninput="updateNode(${n.id},'noLabel',this.value)"></div>
+        <p class="popup-note">N.E.-Werte werden automatisch berechnet</p>`;
+
+    case 'ne':
+      return `<div class="popup-row"><label>Bezeichnung</label><input value="${n.label}" oninput="updateNode(${n.id},'label',this.value)"></div>
+              <p class="popup-note">Anzahl wird automatisch berechnet</p>`;
+
+    case 'served':
+      return `<div class="popup-row"><label>Bezeichnung</label><input value="${n.label}" oninput="updateNode(${n.id},'label',this.value)"></div>
+              <p class="popup-note">Anzahl wird automatisch berechnet</p>`;
+
+    case 'summary':
+      return `<p class="popup-note">Zusammenfassung wird automatisch berechnet.<br>Werte in der linken Leiste anpassen.</p>`;
+
+    default:
+      return '';
+  }
+}
+
+function updateNode(id, key, value) {
+  const n = getNode(id);
+  if (!n) return;
+  n[key] = value;
+  render();
+  // Re-open popup with fresh values (keep it open)
+  const popup = document.getElementById('popup');
+  if (popup.classList.contains('visible') && activePopupNodeId === id) {
+    document.getElementById('popupTitle').textContent = n.label || 'Bearbeiten';
+    // don't rebuild whole content — inputs are live via oninput
+  }
+}
+
+function closePopup() {
+  document.getElementById('popup').classList.remove('visible');
+  activePopupNodeId = null;
+}
+
+// ─── State updates ────────────────────────────────────────────────────────────
+function updateState(key, value) {
+  state[key] = parseFloat(value) || 0;
+  render();
+}
+
+function toggleTime() {
+  state.showTime = !state.showTime;
+  document.getElementById('btnTime').classList.toggle('active', state.showTime);
+  render();
+}
+
+function toggleMoney() {
+  state.showMoney = !state.showMoney;
+  document.getElementById('btnMoney').classList.toggle('active', state.showMoney);
+  render();
+}
+
+// ─── Canvas pan/zoom/drag ──────────────────────────────────────────────────────
+const canvasWrap = document.getElementById('canvasWrap');
+
+canvasWrap.addEventListener('mousedown', e => {
+  // Pan
+  isPanning = true;
+  panStartX = e.clientX - viewX;
+  panStartY = e.clientY - viewY;
+  canvasWrap.classList.add('grabbing');
+});
+
+canvasWrap.addEventListener('mousemove', e => {
+  if (dragNodeId !== null) {
+    const worldX = (e.clientX - viewX) / viewScale;
+    const worldY = (e.clientY - viewY) / viewScale;
+    const n = getNode(dragNodeId);
+    const newX = worldX - dragOffX;
+    const newY = worldY - dragOffY;
+    if (Math.abs(newX - n.x) > 3 || Math.abs(newY - n.y) > 3) didDrag = true;
+    n.x = newX;
+    n.y = newY;
+    const el = document.getElementById('node-' + dragNodeId);
+    if (el) { el.style.left = n.x + 'px'; el.style.top = n.y + 'px'; }
+    renderConns();
+  } else if (isPanning) {
+    viewX = e.clientX - panStartX;
+    viewY = e.clientY - panStartY;
+    applyTransform();
+  }
+});
+
+canvasWrap.addEventListener('mouseup', e => {
+  isPanning = false;
+  canvasWrap.classList.remove('grabbing');
+  if (dragNodeId !== null) {
+    const wasClick = !didDrag;
+    const nodeId = dragNodeId;
+    dragNodeId = null;
+    didDrag = false;
+    mouseDownNodeId = null;
+    if (wasClick) {
+      showPopup(nodeId, e.clientX, e.clientY);
+    }
+  }
+});
+
+canvasWrap.addEventListener('mouseleave', () => {
+  isPanning = false;
+  dragNodeId = null;
+  canvasWrap.classList.remove('grabbing');
+});
+
+// Zoom
+canvasWrap.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = canvasWrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  const newScale = Math.min(2.5, Math.max(0.3, viewScale * delta));
+  viewX = mx - (mx - viewX) * (newScale / viewScale);
+  viewY = my - (my - viewY) * (newScale / viewScale);
+  viewScale = newScale;
+  applyTransform();
+}, { passive: false });
+
+// Close popup on canvas click (not node)
+canvasWrap.addEventListener('click', e => {
+  if (e.target === canvasWrap || e.target === document.getElementById('canvasInner') || e.target === document.getElementById('connSvg')) {
+    closePopup();
+  }
+});
+
+// Stop popup from propagating
+document.getElementById('popup').addEventListener('mousedown', e => e.stopPropagation());
+document.getElementById('popup').addEventListener('click', e => e.stopPropagation());
+
+// ─── ROI ──────────────────────────────────────────────────────────────────────
+function openROI() {
+  autoCalc();
+  const totalNE = getTotalNE();
+  const loss = Math.round(totalNE * (state.conversionRate/100) * state.avgCustomerValue);
+  document.getElementById('roi_missedCalls').value = totalNE;
+  document.getElementById('roi_lossPerMonth').value = loss;
+  document.getElementById('roiOverlay').classList.add('visible');
+  calcROI();
+}
+
+function calcROI() {
+  const loss    = parseFloat(document.getElementById('roi_lossPerMonth').value) || 0;
+  const setup   = parseFloat(document.getElementById('roi_setup').value) || 0;
+  const monthly = parseFloat(document.getElementById('roi_monthly').value) || 0;
+  const saving  = loss - monthly;
+  const be      = saving > 0 ? Math.ceil(setup / saving) : null;
+
+  document.getElementById('rc_loss').textContent    = fmt(loss) + ' €';
+  document.getElementById('rc_saving').textContent  = saving > 0 ? '+' + fmt(saving) + ' €' : fmt(saving) + ' €';
+  document.getElementById('rc_saving').style.color  = saving > 0 ? '#16a34a' : '#dc2626';
+  document.getElementById('rc_breakeven').textContent = be !== null ? be + ' Monate' : '∞';
+}
+
+function closeROI() { document.getElementById('roiOverlay').classList.remove('visible'); }
+function closeROIOverlay(e) { if (e.target === document.getElementById('roiOverlay')) closeROI(); }
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+document.getElementById('btnMoney').classList.add('active');
+
+// Center canvas a bit
+viewX = 260;
+viewY = 60;
+applyTransform();
+
+render();
+
+// Re-render conns after layout
+setTimeout(() => renderConns(), 100);
+</script>
+</body>
+</html>
