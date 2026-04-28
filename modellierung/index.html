@@ -533,10 +533,6 @@ function getNodeHTML(n) {
         const mins = n.ne * state.avgCallDuration;
         lines.push(`<div class="node-sub">⏱ ${mins} Min</div>`);
       }
-      if (state.showMoney) {
-        const val = Math.round(n.ne * (state.conversionRate/100) * state.avgCustomerValue);
-        lines.push(`<div class="node-sub" style="color:#16a34a">💶 ${fmt(val)} €</div>`);
-      }
       lines.push('</div>');
       return lines.join('');
     }
