@@ -3532,41 +3532,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 }); // end DOMContentLoaded
 </script>
-<!-- ── DEV: Background Color Picker (remove when done) ── -->
-<script>
-(function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    var box = document.createElement('div');
-    box.setAttribute('style',
-      'position:fixed;bottom:28px;right:28px;z-index:2147483647;'+
-      'background:#1c1a17;border:2px solid #c8ad72;border-radius:12px;'+
-      'padding:18px 22px;font-family:sans-serif;font-size:13px;color:#eae5db;'+
-      'box-shadow:0 8px 40px rgba(0,0,0,0.8);min-width:230px;'
-    );
-    box.innerHTML =
-      '<div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#c8ad72;margin-bottom:14px;">🎨 Hintergrundfarbe</div>'+
-      '<input type="range" id="bgsl" min="8" max="55" value="18" style="width:100%;accent-color:#c8ad72;margin-bottom:12px;cursor:pointer;">'+
-      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">'+
-        '<div id="bgprev" style="width:32px;height:32px;border-radius:5px;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;"></div>'+
-        '<code id="bghex" style="font-size:15px;font-weight:bold;color:#fff;letter-spacing:0.05em;"></code>'+
-      '</div>'+
-      '<div style="font-size:11px;color:#8a8278;">→ Sag mir den Wert wenn er passt</div>';
-    document.documentElement.appendChild(box);
-    var sl = document.getElementById('bgsl');
-    var hx = document.getElementById('bghex');
-    var pv = document.getElementById('bgprev');
-    function apply(v){
-      var hex = '#' + [v, Math.max(8,v-1), Math.max(8,v-2)].map(function(n){ return n.toString(16).padStart(2,'0'); }).join('');
-      document.documentElement.style.setProperty('--bg', hex);
-      document.body.style.background = hex;
-      hx.textContent = hex;
-      pv.style.background = hex;
-    }
-    sl.addEventListener('input', function(){ apply(parseInt(sl.value)); });
-    apply(parseInt(sl.value));
-  });
-})();
-</script>
 <!-- Leadfeeder Tracking -->
 <script> (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('YEgkB8ld3X18ep3Z'); </script>
 </body>
