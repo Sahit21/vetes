@@ -2056,6 +2056,29 @@
     /* FAQ icon on light bg */
     #faq.section-light .faq-icon { border-color: rgba(154,120,48,0.3); }
     #faq.section-light .faq-item[open] .faq-icon { border-color: rgba(154,120,48,0.55); }
+
+    /* Trust section on white bg */
+    #trust.section-light .trust-left h2 { color: #1a1816; }
+    #trust.section-light .trust-left h2 em { color: #9a7830; }
+    #trust.section-light .trust-left > p { color: #5a5248; }
+    #trust.section-light .pillar-content strong { color: #1a1816; }
+    #trust.section-light .pillar-content span { color: #5a5248; }
+    #trust.section-light .pillar-num { color: #9a9088; }
+    #trust.section-light .pillar { border-color: rgba(0,0,0,0.1); }
+    #trust.section-light .section-label { color: #9a7830; }
+    #trust.section-light .section-num { color: #9a9088; }
+    /* Soften logo glow on white bg */
+    #trust.section-light .brand-logo-wrap::before {
+      background: radial-gradient(ellipse 40% 35% at 50% 44%,
+        rgba(154,120,48,0.08) 0%,
+        rgba(154,120,48,0.03) 25%,
+        transparent 55%);
+    }
+    @keyframes vGlowLight {
+      0%, 100% { filter: drop-shadow(0 4px 24px rgba(0,0,0,0.12)) drop-shadow(0 0 20px rgba(154,120,48,0.08)); }
+      50%       { filter: drop-shadow(0 4px 32px rgba(0,0,0,0.16)) drop-shadow(0 0 32px rgba(154,120,48,0.13)); }
+    }
+    #trust.section-light .brand-v-wrap { animation-name: vGlowLight; }
   </style>
 </head>
 <body>
