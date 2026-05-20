@@ -3533,29 +3533,38 @@ document.addEventListener('DOMContentLoaded', function () {
 }); // end DOMContentLoaded
 </script>
 <!-- ── DEV: Background Color Picker (remove when done) ── -->
-<div id="bg-picker" style="position:fixed;bottom:24px;right:24px;z-index:99999;background:#1a1816;border:1px solid rgba(200,173,114,0.3);border-radius:10px;padding:16px 20px;font-family:'DM Sans',sans-serif;font-size:13px;color:#eae5db;box-shadow:0 8px 32px rgba(0,0,0,0.6);min-width:220px;">
-  <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#c8ad72;margin-bottom:12px;">Hintergrund</div>
-  <input type="range" id="bg-slider" min="0" max="60" value="18" style="width:100%;accent-color:#c8ad72;margin-bottom:10px;">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-    <div id="bg-preview" style="width:28px;height:28px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);flex-shrink:0;"></div>
-    <code id="bg-hex" style="font-size:14px;letter-spacing:0.05em;color:#eae5db;"></code>
-  </div>
-  <div style="font-size:11px;color:#6e6860;">→ Sag mir den Wert wenn er passt</div>
-</div>
 <script>
 (function(){
-  const slider = document.getElementById('bg-slider');
-  const hexEl  = document.getElementById('bg-hex');
-  const prev   = document.getElementById('bg-preview');
-  function apply(v){
-    const hex = '#' + [v,Math.max(0,v-1),Math.max(0,v-2)].map(n=>n.toString(16).padStart(2,'0')).join('');
-    document.documentElement.style.setProperty('--bg', hex);
-    document.body.style.background = hex;
-    hexEl.textContent = hex;
-    prev.style.background = hex;
-  }
-  slider.addEventListener('input', ()=> apply(parseInt(slider.value)));
-  apply(parseInt(slider.value));
+  document.addEventListener('DOMContentLoaded', function(){
+    var box = document.createElement('div');
+    box.setAttribute('style',
+      'position:fixed;bottom:28px;right:28px;z-index:2147483647;'+
+      'background:#1c1a17;border:2px solid #c8ad72;border-radius:12px;'+
+      'padding:18px 22px;font-family:sans-serif;font-size:13px;color:#eae5db;'+
+      'box-shadow:0 8px 40px rgba(0,0,0,0.8);min-width:230px;'
+    );
+    box.innerHTML =
+      '<div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#c8ad72;margin-bottom:14px;">🎨 Hintergrundfarbe</div>'+
+      '<input type="range" id="bgsl" min="8" max="55" value="18" style="width:100%;accent-color:#c8ad72;margin-bottom:12px;cursor:pointer;">'+
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">'+
+        '<div id="bgprev" style="width:32px;height:32px;border-radius:5px;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;"></div>'+
+        '<code id="bghex" style="font-size:15px;font-weight:bold;color:#fff;letter-spacing:0.05em;"></code>'+
+      '</div>'+
+      '<div style="font-size:11px;color:#8a8278;">→ Sag mir den Wert wenn er passt</div>';
+    document.documentElement.appendChild(box);
+    var sl = document.getElementById('bgsl');
+    var hx = document.getElementById('bghex');
+    var pv = document.getElementById('bgprev');
+    function apply(v){
+      var hex = '#' + [v, Math.max(8,v-1), Math.max(8,v-2)].map(function(n){ return n.toString(16).padStart(2,'0'); }).join('');
+      document.documentElement.style.setProperty('--bg', hex);
+      document.body.style.background = hex;
+      hx.textContent = hex;
+      pv.style.background = hex;
+    }
+    sl.addEventListener('input', function(){ apply(parseInt(sl.value)); });
+    apply(parseInt(sl.value));
+  });
 })();
 </script>
 <!-- Leadfeeder Tracking -->
