@@ -3532,6 +3532,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 }); // end DOMContentLoaded
 </script>
+<!-- ── DEV: Background Color Picker (remove when done) ── -->
+<div id="bg-picker" style="position:fixed;bottom:24px;right:24px;z-index:99999;background:#1a1816;border:1px solid rgba(200,173,114,0.3);border-radius:10px;padding:16px 20px;font-family:'DM Sans',sans-serif;font-size:13px;color:#eae5db;box-shadow:0 8px 32px rgba(0,0,0,0.6);min-width:220px;">
+  <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#c8ad72;margin-bottom:12px;">Hintergrund</div>
+  <input type="range" id="bg-slider" min="0" max="60" value="18" style="width:100%;accent-color:#c8ad72;margin-bottom:10px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+    <div id="bg-preview" style="width:28px;height:28px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);flex-shrink:0;"></div>
+    <code id="bg-hex" style="font-size:14px;letter-spacing:0.05em;color:#eae5db;"></code>
+  </div>
+  <div style="font-size:11px;color:#6e6860;">→ Sag mir den Wert wenn er passt</div>
+</div>
+<script>
+(function(){
+  const slider = document.getElementById('bg-slider');
+  const hexEl  = document.getElementById('bg-hex');
+  const prev   = document.getElementById('bg-preview');
+  function apply(v){
+    const hex = '#' + [v,Math.max(0,v-1),Math.max(0,v-2)].map(n=>n.toString(16).padStart(2,'0')).join('');
+    document.documentElement.style.setProperty('--bg', hex);
+    document.body.style.background = hex;
+    hexEl.textContent = hex;
+    prev.style.background = hex;
+  }
+  slider.addEventListener('input', ()=> apply(parseInt(slider.value)));
+  apply(parseInt(slider.value));
+})();
+</script>
 <!-- Leadfeeder Tracking -->
 <script> (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('YEgkB8ld3X18ep3Z'); </script>
 </body>
