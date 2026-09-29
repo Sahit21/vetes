@@ -4,15 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VETES — Unternehmensvideo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
   <style>
     :root {
-      --bg: #121110;
-      --surface: #191715;
+      --bg: #1c1a17;
+      --surface: #24211d;
       --text: #eae5db;
-      --text-secondary: #6e6860;
+      --text-secondary: #a39b8d;
       --accent: #c8ad72;
       --accent-soft: rgba(200,173,114,0.13);
     }
@@ -22,7 +20,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Switzer', -apple-system, sans-serif;
       font-weight: 300;
       overflow: hidden;
       width: 100vw;
@@ -132,7 +130,7 @@
     }
 
     .headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(48px, 6vw, 96px);
       font-weight: 300;
       line-height: 1.05;
@@ -165,7 +163,7 @@
 
     /* ─── LOGO SCENE ───────────────────────────── */
     .logo-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(64px, 10vw, 140px);
       font-weight: 500;
       letter-spacing: 0.22em;
@@ -199,7 +197,7 @@
       margin-top: 48px;
     }
     .service-card {
-      background: rgba(15,14,12,0.8);
+      background: rgba(28,26,23,0.8);
       border: 1px solid rgba(255,255,255,0.055);
       border-radius: 4px;
       padding: 40px 36px;
@@ -227,7 +225,7 @@
       opacity: 0.8;
     }
     .service-card h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 24px;
       font-weight: 400;
       color: var(--text);
@@ -252,7 +250,7 @@
       border: 1px solid rgba(200,173,114,0.15);
       border-radius: 3px;
       padding: 16px 28px;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 20px;
       font-weight: 400;
       color: var(--text);
@@ -281,7 +279,7 @@
     .scene.active .stat:nth-child(2) { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s forwards; }
     .scene.active .stat:nth-child(3) { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 1.0s forwards; }
     .stat-value {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(48px, 6vw, 72px);
       font-weight: 300;
       color: var(--accent);

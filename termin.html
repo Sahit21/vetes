@@ -19,21 +19,19 @@
   <meta name="twitter:image" content="https://vetes-ai.de/og-image.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
   <style>
     :root {
-      --bg: #121110; --surface: #191715; --surface-2: #1f1d1a; --surface-3: #262320;
+      --bg: #1c1a17; --surface: #24211d; --surface-2: #2a2622; --surface-3: #312d28;
       --border: rgba(255,255,255,0.055); --border-light: rgba(255,255,255,0.09);
-      --text: #eae5db; --text-secondary: #6e6860; --text-muted: #3a3630;
+      --text: #eae5db; --text-secondary: #a39b8d; --text-muted: #6b6458;
       --accent: #c8ad72; --accent-soft: rgba(200,173,114,0.13);
       --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
       --shadow-float: 0 28px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.35);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: 'Switzer', -apple-system, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: clip; -webkit-font-smoothing: antialiased; }
 
     /* ── Ambient ── */
     .site-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -45,24 +43,26 @@
 
     /* ── Nav ── */
     #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 30px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s; }
-    #navbar.scrolled { background: rgba(18,17,16,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+    #navbar.scrolled { background: rgba(28,26,23,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    .nav-logo { font-family: 'Erode', Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 44px; list-style: none; }
-    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a { color: var(--text-secondary); white-space: nowrap; text-decoration: none; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; transition: color 0.3s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
     .nav-cta { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3); padding: 10px 24px; border-radius: 2px; transition: border-color 0.3s, box-shadow 0.3s !important; }
     .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
     .nav-item-dropdown { position: relative; }
-    .nav-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: rgba(15,14,12,0.96); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(6px); pointer-events: none; }
+    .nav-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: rgba(28,26,23,0.96); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(6px); pointer-events: none; }
     .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12.5px; white-space: nowrap; }
     .nav-dd-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
     .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
     .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; transition: transform 0.3s, opacity 0.3s; }
+    @media (max-width: 1240px) { .nav-links { gap: 28px; } }
+    @media (max-width: 1024px) { .nav-links { display: none; } .nav-burger { display: block; } }
 
     /* ── Mobile nav ── */
-    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(19,17,16,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(28,26,23,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
     .mobile-nav.open { opacity: 1; visibility: visible; }
     .mobile-nav a { color: var(--text); text-decoration: none; font-size: 18px; letter-spacing: 0.06em; }
     .mobile-nav-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: var(--text); font-size: 28px; cursor: pointer; }
@@ -77,7 +77,7 @@
 
     /* ── Page Hero ── */
     .page-hero { padding: 180px 64px 80px; max-width: 900px; }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 300; line-height: 1.1; margin-bottom: 20px; }
+    .page-hero h1 { font-family: 'Erode', Georgia, serif; font-size: clamp(36px, 5vw, 56px); font-weight: 300; line-height: 1.1; margin-bottom: 20px; }
     .page-hero h1 em { font-style: italic; color: var(--accent); }
     .hero-sub { color: var(--text-secondary); font-size: 15px; line-height: 1.8; max-width: 540px; }
     .breadcrumb { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 32px; }
@@ -114,7 +114,7 @@
     /* ── Footer ── */
     footer { padding: 64px 64px 32px; border-top: 1px solid var(--border); }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
+    .footer-logo { font-family: 'Erode', Georgia, serif; font-size: 20px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
     .footer-logo span { color: var(--accent); }
     .footer-tagline { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 280px; }
     .footer-col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 16px; font-weight: 400; }

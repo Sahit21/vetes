@@ -1,0 +1,12 @@
+/* Erode + Switzer by Indian Type Foundry, via Fontshare (ITF Free Font License) */
+
+/* Only 500/600 of Erode ship: CSS font matching renders requested 300/400 as 500. */
+@font-face { font-family: 'Erode'; src: url('erode-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Erode'; src: url('erode-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Erode'; src: url('erode-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+
+/* No 300 weight: requested 300 renders as 400, which reads better on dark backgrounds. */
+@font-face { font-family: 'Switzer'; src: url('switzer-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Switzer'; src: url('switzer-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Switzer'; src: url('switzer-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Switzer'; src: url('switzer-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }

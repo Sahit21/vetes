@@ -19,9 +19,7 @@
   <meta name="twitter:image" content="https://vetes-ai.de/og-image.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
   <script type="application/ld+json">
   [
     {
@@ -86,15 +84,15 @@
   </script>
   <style>
     :root {
-      --bg: #121110;
-      --surface: #191715;
-      --surface-2: #1f1d1a;
-      --surface-3: #262320;
+      --bg: #1c1a17;
+      --surface: #24211d;
+      --surface-2: #2a2622;
+      --surface-3: #312d28;
       --border: rgba(255,255,255,0.055);
       --border-light: rgba(255,255,255,0.09);
       --text: #eae5db;
-      --text-secondary: #6e6860;
-      --text-muted: #3a3630;
+      --text-secondary: #a39b8d;
+      --text-muted: #6b6458;
       --accent: #c8ad72;
       --accent-soft: rgba(200,173,114,0.13);
       --accent-glow: rgba(200,173,114,0.07);
@@ -108,7 +106,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Switzer', -apple-system, sans-serif;
       font-weight: 300;
       font-size: 16px;
       line-height: 1.7;
@@ -160,13 +158,13 @@
       transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s;
     }
     nav.scrolled {
-      background: rgba(18,17,16,0.88);
+      background: rgba(28,26,23,0.88);
       backdrop-filter: blur(24px) saturate(1.4);
       padding: 20px 64px;
     }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 21px; font-weight: 500;
       letter-spacing: 0.22em;
       color: var(--text); text-decoration: none; text-transform: uppercase;
@@ -175,7 +173,7 @@
 
     .nav-links { display: flex; gap: 44px; list-style: none; }
     .nav-links a {
-      color: var(--text-secondary);
+      color: var(--text-secondary); white-space: nowrap;
       text-decoration: none; font-size: 12.5px;
       letter-spacing: 0.09em; text-transform: uppercase;
       transition: color 0.3s;
@@ -202,7 +200,7 @@
     .nav-item-dropdown > a { display: inline-flex; align-items: center; gap: 5px; }
     .nav-item-dropdown > a::after { content: ''; display: block; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-1px); opacity: 0.4; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0; }
     .nav-item-dropdown:hover > a::after { transform: rotate(-135deg) translateY(2px); opacity: 0.7; }
-    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(21,19,18,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
+    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(33,30,26,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
     .nav-dropdown::before { content: ''; position: absolute; top: -22px; left: 0; right: 0; height: 22px; background: transparent; }
     .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 2px; font-size: 11.5px !important; letter-spacing: 0.1em !important; color: var(--text-secondary) !important; text-decoration: none !important; transition: background 0.18s, color 0.18s; white-space: nowrap; text-transform: uppercase; }
@@ -223,14 +221,14 @@
         radial-gradient(ellipse at 72% 38%, rgba(200,173,114,0.07) 0%, transparent 45%),
         radial-gradient(ellipse at 20% 80%, rgba(140,105,55,0.05) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 0%,  rgba(200,173,114,0.04) 0%, transparent 55%),
-        linear-gradient(165deg, #0c0b09 0%, #080808 50%, #060606 100%);
+        linear-gradient(165deg, #24211d 0%, #1c1a17 50%, #191714 100%);
     }
 
     /* Vignette */
     #hero::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.22) 100%);
       pointer-events: none; z-index: 0;
     }
 
@@ -313,9 +311,9 @@
     }
 
     .hero-headline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(54px, 6.4vw, 110px);
-      font-weight: 300; line-height: 0.93; letter-spacing: -0.015em;
+      font-family: 'Erode', Georgia, serif;
+      font-size: clamp(44px, 5.4vw, 84px);
+      font-weight: 500; line-height: 1.02; letter-spacing: -0.015em;
       color: #f2ede2;
       text-shadow: 0 2px 40px rgba(0,0,0,0.5);
       opacity: 0; animation: fadeUp 1.3s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
@@ -330,8 +328,8 @@
       opacity: 0; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
     }
     .hero-sub {
-      max-width: 380px; font-size: 14.5px; line-height: 1.82;
-      color: #5e5a54;
+      max-width: 380px; font-size: 15px; line-height: 1.82;
+      color: var(--text-secondary);
       padding-left: 20px;
       border-left: 1px solid rgba(200,173,114,0.22);
       margin-bottom: 36px;
@@ -343,7 +341,7 @@
       display: inline-flex; align-items: center; gap: 14px;
       background: linear-gradient(140deg, #cdb476 0%, #b8944c 100%);
       color: #090700;
-      font-family: 'DM Sans', sans-serif; font-size: 11.5px;
+      font-family: 'Switzer', -apple-system, sans-serif; font-size: 11.5px;
       font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
       text-decoration: none; padding: 17px 34px; border-radius: 2px;
       position: relative; overflow: hidden;
@@ -396,7 +394,7 @@
       content: ''; display: block; width: 26px; height: 1px;
       background: var(--accent); opacity: 0.4;
     }
-    .section-num { color: var(--text-muted); font-family: 'Cormorant Garamond', serif; font-size: 12px; }
+    .section-num { color: var(--text-muted); font-family: 'Erode', Georgia, serif; font-size: 12px; }
 
     /* ─── TRUST ───────────────────────────────────── */
     #trust {
@@ -406,7 +404,7 @@
     .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
 
     .trust-left h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(38px,3.8vw,56px); font-weight: 300; line-height: 1.15; margin-bottom: 28px;
     }
     .trust-left h2 em { font-style: italic; color: var(--accent); }
@@ -419,7 +417,7 @@
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
     .pillar:first-child { border-top: 1px solid var(--border); }
-    .pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-muted); padding-top: 2px; min-width: 20px; }
+    .pillar-num { font-family: 'Erode', Georgia, serif; font-size: 12px; color: var(--text-muted); padding-top: 2px; min-width: 20px; }
     .pillar-content strong { display: block; font-size: 14.5px; font-weight: 400; color: var(--text); margin-bottom: 3px; }
     .pillar-content span { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
@@ -434,7 +432,7 @@
     .tp-star-icon { width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center; border-radius: 2px; }
     .tp-star-icon svg { width: 11px; height: 11px; fill: white; }
     .tp-score { text-align: right; }
-    .tp-score .score-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; color: var(--text); line-height: 1; }
+    .tp-score .score-num { font-family: 'Erode', Georgia, serif; font-size: 30px; font-weight: 500; color: var(--text); line-height: 1; }
     .tp-score .score-sub { font-size: 11px; color: var(--text-secondary); letter-spacing: 0.05em; margin-top: 3px; }
     .stars-row { display: flex; gap: 3px; }
     .star { width: 20px; height: 20px; background: #00b67a; clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
@@ -507,7 +505,7 @@
       display: block;
     }
     .services-intro h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(42px, 5vw, 72px);
       font-weight: 300;
       line-height: 1.05;
@@ -546,8 +544,8 @@
     .service-card {
       background:
         linear-gradient(160deg,
-          rgba(26, 23, 18, 0.95) 0%,
-          rgba(18, 16, 12, 0.98) 100%);
+          rgba(42,38,33,0.95) 0%,
+          rgba(33,30,26,0.98) 100%);
       border-radius: 10px;
       padding: 52px 44px 44px;
       position: relative;
@@ -641,7 +639,7 @@
       margin-bottom: 48px;
     }
     .svc-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 12px;
       color: var(--text-muted);
       letter-spacing: 0.2em;
@@ -683,7 +681,7 @@
 
     /* Title */
     .svc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(34px, 3.2vw, 52px);
       font-weight: 300;
       line-height: 1.0;
@@ -787,7 +785,7 @@
 
     .diff-wrap { display: grid; grid-template-columns: 5fr 7fr; gap: 100px; align-items: start; }
     .diff-left { position: sticky; top: 120px; }
-    .diff-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,4.2vw,58px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
+    .diff-left h2 { font-family: 'Erode', Georgia, serif; font-size: clamp(40px,4.2vw,58px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
     .diff-left h2 em { font-style: italic; color: var(--accent); }
     .diff-left p { font-size: 14px; line-height: 1.82; color: var(--text-secondary); }
 
@@ -798,8 +796,8 @@
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
     .diff-item:first-child { border-top: 1px solid var(--border); }
-    .diff-item-num { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-muted); padding-top: 3px; }
-    .diff-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 10px; }
+    .diff-item-num { font-family: 'Erode', Georgia, serif; font-size: 12px; color: var(--text-muted); padding-top: 3px; }
+    .diff-item h3 { font-family: 'Erode', Georgia, serif; font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 10px; }
     .diff-item p { font-size: 14px; line-height: 1.78; color: var(--text-secondary); }
 
     /* ─── BRAND LOGO (trust section) ─────────────── */
@@ -880,13 +878,13 @@
       padding: 0 64px;
       background:
         radial-gradient(ellipse at 30% 60%, rgba(200,173,114,0.04) 0%, transparent 55%),
-        linear-gradient(180deg, var(--bg) 0%, #090807 100%);
+        linear-gradient(180deg, var(--bg) 0%, #191714 100%);
     }
 
     /* pj-header state: see js-ready gate in fallback block above */
 
     .pj-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(36px, 4vw, 58px);
       font-weight: 300;
       line-height: 1.1;
@@ -959,7 +957,7 @@
 
     /* Node label */
     .pj-node-label {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 15px;
       font-weight: 400;
       color: var(--text-muted);
@@ -983,7 +981,7 @@
 
     /* Node number, below dot */
     .pj-node-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 10px;
       color: var(--text-muted);
       letter-spacing: 0.2em;
@@ -1050,7 +1048,7 @@
     .pj-mobile-steps { display: none; }
 
     .pj-detail-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(72px, 9vw, 120px);
       font-weight: 300;
       line-height: 0.85;
@@ -1064,7 +1062,7 @@
       padding-top: 6px;
     }
     .pj-detail-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(28px, 3.2vw, 44px);
       font-weight: 300;
       color: var(--text);
@@ -1113,7 +1111,7 @@
       position: absolute;
       bottom: 36px;
       right: 64px;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 13px;
       color: var(--text-muted);
       letter-spacing: 0.1em;
@@ -1203,14 +1201,14 @@
       .pj-mobile-step:first-child { border-top: 1px solid var(--border); }
       .pj-mobile-step.visible { opacity: 1; transform: none; }
       .pj-mobile-num {
-        font-family: 'Cormorant Garamond', serif;
+        font-family: 'Erode', Georgia, serif;
         font-size: 12px; color: var(--text-muted); padding-top: 3px;
         transition: color 0.5s;
       }
       .pj-mobile-step.pj-m-active .pj-mobile-num { color: var(--accent); }
       .pj-mobile-step.pj-m-done .pj-mobile-num { color: var(--text-secondary); }
       .pj-mobile-title {
-        font-family: 'Cormorant Garamond', serif;
+        font-family: 'Erode', Georgia, serif;
         font-size: 22px; font-weight: 400; color: var(--text); margin-bottom: 8px;
       }
       .pj-mobile-desc { font-size: 14px; line-height: 1.78; color: var(--text-secondary); }
@@ -1321,7 +1319,7 @@
       margin-bottom: 80px;
     }
     .reviews-top-left h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(38px, 4.5vw, 62px);
       font-weight: 300;
       line-height: 1.08;
@@ -1347,7 +1345,7 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Switzer', -apple-system, sans-serif;
       font-size: 14px;
       font-weight: 400;
       color: var(--text-secondary);
@@ -1362,7 +1360,7 @@
     }
     .tp-star-icon svg { width: 12px; height: 12px; fill: white; }
     .tp-badge-score {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 36px;
       font-weight: 300;
       color: var(--text);
@@ -1434,7 +1432,7 @@
       letter-spacing: 0.06em;
     }
     .rcn-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 17px;
       font-weight: 400;
       color: var(--text);
@@ -1524,7 +1522,7 @@
       background: var(--accent); opacity: 0.45;
     }
     .int-left h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(40px, 4.5vw, 64px);
       font-weight: 300; line-height: 1.08;
       letter-spacing: -0.015em;
@@ -1550,7 +1548,7 @@
     }
     .int-cap:first-child { border-top: 1px solid var(--border); }
     .int-cap-dash {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: 13px; color: var(--accent); opacity: 0.5;
       flex-shrink: 0;
     }
@@ -1620,14 +1618,14 @@
     }
     .int-cta-left { flex: 1; max-width: 520px; }
     .int-cta-left p {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(22px, 2.2vw, 30px);
       font-weight: 300; line-height: 1.35;
       color: var(--text);
     }
     .int-cta-left p em { font-style: italic; color: var(--accent); }
     .int-cta-sub {
-      font-family: 'DM Sans', sans-serif !important;
+      font-family: 'Switzer', -apple-system, sans-serif !important;
       font-size: 13.5px !important;
       font-weight: 300 !important;
       color: var(--text-secondary) !important;
@@ -1660,7 +1658,7 @@
       text-align: center;
     }
     .faq-header h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(40px, 4.5vw, 62px);
       font-weight: 300;
       line-height: 1.08;
@@ -1698,7 +1696,7 @@
     }
     .faq-question::-webkit-details-marker { display: none; }
     .faq-q-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(18px, 2vw, 22px);
       font-weight: 400;
       color: var(--text);
@@ -1779,7 +1777,7 @@
     }
 
     #cta h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Erode', Georgia, serif;
       font-size: clamp(46px,6.5vw,96px); font-weight: 300; line-height: 1.02;
       max-width: 800px; margin: 0 auto 28px;
     }
@@ -1797,10 +1795,10 @@
       padding-bottom: 48px; border-bottom: 1px solid var(--border);
     }
     .footer-brand { display: flex; flex-direction: column; gap: 16px; }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; }
+    .footer-logo { font-family: 'Erode', Georgia, serif; font-size: 22px; font-weight: 500; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; }
     .footer-logo span { color: var(--accent); }
     .footer-tagline { font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; line-height: 1.6; max-width: 280px; }
-    .footer-col h4 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; }
+    .footer-col h4 { font-family: 'Switzer', -apple-system, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .footer-col a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; transition: color 0.25s; }
     .footer-col a:hover { color: var(--accent); }
@@ -1889,10 +1887,12 @@
     .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    @media (max-width: 1240px) { .nav-links { gap: 28px; } }
+    @media (max-width: 1024px) { .nav-links { display: none; } .nav-burger { display: flex; } }
 
     .mobile-nav {
       position: fixed; inset: 0;
-      background: rgba(19,17,16,0.97);
+      background: rgba(28,26,23,0.97);
       backdrop-filter: blur(28px);
       z-index: 105;
       display: flex; flex-direction: column;
@@ -1925,7 +1925,7 @@
       width: 100%; padding: 18px 0; border: none;
       border-bottom: 1px solid var(--border);
       background: none; cursor: pointer;
-      color: var(--text-secondary); font-family: 'DM Sans', sans-serif;
+      color: var(--text-secondary); font-family: 'Switzer', -apple-system, sans-serif;
       font-size: 12px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
       transition: color 0.2s;
     }
@@ -2797,7 +2797,7 @@
     </a>
   </div>
   <div style="text-align:center;margin-top:56px;">
-    <a href="https://de.trustpilot.com/review/ssahit.de" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;padding:16px 36px;background:rgba(0,182,122,0.12);border:1px solid rgba(0,182,122,0.25);border-radius:60px;color:#00b67a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.4s ease;backdrop-filter:blur(8px);" onmouseover="this.style.background='rgba(0,182,122,0.22)';this.style.borderColor='rgba(0,182,122,0.45)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(0,182,122,0.12)';this.style.borderColor='rgba(0,182,122,0.25)';this.style.transform='translateY(0)'">
+    <a href="https://de.trustpilot.com/review/ssahit.de" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;padding:16px 36px;background:rgba(0,182,122,0.12);border:1px solid rgba(0,182,122,0.25);border-radius:60px;color:#00b67a;font-family:'Switzer', -apple-system, sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.4s ease;backdrop-filter:blur(8px);" onmouseover="this.style.background='rgba(0,182,122,0.22)';this.style.borderColor='rgba(0,182,122,0.45)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(0,182,122,0.12)';this.style.borderColor='rgba(0,182,122,0.25)';this.style.transform='translateY(0)'">
       <svg viewBox="0 0 24 24" width="15" height="15" fill="#00b67a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       Alle Bewertungen auf Trustpilot
     </a>
@@ -3437,7 +3437,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dx = x - CX, dy = y - CY;
         const dist = Math.hypot(dx, dy) || 1;
         const lx = x + (dx / dist) * 18, ly = y + (dy / dist) * 18;
-        ctx.font = '300 11px "DM Sans", sans-serif';
+        ctx.font = '300 11px "Switzer", sans-serif';
         ctx.textAlign   = dx > 0 ? 'left' : (dx < -1 ? 'right' : 'center');
         ctx.textBaseline = dy > 0 ? 'top' : 'bottom';
         ctx.fillStyle   = IVORY + (0.55 + 0.35 * pulse) + ')';
@@ -3482,7 +3482,7 @@ document.addEventListener('DOMContentLoaded', function () {
         cG.addColorStop(0, '#f5e8c0'); cG.addColorStop(0.5, GOLD_SOLID); cG.addColorStop(1, '#9a7a3a');
         ctx.fillStyle = cG; ctx.fill();
 
-        ctx.font = '300 9.5px "DM Sans", sans-serif';
+        ctx.font = '300 9.5px "Switzer", sans-serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillStyle = GOLD + '0.45)';
         ctx.fillText('VETES', CX, CY + 18);
