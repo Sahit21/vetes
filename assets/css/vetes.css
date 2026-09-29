@@ -1,0 +1,69 @@
+/* Shared layer loaded after each page's inline <style>: calm surfaces,
+   sentence-case labels, larger readable text. Colors live in each page's :root. */
+
+/* ── Calm: no glows, vignettes or ambient light ── */
+.site-ambient, .hero-ambient-light, .hero-ambient-light-2,
+#hero::after, .service-card::before, .btn-primary::before { display: none !important; }
+#hero, #prozess { background: var(--bg); }
+h1, h2, h3, h1 em, h2 em, h3 em, .hero-headline, .hero-headline em { text-shadow: none !important; }
+
+.service-card, .review-card-new, .int-tool, .testimonial-card, .usecase-card, .agent-cap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  border-radius: 12px;
+}
+.int-tool { border-radius: 8px; }
+.review-card-new:hover, .testimonial-card:hover, .usecase-card:hover { box-shadow: none; }
+
+/* ── Voice: sentence case instead of tracked capitals ── */
+.hero-eyebrow, .services-eyebrow, .int-eyebrow, .section-label, .section-eyebrow, .page-eyebrow,
+.ref-eyebrow, .cta-eyebrow, .eyebrow, .hero-tag, .int-cat-label, .svc-tag, .svc-cta,
+.case-label, .case-result-label, .more-label, .stat-label, .workflow-label,
+.rcn-author-role, .t-author-role, .founder-role, .info-label, .tp-badge-meta, .footer-col h4,
+.pj-hint-text, .hero-scroll-hint {
+  text-transform: none !important;
+  letter-spacing: 0.01em !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  opacity: 1;
+}
+.int-cat-label, .rcn-author-role, .t-author-role, .info-label, .tp-badge-meta { font-size: 13px !important; color: var(--text-muted); }
+.svc-cta { font-size: 15px !important; color: var(--accent); }
+.svc-tag { color: var(--accent); border-color: rgba(200,173,114,0.35); }
+
+.nav-links a { text-transform: none; letter-spacing: 0; font-size: 15px; }
+.breadcrumb, .breadcrumb a { text-transform: none; letter-spacing: 0; font-size: 13px; }
+
+.btn-primary, .btn-outline, .btn-ghost, .nav-cta, .mobile-cta, .cta-btn {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-size: 15px !important;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #1a1610;
+  font-weight: 600;
+  box-shadow: none;
+  border-radius: 6px;
+}
+.btn-primary:hover { background: #dcc38b; box-shadow: none; transform: none; }
+.nav-cta, .btn-outline, .mobile-cta { border-radius: 6px !important; }
+
+/* ── Air: larger, brighter body copy ── */
+body { font-size: 17px; }
+:is(section, main, .page-hero) p {
+  font-size: 17px !important;
+  line-height: 1.7 !important;
+}
+.hero-sub { max-width: 540px; color: var(--text-secondary); }
+#hero .hero-sub { font-size: 19px !important; line-height: 1.65 !important; border-left: 0; padding-left: 0; }
+.cta-note, .booking-note, .rcn-date { font-size: 14px !important; }
+.int-tool-name { font-size: 14.5px; color: var(--text-secondary); }
+.rcn-title { font-size: 20px !important; }
+.rcn-author-name, .t-author-name { font-size: 15px; text-transform: none; letter-spacing: 0; }
+.pillar-content strong, .int-cap strong { font-size: 17px; }
+.int-cap-text, .pillar-content span, .problem-text, .more-card-sub { font-size: 16px; line-height: 1.65; text-transform: none; letter-spacing: 0; }
+
+/* ── White sections keep dark, readable body text ── */
+.section-light p, .section-light .pillar-content span { color: #4a443c; }

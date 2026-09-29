@@ -46,15 +46,15 @@
   </script>
   <style>
     :root {
-      --bg: #1c1a17;
-      --surface: #24211d;
-      --surface-2: #2a2622;
-      --surface-3: #312d28;
-      --border: rgba(255,255,255,0.055);
-      --border-light: rgba(255,255,255,0.09);
-      --text: #eae5db;
-      --text-secondary: #a39b8d;
-      --text-muted: #6b6458;
+      --bg: #34302b;
+      --surface: #3d3833;
+      --surface-2: #433e38;
+      --surface-3: #4a443d;
+      --border: rgba(255,255,255,0.11);
+      --border-light: rgba(255,255,255,0.18);
+      --text: #f6f1e8;
+      --text-secondary: #ddd5c7;
+      --text-muted: #b3aa9a;
       --accent: #c8ad72;
       --accent-soft: rgba(200,173,114,0.13);
       --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
@@ -94,7 +94,7 @@
       display: flex; align-items: center; justify-content: space-between;
       transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s;
     }
-    nav.scrolled { background: rgba(28,26,23,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    nav.scrolled { background: rgba(52,48,43,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
     .nav-logo {
       font-family: 'Erode', Georgia, serif; font-size: 21px; font-weight: 500;
       letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase;
@@ -114,7 +114,7 @@
     .nav-item-dropdown > a { display: inline-flex; align-items: center; gap: 5px; }
     .nav-item-dropdown > a::after { content: ''; display: block; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-1px); opacity: 0.4; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0; }
     .nav-item-dropdown:hover > a::after { transform: rotate(-135deg) translateY(2px); opacity: 0.7; }
-    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(33,30,26,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
+    .nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-4px); background: rgba(61,56,51,0.97); border: 1px solid var(--border-light); border-radius: 3px; padding: 6px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s, transform 0.2s, visibility 0.2s; backdrop-filter: blur(24px); box-shadow: 0 20px 56px rgba(0,0,0,0.65); pointer-events: none; z-index: 200; }
     .nav-dropdown::before { content: ''; position: absolute; top: -22px; left: 0; right: 0; height: 22px; background: transparent; }
     .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 2px; font-size: 11.5px !important; letter-spacing: 0.1em !important; color: var(--text-secondary) !important; text-decoration: none !important; transition: background 0.18s, color 0.18s; white-space: nowrap; text-transform: uppercase; }
@@ -166,7 +166,7 @@
       background:
         radial-gradient(ellipse at 65% 35%, rgba(200,173,114,0.07) 0%, transparent 50%),
         radial-gradient(ellipse at 20% 75%, rgba(140,105,55,0.04) 0%, transparent 50%),
-        linear-gradient(160deg, #24211d 0%, #1c1a17 60%, #191714 100%);
+        linear-gradient(160deg, #3d3833 0%, #34302b 60%, #302c27 100%);
     }
     #hero::after {
       content: ''; position: absolute; inset: 0;
@@ -505,7 +505,7 @@
     @media (max-width: 1240px) { .nav-links { gap: 28px; } }
     @media (max-width: 1024px) { .nav-links { display: none; } .nav-burger { display: flex; } }
     .mobile-nav {
-      position: fixed; inset: 0; background: rgba(28,26,23,0.97);
+      position: fixed; inset: 0; background: rgba(52,48,43,0.97);
       backdrop-filter: blur(28px); z-index: 105;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 0; opacity: 0; pointer-events: none; transition: opacity 0.35s;
@@ -614,6 +614,7 @@
       .more-card { padding: 24px 20px; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/vetes.css" />
 </head>
 <body>
 
@@ -975,7 +976,7 @@
       <div class="t-quote">„Unser Telefon war früher ein Flaschenhals. Heute läuft es einfach."</div>
       <p class="t-text">Wir haben täglich 40–60 eingehende Anrufe – die meisten für Terminbuchungen. Das System übernimmt das vollständig. Unser Team konzentriert sich jetzt auf die Kunden, die wirklich da sind.</p>
       <div class="t-author-block">
-        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#2a2622" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">MH</text></svg>
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#433e38" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">MH</text></svg>
         <div><div class="t-author-name">Markus H.</div><div class="t-author-role">Geschäftsführer · Dienstleistungsunternehmen, München</div></div>
       </div>
     </div>
@@ -984,7 +985,7 @@
       <div class="t-quote">„Die Qualität der Leads, die unser Vertrieb bekommt, hat sich deutlich verbessert."</div>
       <p class="t-text">Vorher hat jeder Mitarbeitende die Erstgespräche anders geführt. Jetzt gibt es eine einheitliche, strukturierte Qualifizierung – und das Vertriebsteam bekommt nur noch die wirklich passenden Kontakte.</p>
       <div class="t-author-block">
-        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#2a2622" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">TR</text></svg>
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#433e38" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">TR</text></svg>
         <div><div class="t-author-name">Thomas R.</div><div class="t-author-role">Vertriebsleiter · B2B-Unternehmen, Hamburg</div></div>
       </div>
     </div>
@@ -993,7 +994,7 @@
       <div class="t-quote">„Erreichbarkeit außerhalb der Öffnungszeiten war für uns nie möglich – bis jetzt."</div>
       <p class="t-text">VETES hat das System so gebaut, dass es sich nahtlos in unsere Abläufe einfügt. Die Integration in unser CRM lief ohne Probleme. Und das Feedback unserer Kunden ist durchgehend positiv.</p>
       <div class="t-author-block">
-        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#2a2622" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">SK</text></svg>
+        <svg class="t-avatar" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#433e38" stroke="rgba(200,173,114,0.25)" stroke-width="1"/><text x="24" y="29" text-anchor="middle" font-family="Erode, Georgia, serif" font-size="16" font-weight="400" fill="#c8ad72">SK</text></svg>
         <div><div class="t-author-name">Sandra K.</div><div class="t-author-role">Inhaberin · Beratungsunternehmen, Berlin</div></div>
       </div>
     </div>
