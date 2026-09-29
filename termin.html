@@ -22,10 +22,10 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css" />
   <style>
     :root {
-      --bg: #34302b; --surface: #3d3833; --surface-2: #433e38; --surface-3: #4a443d;
-      --border: rgba(255,255,255,0.11); --border-light: rgba(255,255,255,0.18);
-      --text: #f6f1e8; --text-secondary: #ddd5c7; --text-muted: #b3aa9a;
-      --accent: #c8ad72; --accent-soft: rgba(200,173,114,0.13);
+      --bg: #2a241e; --surface: #3b322a; --surface-2: #41372e; --surface-3: #483d33;
+      --border: rgba(214,182,108,0.16); --border-light: rgba(214,182,108,0.28);
+      --text: #fcf9f2; --text-secondary: #e8ddcb; --text-muted: #c0b19a;
+      --accent: #dfb869; --accent-soft: rgba(200,173,114,0.13);
       --shadow-card: 0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
       --shadow-float: 0 28px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.35);
     }
@@ -43,7 +43,7 @@
 
     /* ── Nav ── */
     #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 30px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.5s, backdrop-filter 0.5s, padding 0.4s; }
-    #navbar.scrolled { background: rgba(52,48,43,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
+    #navbar.scrolled { background: rgba(42,36,30,0.88); backdrop-filter: blur(24px) saturate(1.4); padding: 20px 64px; }
     .nav-logo { font-family: 'Erode', Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: 0.22em; color: var(--text); text-decoration: none; text-transform: uppercase; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 44px; list-style: none; }
@@ -52,7 +52,7 @@
     .nav-cta { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent) !important; border: 1px solid rgba(200,173,114,0.3); padding: 10px 24px; border-radius: 2px; transition: border-color 0.3s, box-shadow 0.3s !important; }
     .nav-cta:hover { border-color: rgba(200,173,114,0.55) !important; box-shadow: 0 0 20px rgba(200,173,114,0.08) !important; }
     .nav-item-dropdown { position: relative; }
-    .nav-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: rgba(52,48,43,0.96); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(6px); pointer-events: none; }
+    .nav-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: rgba(42,36,30,0.96); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(6px); pointer-events: none; }
     .nav-item-dropdown:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12.5px; white-space: nowrap; }
     .nav-dd-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
@@ -62,7 +62,7 @@
     @media (max-width: 1024px) { .nav-links { display: none; } .nav-burger { display: block; } }
 
     /* ── Mobile nav ── */
-    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(52,48,43,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: rgba(42,36,30,0.97); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
     .mobile-nav.open { opacity: 1; visibility: visible; }
     .mobile-nav a { color: var(--text); text-decoration: none; font-size: 18px; letter-spacing: 0.06em; }
     .mobile-nav-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: var(--text); font-size: 28px; cursor: pointer; }

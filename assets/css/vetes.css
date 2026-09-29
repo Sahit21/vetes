@@ -1,15 +1,18 @@
 /* Shared layer loaded after each page's inline <style>: calm surfaces,
    sentence-case labels, larger readable text. Colors live in each page's :root. */
 
-/* ── Calm: no glows, vignettes or ambient light ── */
+/* ── Calm: no vignettes or ambient light, only one soft warm glow in the hero ── */
 .site-ambient, .hero-ambient-light, .hero-ambient-light-2,
 #hero::after, .service-card::before, .btn-primary::before { display: none !important; }
-#hero, #prozess { background: var(--bg); }
+#hero {
+  background: radial-gradient(ellipse 60% 55% at 72% 40%, rgba(214,178,106,0.13) 0%, transparent 70%), var(--bg);
+}
+#prozess { background: var(--bg); }
 h1, h2, h3, h1 em, h2 em, h3 em, .hero-headline, .hero-headline em { text-shadow: none !important; }
 
 .service-card, .review-card-new, .int-tool, .testimonial-card, .usecase-card, .agent-cap {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(214,182,108,0.22);
   box-shadow: none;
   border-radius: 12px;
 }
@@ -30,7 +33,7 @@ h1, h2, h3, h1 em, h2 em, h3 em, .hero-headline, .hero-headline em { text-shadow
 }
 .int-cat-label, .rcn-author-role, .t-author-role, .info-label, .tp-badge-meta { font-size: 13px !important; color: var(--text-muted); }
 .svc-cta { font-size: 15px !important; color: var(--accent); }
-.svc-tag { color: var(--accent); border-color: rgba(200,173,114,0.35); }
+.svc-tag { color: var(--accent); border-color: rgba(214,182,108,0.4); }
 
 .nav-links a { text-transform: none; letter-spacing: 0; font-size: 15px; }
 .breadcrumb, .breadcrumb a { text-transform: none; letter-spacing: 0; font-size: 13px; }
@@ -47,7 +50,7 @@ h1, h2, h3, h1 em, h2 em, h3 em, .hero-headline, .hero-headline em { text-shadow
   box-shadow: none;
   border-radius: 6px;
 }
-.btn-primary:hover { background: #dcc38b; box-shadow: none; transform: none; }
+.btn-primary:hover { background: #ebca84; box-shadow: none; transform: none; }
 .nav-cta, .btn-outline, .mobile-cta { border-radius: 6px !important; }
 
 /* ── Air: larger, brighter body copy ── */
