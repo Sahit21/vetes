@@ -119,7 +119,10 @@
     .logo-row img { height: 56px; width: auto; object-fit: contain; }
 
     /* ── Problem ── */
-    .scenes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 56px; }
+    .stat { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; margin-top: 44px; padding: 32px 40px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; }
+    .stat b { font-family: var(--font-display); font-weight: 500; font-size: clamp(56px, 7vw, 88px); line-height: 1; color: var(--accent); white-space: nowrap; }
+    .stat p { font-size: 18px; color: var(--text-secondary); max-width: 640px; }
+    .scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
     .scene { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px 34px; }
     .scene-time { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--accent); margin-bottom: 10px; }
     .scene p { color: var(--text-secondary); }
@@ -133,6 +136,16 @@
     .features svg { width: 20px; height: 20px; stroke: var(--accent); margin-top: 4px; }
     .features strong { display: block; font-weight: 600; color: var(--text); }
     .features span { color: var(--text-secondary); font-size: 16px; }
+    .compare { margin-top: 72px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--surface); }
+    .compare-head, .compare-row { display: grid; grid-template-columns: 170px 1fr 1fr; }
+    .compare-head span, .compare-row span { padding: 18px 24px; }
+    .compare-head { font-size: 14px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .compare-head span:last-child { color: var(--accent); }
+    .compare-row + .compare-row { border-top: 1px solid var(--border); }
+    .compare-row span:first-child { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+    .compare-row span:nth-child(2) { color: var(--text-muted); font-size: 16px; }
+    .compare-row span:last-child { color: var(--text); font-size: 16px; font-weight: 500; background: rgba(138,106,38,0.06); }
+    .compare-head span:last-child { background: rgba(138,106,38,0.06); }
     .audio { margin-top: 36px; padding: 24px 26px; display: flex; align-items: center; gap: 18px; background: var(--surface); }
     .audio-btn { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border-strong); display: grid; place-items: center; }
     .audio-btn svg { width: 18px; height: 18px; fill: var(--accent); margin-left: 3px; }
@@ -230,7 +243,7 @@
 
     .mobile-cta { display: none; }
 
-    @media (max-width: 1100px) { .cases { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 1100px) { .cases, .scenes { grid-template-columns: repeat(2, 1fr); } }
 
     @media (max-width: 900px) {
       section { padding: 84px 0; }
@@ -238,6 +251,14 @@
       .split, .trust { grid-template-columns: 1fr; gap: 44px; }
       .trust-photo { max-width: 320px; }
       .scenes, .cases, .steps, .pillars { grid-template-columns: 1fr; }
+      .stat { grid-template-columns: 1fr; gap: 12px; padding: 26px 24px; }
+      .compare-head { display: none; }
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-row span { padding: 10px 20px; }
+      .compare-row span:first-child { padding-top: 18px; }
+      .compare-row span:nth-child(2)::before { content: 'Heute: '; font-weight: 600; }
+      .compare-row span:last-child { padding-bottom: 18px; }
+      .compare-row span:last-child::before { content: 'Mit VETES: '; font-weight: 600; color: var(--accent); }
       .topbar .btn { display: none; }
       #hero { padding: 56px 0 72px; }
       .logo-row img { height: 44px; }
@@ -289,7 +310,7 @@
     <div class="hero-proof">
       <span><span class="star">★★★★★</span> 5,0 auf Trustpilot</span>
       <span>Bereits im Einsatz bei Autohäusern</span>
-      <span>Persönlicher Ansprechpartner aus Fulda</span>
+      <span>Fester Ansprechpartner statt Ticketsystem</span>
     </div>
   </div>
 </section>
@@ -311,24 +332,35 @@
   <div class="wrap">
     <div class="eyebrow">Kennen Sie das?</div>
     <h2>Das Telefon klingelt. <em>Und niemand hat die Hände frei.</em></h2>
-    <p class="lead">Im Autohaus gehen die meisten Anrufe nicht verloren, weil sich niemand kümmern will, sondern weil gerade alle beim Kunden, am Fahrzeug oder in der Pause sind.</p>
+    <div class="stat">
+      <b>10&nbsp;%</b>
+      <p>Rund jeder zehnte Anruf geht verloren. Das hören wir von fast jedem Autohaus, mit dem wir sprechen. Nicht, weil sich niemand kümmern will, sondern weil gerade alle beim Kunden, am Fahrzeug oder mitten in einem Vorgang sind.</p>
+    </div>
 
     <div class="scenes">
       <div class="scene">
-        <div class="scene-time">Montag, 7:45 Uhr.</div>
-        <p>Drei Kunden stehen an der Werkstattannahme, zwei Leitungen blinken. Wer jetzt anruft, landet auf der Mailbox und bucht die Inspektion beim nächsten Betrieb.</p>
+        <div class="scene-time">Mitten in der Garantieaufnahme.</div>
+        <p>Der Serviceberater arbeitet gerade einen Garantiefall auf, das Telefon klingelt. Entweder er reißt sich aus dem Vorgang, oder der Anruf geht verloren.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-time">Von O bis O.</div>
+        <p>Zwischen Ostern und Oktober steht das Telefon nicht still. Reifenwechsel, Termine, Rückfragen, genau dann, wenn die Werkstatt ohnehin am vollsten ist.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-time">Eine anonyme Nummer.</div>
+        <p>In der Anrufliste steht ein verpasster Anruf mit unterdrückter Nummer. Zurückrufen geht nicht, und niemand weiß, wer das war und was er wollte.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-time">Rückruf-Pingpong.</div>
+        <p>Der Kunde wird zurückgerufen, geht aber nicht ran, weil er selbst gerade arbeitet. Drei Versuche später ist der Termin immer noch nicht vereinbart.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-time">Krankmeldung am Empfang.</div>
+        <p>Fällt jemand am Empfang aus, muss ein Kollege aus Service oder Verkauf einspringen. Und der fehlt dann genau dort.</p>
       </div>
       <div class="scene">
         <div class="scene-time">Samstag, 16 Uhr.</div>
-        <p>Ein Interessent fragt nach dem Gebrauchtwagen aus dem Inserat. Das Autohaus hat schon zu. Am Montag ist er bei der Konkurrenz Probe gefahren.</p>
-      </div>
-      <div class="scene">
-        <div class="scene-time">Mittags im Verkauf.</div>
-        <p>Die Rückrufzettel stapeln sich am Bildschirm. Keiner weiß genau, wer schon zurückgerufen hat und wer noch wartet.</p>
-      </div>
-      <div class="scene">
-        <div class="scene-time">Zum fünften Mal heute.</div>
-        <p>Öffnungszeiten, Anfahrt, „Wann kann ich den Wagen abholen?“. Fragen, für die Ihre Serviceberater jedes Mal ihre eigentliche Arbeit liegen lassen.</p>
+        <p>Ein Interessent fragt nach dem Gebrauchtwagen aus dem Inserat, das Autohaus hat schon zu. Am Montag ist er bei der Konkurrenz Probe gefahren.</p>
       </div>
     </div>
 
@@ -372,9 +404,39 @@
       </li>
       <li>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
-        <div><strong>Gibt alles sauber weiter</strong><span>Zu jedem Anruf bekommt Ihr Team eine kurze Zusammenfassung mit Name, Anliegen und Rückrufnummer.</span></div>
+        <div><strong>Gibt alles sauber weiter</strong><span>Zu jedem Anruf bekommt Ihr Team eine Zusammenfassung mit Name, Anliegen, Rückrufnummer und der Zeit, zu der der Kunde gut erreichbar ist. Auch bei unterdrückter Nummer.</span></div>
       </li>
     </ul>
+  </div>
+
+  <div class="wrap">
+    <div class="compare">
+      <div class="compare-head">
+        <span></span>
+        <span>Sprachmenü &amp; Warteschleife</span>
+        <span>VETES Telefonassistent</span>
+      </div>
+      <div class="compare-row">
+        <span>Begrüßung</span>
+        <span>„Für den Service drücken Sie die 1, für den Verkauf die 2 …“</span>
+        <span>Der Anrufer sagt einfach, worum es geht.</span>
+      </div>
+      <div class="compare-row">
+        <span>Bis es losgeht</span>
+        <span>Eine Minute Ansage, dann jede Option einzeln durchgehen.</span>
+        <span>Antwort ab dem ersten Satz.</span>
+      </div>
+      <div class="compare-row">
+        <span>Hochsaison</span>
+        <span>Warteschleife oder Besetztzeichen.</span>
+        <span>Keine Warteschlange, jeder Anruf wird direkt angenommen.</span>
+      </div>
+      <div class="compare-row">
+        <span>Danach</span>
+        <span>Eine Nummer in der Anrufliste, oft unterdrückt.</span>
+        <span>Name, Anliegen, Rückrufnummer und beste Rückrufzeit.</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -442,12 +504,12 @@
   <div class="wrap trust">
     <div>
       <div class="trust-photo"><img src="assets/sahit-luma.webp" alt="Sahit Luma, Gründer von VETES" loading="lazy" /></div>
-      <p class="trust-sign"><strong>Sahit Luma</strong>Gründer von VETES, Fulda</p>
+      <p class="trust-sign"><strong>Sahit Luma</strong>Gründer von VETES und Ihr Ansprechpartner</p>
     </div>
     <div>
       <div class="eyebrow">Wer dahintersteht</div>
-      <h2>Kein anonymes Softwarehaus, <em>sondern ein Ansprechpartner.</em></h2>
-      <p class="lead">Ich richte jeden Telefonassistenten gemeinsam mit Ihnen ein, teste ihn, bis er klingt wie Ihr Haus, und bleibe danach Ihr direkter Ansprechpartner. Per Telefon, nicht per Ticketsystem.</p>
+      <h2>Kein anonymes Softwarehaus, <em>sondern ein fester Ansprechpartner.</em></h2>
+      <p class="lead">Hinter VETES steht ein Team, das Telefonassistenten für Autohäuser aufbaut, testet und betreut. Sie sprechen dabei immer mit derselben Person, die Ihr Haus und Ihre Abläufe kennt. Per Telefon, nicht über ein Ticketsystem.</p>
       <div class="pillars">
         <div class="pillar"><strong>Sie behalten den Überblick</strong><span>Jedes Gespräch ist nachvollziehbar. Sie sehen, wer angerufen hat und worum es ging.</span></div>
         <div class="pillar"><strong>Auf Ihr Haus zugeschnitten</strong><span>Kein Standard-Bot: Begrüßung, Stimme und Abläufe richten sich nach Ihrem Autohaus.</span></div>
@@ -490,20 +552,32 @@
     <h2>Was Autohäuser <em>uns zuerst fragen.</em></h2>
     <div class="faq" style="text-align:left">
       <details>
+        <summary>Ist das so ein Sprachmenü mit „Drücken Sie die 1“?</summary>
+        <p>Nein. Kein Menü, keine Tasten, keine Minute Ansage vorneweg. Der Anrufer sagt in eigenen Worten, worum es geht, und der Assistent antwortet direkt. Er stellt nur die Fragen, die für dieses Anliegen wirklich nötig sind.</p>
+      </details>
+      <details>
+        <summary>Unsere Kunden hassen Warteschleifen und Bots.</summary>
+        <p>Deshalb gibt es keine Warteschleife: Jeder Anruf wird sofort angenommen. Wer trotzdem lieber mit einem Menschen sprechen will, bekommt einen Rückruf, und Ihr Mitarbeiter weiß schon vorher, worum es geht. Niemand muss sein Anliegen zweimal erklären.</p>
+      </details>
+      <details>
+        <summary>Wir haben doch eine Mailbox und rufen zurück.</summary>
+        <p>Viele Anrufer legen bei der Mailbox einfach auf, und bei unterdrückter Nummer gibt es gar keinen Rückruf. Der Assistent fragt Name, Anliegen, Rückrufnummer und die Zeit ab, zu der der Kunde gut erreichbar ist. So rufen Sie einmal zurück statt dreimal.</p>
+      </details>
+      <details>
+        <summary>Was ist in der Reifensaison, wenn alle gleichzeitig anrufen?</summary>
+        <p>Genau dafür ist er da. Er nimmt mehrere Gespräche gleichzeitig an, es gibt kein Besetztzeichen. Ihre Serviceberater können in Ruhe die Garantieaufnahme oder den Kunden am Tresen abschließen, statt ständig ans Telefon zu springen.</p>
+      </details>
+      <details>
+        <summary>Ersetzt das unseren Empfang?</summary>
+        <p>Nein. Aber er fängt die Lücken ab: Wenn am Empfang jemand krank ist, im Urlaub oder gerade mit einem Kunden spricht, muss niemand aus Service oder Verkauf einspringen.</p>
+      </details>
+      <details>
         <summary>Merken meine Kunden, dass sie mit einer KI sprechen?</summary>
         <p>Die Stimme klingt natürlich, und die meisten Anrufer führen das Gespräch ganz normal zu Ende. Wir empfehlen trotzdem, offen damit umzugehen: Der Assistent stellt sich als digitaler Assistent Ihres Autohauses vor. Im Erstgespräch hören Sie echte Anrufe und entscheiden selbst.</p>
       </details>
       <details>
-        <summary>Unsere Kunden wollen mit einem Menschen sprechen.</summary>
-        <p>Das sollen sie auch. Der Assistent ersetzt Ihr Team nicht, sondern nimmt die Anrufe an, die heute niemand annimmt. Alles, was ein Mensch klären muss, geht mit Rückrufwunsch und Zusammenfassung an den richtigen Ansprechpartner.</p>
-      </details>
-      <details>
         <summary>Was passiert bei Fragen, die der Assistent nicht beantworten kann?</summary>
-        <p>Er sagt das offen, nimmt das Anliegen auf und sorgt dafür, dass sich jemand aus Ihrem Team meldet. Er nennt keine Preise und macht keine Zusagen, die Sie vorher nicht freigegeben haben.</p>
-      </details>
-      <details>
-        <summary>Wie viel Aufwand ist das für uns?</summary>
-        <p>Wenig. Wir brauchen Ihre Öffnungszeiten, Ihre wichtigsten Abläufe und die Fragen, die am häufigsten kommen. Einrichtung und Tests übernehmen wir. Ihr Team muss kein neues Programm lernen.</p>
+        <p>Etwa zu einem laufenden Garantiefall: Er sagt offen, dass das ein Kollege klärt, nimmt das Anliegen auf und sorgt dafür, dass sich der richtige Ansprechpartner meldet. Er nennt keine Preise und macht keine Zusagen, die Sie nicht freigegeben haben.</p>
       </details>
       <details>
         <summary>Was kostet das?</summary>
@@ -534,7 +608,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 VETES · c/o Everhype Systems, Flemingstraße 18, 36041 Fulda</span>
+    <span>© 2026 VETES</span>
     <span><a href="/">Startseite</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></span>
   </div>
 </footer>
