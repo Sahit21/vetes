@@ -26,6 +26,7 @@
       --text-secondary: #e8ddcb;
       --text-muted: #c0b19a;
       --accent: #dfb869;
+      --gold: #dfb869;
       --accent-hover: #ebca84;
       --on-accent: #1a1610;
       --light-bg: #ffffff;
@@ -60,7 +61,7 @@
 
     .btn {
       display: inline-flex; align-items: center; gap: 12px;
-      background: var(--accent); color: var(--on-accent);
+      background: var(--gold); color: var(--on-accent);
       font-family: var(--font-sans); font-size: 16px; font-weight: 600;
       padding: 18px 30px; border-radius: 8px; text-decoration: none;
       transition: background 0.2s;
@@ -68,6 +69,19 @@
     .btn:hover { background: var(--accent-hover); }
     .btn svg { width: 16px; height: 16px; }
     .btn-note { margin-top: 14px; font-size: 14px; color: var(--text-muted); }
+
+    /* Light sections: same components, dark-on-white tokens */
+    .light, .light-alt {
+      --text: #1a1816;
+      --text-secondary: #4a443c;
+      --text-muted: #7a6f60;
+      --accent: #8a6a26;
+      --border: rgba(26,22,16,0.10);
+      --border-strong: rgba(138,106,38,0.40);
+      color: var(--text);
+    }
+    .light { --surface: #f7f4ef; background: #ffffff; }
+    .light-alt { --surface: #ffffff; background: #f7f4ef; }
 
     /* Placeholders: visible on purpose until real content is in */
     .ph { color: var(--accent); font-style: italic; opacity: 0.85; }
@@ -99,7 +113,7 @@
     .hero-proof .star { color: #00b67a; letter-spacing: 2px; }
 
     /* ── Logos (light) ── */
-    #logos { background: var(--light-bg); color: var(--light-text); padding: 56px 0; }
+    #logos { background: var(--light-bg); color: var(--light-text); padding: 56px 0; border-bottom: 1px solid rgba(26,22,16,0.08); }
     #logos p { font-size: 15px; color: var(--light-secondary); margin-bottom: 28px; }
     .logo-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px 80px; }
     .logo-row img { height: 56px; width: auto; object-fit: contain; }
@@ -112,7 +126,6 @@
     .problem-bottom { margin-top: 48px; font-size: 19px; color: var(--text); max-width: 760px; }
 
     /* ── Lösung ── */
-    #loesung { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
     .features { list-style: none; display: flex; flex-direction: column; }
     .features li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--border); }
@@ -120,18 +133,42 @@
     .features svg { width: 20px; height: 20px; stroke: var(--accent); margin-top: 4px; }
     .features strong { display: block; font-weight: 600; color: var(--text); }
     .features span { color: var(--text-secondary); font-size: 16px; }
-    .audio { margin-top: 36px; padding: 24px 26px; display: flex; align-items: center; gap: 18px; background: var(--bg); }
+    .audio { margin-top: 36px; padding: 24px 26px; display: flex; align-items: center; gap: 18px; background: var(--surface); }
     .audio-btn { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border-strong); display: grid; place-items: center; }
     .audio-btn svg { width: 18px; height: 18px; fill: var(--accent); margin-left: 3px; }
     .audio strong { display: block; font-weight: 600; }
     .audio span { font-size: 15px; color: var(--text-muted); }
 
     /* ── Cases ── */
-    .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
-    .case { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
-    .case-head { background: var(--light-bg); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .case-head img { height: 44px; width: auto; }
-    .case-body { padding: 30px 32px 34px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+    /* Glass case tiles over warm light, so the blur has something to show */
+    #ergebnisse { position: relative; overflow: hidden; background: #1f1a15; }
+    #ergebnisse::before, #ergebnisse::after {
+      content: ''; position: absolute; border-radius: 50%; filter: blur(40px); pointer-events: none;
+    }
+    #ergebnisse::before { width: 620px; height: 620px; left: -120px; top: 180px; background: radial-gradient(circle, rgba(223,184,105,0.45) 0%, transparent 65%); }
+    #ergebnisse::after { width: 700px; height: 700px; right: -160px; bottom: -120px; background: radial-gradient(circle, rgba(196,122,60,0.40) 0%, transparent 65%); }
+    #ergebnisse .wrap { position: relative; z-index: 1; }
+    .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 56px; }
+    .case {
+      position: relative; display: flex; flex-direction: column; overflow: hidden;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 30px 70px rgba(0,0,0,0.35);
+    }
+    .case::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(120deg, rgba(255,255,255,0.10) 0%, transparent 35%);
+    }
+    .case-head { position: relative; padding: 30px 32px 0; }
+    .case-logo { display: inline-flex; align-items: center; background: rgba(255,255,255,0.94); border-radius: 14px; padding: 14px 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .case-logo img { height: 40px; width: auto; }
+    .case-body { position: relative; padding: 26px 32px 34px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+    .case .avatar { border-color: rgba(255,255,255,0.28); }
+    .case .ba { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
+    .case .ba div + div { border-color: rgba(255,255,255,0.14); background: rgba(223,184,105,0.12); }
     .person { display: flex; align-items: center; gap: 16px; }
     .avatar { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; color: var(--text-muted); }
     .person strong { display: block; font-weight: 600; }
@@ -159,7 +196,6 @@
     .pillar span { font-size: 15px; color: var(--text-secondary); line-height: 1.55; display: block; }
 
     /* ── Ablauf ── */
-    #ablauf { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
     .step { position: relative; padding-top: 28px; border-top: 2px solid var(--accent); }
     .step-when { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
@@ -264,7 +300,7 @@
 </section>
 
 <!-- PROBLEM -->
-<section id="problem">
+<section id="problem" class="light">
   <div class="wrap">
     <div class="eyebrow">Kennen Sie das?</div>
     <h2>Das Telefon klingelt. <em>Und niemand hat die Hände frei.</em></h2>
@@ -294,7 +330,7 @@
 </section>
 
 <!-- LÖSUNG -->
-<section id="loesung">
+<section id="loesung" class="light-alt">
   <div class="wrap split">
     <div>
       <div class="eyebrow">Die Lösung</div>
@@ -344,7 +380,7 @@
 
     <div class="cases">
       <article class="case">
-        <div class="case-head"><img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" /></div>
+        <div class="case-head"><div class="case-logo"><img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" /></div></div>
         <div class="case-body">
           <div class="person">
             <div class="avatar ph-box">Foto</div>
@@ -360,7 +396,7 @@
       </article>
 
       <article class="case">
-        <div class="case-head"><img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" /></div>
+        <div class="case-head"><div class="case-logo"><img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" /></div></div>
         <div class="case-body">
           <div class="person">
             <div class="avatar ph-box">Foto</div>
@@ -379,7 +415,7 @@
 </section>
 
 <!-- TRUST -->
-<section id="vertrauen">
+<section id="vertrauen" class="light">
   <div class="wrap trust">
     <div>
       <div class="trust-photo"><img src="assets/sahit-luma.webp" alt="Sahit Luma, Gründer von VETES" loading="lazy" /></div>
@@ -400,7 +436,7 @@
 </section>
 
 <!-- ABLAUF -->
-<section id="ablauf">
+<section id="ablauf" class="light-alt">
   <div class="wrap">
     <div class="eyebrow">So läuft es ab</div>
     <h2>Vom Erstgespräch <em>bis zum ersten Anruf.</em></h2>
@@ -425,7 +461,7 @@
 </section>
 
 <!-- EINWÄNDE -->
-<section id="fragen" class="center">
+<section id="fragen" class="center light">
   <div class="wrap">
     <div class="eyebrow">Ehrliche Antworten</div>
     <h2>Was Autohäuser <em>uns zuerst fragen.</em></h2>
