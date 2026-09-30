@@ -125,6 +125,9 @@
     .scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
     .scene { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px 34px; }
     .scene-time { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--accent); margin-bottom: 10px; }
+    .scene-feature { grid-column: 1 / -1; background: #2a241e; border-color: #2a241e; padding: 36px 40px; }
+    .scene.scene-feature .scene-time { font-size: 28px; color: #dfb869; }
+    .scene.scene-feature p { color: #e8ddcb; font-size: 18px; max-width: 760px; }
     .scene p { color: var(--text-secondary); }
     .problem-bottom { margin-top: 48px; font-size: 19px; color: var(--text); max-width: 760px; }
 
@@ -136,16 +139,27 @@
     .features svg { width: 20px; height: 20px; stroke: var(--accent); margin-top: 4px; }
     .features strong { display: block; font-weight: 600; color: var(--text); }
     .features span { color: var(--text-secondary); font-size: 16px; }
-    .compare { margin-top: 72px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--surface); }
-    .compare-head, .compare-row { display: grid; grid-template-columns: 170px 1fr 1fr; }
-    .compare-head span, .compare-row span { padding: 18px 24px; }
-    .compare-head { font-size: 14px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border); }
-    .compare-head span:last-child { color: var(--accent); }
-    .compare-row + .compare-row { border-top: 1px solid var(--border); }
+    .compare-intro { margin-top: 96px; }
+    .compare-intro h3 { font-size: clamp(28px, 3vw, 38px); }
+    .compare-intro h3 em { font-style: italic; color: var(--accent); }
+    .compare {
+      margin-top: 36px; border-radius: 20px; overflow: hidden; background: #ffffff;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 70px rgba(42,36,30,0.14), 0 4px 14px rgba(42,36,30,0.06);
+    }
+    .compare-head, .compare-row { display: grid; grid-template-columns: 190px 1fr 1.15fr; }
+    .compare-head span, .compare-row span { padding: 22px 28px; }
+    .compare-head { font-size: 15px; font-weight: 600; color: var(--text-muted); }
+    .compare-row { border-top: 1px solid var(--border); }
     .compare-row span:first-child { font-size: 14px; font-weight: 600; color: var(--text-muted); }
-    .compare-row span:nth-child(2) { color: var(--text-muted); font-size: 16px; }
-    .compare-row span:last-child { color: var(--text); font-size: 16px; font-weight: 500; background: rgba(138,106,38,0.06); }
-    .compare-head span:last-child { background: rgba(138,106,38,0.06); }
+    .compare-row span:nth-child(2) { color: #8a8175; font-size: 16px; }
+    .compare-row span:nth-child(2)::before { content: '✕'; margin-right: 10px; color: #b4543a; font-weight: 600; }
+    .compare-head span:last-child, .compare-row span:last-child {
+      background: linear-gradient(160deg, #332c24 0%, #2a241e 100%); color: #fcf9f2;
+    }
+    .compare-head span:last-child { color: #dfb869; font-family: var(--font-display); font-size: 20px; font-weight: 500; }
+    .compare-row span:last-child { font-size: 17px; font-weight: 500; border-top: 1px solid rgba(223,184,105,0.18); margin-top: -1px; }
+    .compare-row span:last-child::before { content: '✓'; margin-right: 10px; color: #dfb869; font-weight: 700; }
     .audio { margin-top: 36px; padding: 24px 26px; display: flex; align-items: center; gap: 18px; background: var(--surface); }
     .audio-btn { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border-strong); display: grid; place-items: center; }
     .audio-btn svg { width: 18px; height: 18px; fill: var(--accent); margin-left: 3px; }
@@ -213,7 +227,24 @@
     .pillar span { font-size: 15px; color: var(--text-secondary); line-height: 1.55; display: block; }
 
     /* ── Ablauf ── */
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+    .step { display: flex; flex-direction: column; }
+    .step-effort { margin-top: auto; padding-top: 18px; font-size: 14px; font-weight: 600; color: var(--text); }
+    .step-effort::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: 1px; }
+
+    .vs { display: grid; grid-template-columns: 1fr 1.1fr; gap: 0; margin-top: 88px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px rgba(42,36,30,0.14); }
+    .vs-col { padding: 40px 44px; }
+    .vs-them { background: #ffffff; border: 1px solid var(--border); border-right: 0; border-radius: 20px 0 0 20px; }
+    .vs-us { background: linear-gradient(160deg, #332c24 0%, #2a241e 100%); color: #fcf9f2; }
+    .vs-label { font-family: var(--font-display); font-size: 24px; margin-bottom: 22px; }
+    .vs-them .vs-label { color: var(--text-muted); }
+    .vs-us .vs-label { color: #dfb869; }
+    .vs ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .vs li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 16.5px; line-height: 1.5; }
+    .vs-them li { color: #8a8175; }
+    .vs-them li::before { content: '✕'; color: #b4543a; font-weight: 600; }
+    .vs-us li::before { content: '✓'; color: #dfb869; font-weight: 700; }
+    .vs-promise { margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(223,184,105,0.25); font-family: var(--font-display); font-style: italic; font-size: 21px; color: #dfb869; }
     .step { position: relative; padding-top: 28px; border-top: 2px solid var(--accent); }
     .step-when { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
     .step h3 { margin-bottom: 10px; }
@@ -243,7 +274,7 @@
 
     .mobile-cta { display: none; }
 
-    @media (max-width: 1100px) { .cases, .scenes { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 1100px) { .cases, .scenes, .steps { grid-template-columns: repeat(2, 1fr); } }
 
     @media (max-width: 900px) {
       section { padding: 84px 0; }
@@ -252,13 +283,19 @@
       .trust-photo { max-width: 320px; }
       .scenes, .cases, .steps, .pillars { grid-template-columns: 1fr; }
       .stat { grid-template-columns: 1fr; gap: 12px; padding: 26px 24px; }
+      .vs { grid-template-columns: 1fr; }
+      .vs-col { padding: 30px 24px; }
+      .vs-them { border-right: 1px solid var(--border); border-bottom: 0; border-radius: 20px 20px 0 0; }
+      .compare-intro { margin-top: 64px; }
+      .scene-feature { padding: 28px 24px; }
+      .scene.scene-feature .scene-time { font-size: 23px; }
       .compare-head { display: none; }
       .compare-row { grid-template-columns: 1fr; }
       .compare-row span { padding: 10px 20px; }
       .compare-row span:first-child { padding-top: 18px; }
-      .compare-row span:nth-child(2)::before { content: 'Heute: '; font-weight: 600; }
-      .compare-row span:last-child { padding-bottom: 18px; }
-      .compare-row span:last-child::before { content: 'Mit VETES: '; font-weight: 600; color: var(--accent); }
+      .compare-row span:nth-child(2)::before { content: '✕  Heute: '; }
+      .compare-row span:last-child { padding: 16px 20px 18px; margin-top: 4px; }
+      .compare-row span:last-child::before { content: '✓  Mit VETES: '; }
       .topbar .btn { display: none; }
       #hero { padding: 56px 0 72px; }
       .logo-row img { height: 44px; }
@@ -338,13 +375,17 @@
     </div>
 
     <div class="scenes">
+      <div class="scene scene-feature">
+        <div class="scene-time">Ein Kunde steht am Tresen. Das Telefon klingelt.</div>
+        <p>Jetzt müssen Sie sich entscheiden: Wer bekommt das unangenehme Gefühl, nicht wichtig zu sein? Der Kunde, der vor Ihnen steht, oder der Kunde am Telefon? Einer von beiden wartet immer.</p>
+      </div>
       <div class="scene">
         <div class="scene-time">Mitten in der Garantieaufnahme.</div>
         <p>Der Serviceberater arbeitet gerade einen Garantiefall auf, das Telefon klingelt. Entweder er reißt sich aus dem Vorgang, oder der Anruf geht verloren.</p>
       </div>
       <div class="scene">
-        <div class="scene-time">Von O bis O.</div>
-        <p>Zwischen Ostern und Oktober steht das Telefon nicht still. Reifenwechsel, Termine, Rückfragen, genau dann, wenn die Werkstatt ohnehin am vollsten ist.</p>
+        <div class="scene-time">Rund um Ostern und Oktober.</div>
+        <p>Von O bis O heißt: Fast alle Kunden wollen in denselben Wochen ihre Reifen wechseln. Das Telefon klingelt im Minutentakt, genau dann, wenn die Werkstatt ohnehin voll ist.</p>
       </div>
       <div class="scene">
         <div class="scene-time">Eine anonyme Nummer.</div>
@@ -410,6 +451,9 @@
   </div>
 
   <div class="wrap">
+    <div class="compare-intro center">
+      <h3>Den Unterschied hören Ihre Kunden <em>ab dem ersten Satz.</em></h3>
+    </div>
     <div class="compare">
       <div class="compare-head">
         <span></span>
@@ -427,7 +471,7 @@
         <span>Antwort ab dem ersten Satz.</span>
       </div>
       <div class="compare-row">
-        <span>Hochsaison</span>
+        <span>Reifenwechsel-Wochen</span>
         <span>Warteschleife oder Besetztzeichen.</span>
         <span>Keine Warteschlange, jeder Anruf wird direkt angenommen.</span>
       </div>
@@ -524,22 +568,56 @@
 <section id="ablauf" class="light-alt">
   <div class="wrap">
     <div class="eyebrow">So läuft es ab</div>
-    <h2>Vom Erstgespräch <em>bis zum ersten Anruf.</em></h2>
+    <h2>Sie sagen uns, was Sie brauchen. <em>Den Rest übernehmen wir.</em></h2>
+    <p class="lead">Von der ersten Idee bis zum laufenden Telefonassistenten kümmern wir uns um alles. Ihr Team bleibt dabei im Tagesgeschäft.</p>
     <div class="steps">
       <div class="step">
-        <div class="step-when">Gespräch, 30 Minuten</div>
-        <h3>Wir hören zu</h3>
-        <p>Welche Anrufe gehen bei Ihnen heute verloren, und was soll der Assistent übernehmen? Sie hören dabei echte Beispielanrufe.</p>
+        <div class="step-when">Schritt 1</div>
+        <h3>Erstgespräch</h3>
+        <p>Wir schauen gemeinsam, welche Anrufe bei Ihnen heute verloren gehen, und Sie hören echte Beispielanrufe.</p>
+        <div class="step-effort">Ihr Aufwand: 30 Minuten</div>
       </div>
       <div class="step">
-        <div class="step-when">Einrichtung</div>
-        <h3>Wir richten ein und testen</h3>
-        <p>Wir bauen den Assistenten auf Ihr Autohaus, Sie und Ihr Team rufen zur Probe an. Live geht er erst, wenn Sie zufrieden sind.</p>
+        <div class="step-when">Schritt 2</div>
+        <h3>Lösungsgespräch</h3>
+        <p>Wir stellen Ihnen ein konkretes Konzept für Ihr Autohaus vor: welche Anrufe der Assistent übernimmt, wie er klingt und was es kostet.</p>
+        <div class="step-effort">Ihr Aufwand: ein Termin</div>
       </div>
       <div class="step">
-        <div class="step-when">Im Betrieb</div>
-        <h3>Wir bleiben dran</h3>
-        <p>Wir schauen uns die Gespräche regelmäßig an und verbessern den Assistenten, wenn sich bei Ihnen etwas ändert.</p>
+        <div class="step-when">Schritt 3</div>
+        <h3>Einrichtung &amp; Tests</h3>
+        <p>Wir bauen den Assistenten, kümmern uns um Nummer und Technik und testen, bis alles sitzt. Sie rufen am Ende nur zur Probe an.</p>
+        <div class="step-effort">Ihr Aufwand: ein Probeanruf</div>
+      </div>
+      <div class="step">
+        <div class="step-when">Schritt 4</div>
+        <h3>Livegang</h3>
+        <p>Der Assistent geht erst live, wenn Sie zufrieden sind. Danach bleiben wir Ihr Ansprechpartner und passen ihn an, wenn sich bei Ihnen etwas ändert.</p>
+        <div class="step-effort">Ihr Aufwand: keiner</div>
+      </div>
+    </div>
+
+    <div class="vs">
+      <div class="vs-col vs-them">
+        <div class="vs-label">Standardsoftware im Monatsabo</div>
+        <ul>
+          <li>Einrichten und testen müssen Sie selbst</li>
+          <li>Telefonnummer und Technik besorgen Sie selbst</li>
+          <li>Monatliche Gebühr plus Minutenpreise, die sich aufsummieren</li>
+          <li>Bei Problemen ein Support-Ticket</li>
+          <li>Eine Lösung für alle Branchen</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-us">
+        <div class="vs-label">VETES</div>
+        <ul>
+          <li>Wir richten alles ein und testen es für Sie</li>
+          <li>Nummer und Technik übernehmen wir</li>
+          <li>Ein klarer Preis, keine versteckten Kosten, keine Minutenaufschläge</li>
+          <li>Ein fester Ansprechpartner, den Sie anrufen können</li>
+          <li>Gebaut für Ihr Autohaus und Ihre Abläufe</li>
+        </ul>
+        <p class="vs-promise">Abgeschlossen ist das Projekt erst, wenn Sie zufrieden sind.</p>
       </div>
     </div>
   </div>
@@ -580,8 +658,12 @@
         <p>Etwa zu einem laufenden Garantiefall: Er sagt offen, dass das ein Kollege klärt, nimmt das Anliegen auf und sorgt dafür, dass sich der richtige Ansprechpartner meldet. Er nennt keine Preise und macht keine Zusagen, die Sie nicht freigegeben haben.</p>
       </details>
       <details>
-        <summary>Was kostet das?</summary>
-        <p>Das hängt davon ab, wie viele Anrufe Sie haben und was der Assistent übernehmen soll. Im Erstgespräch bekommen Sie eine klare Zahl, ohne versteckte Kosten.</p>
+        <summary>Wie viel Arbeit haben wir damit?</summary>
+        <p>Kaum welche. Sie brauchen Zeit für ein Erstgespräch, ein Lösungsgespräch und einen Probeanruf. Einrichtung, Nummer, Technik und Tests übernehmen wir. Weder Sie noch Ihr Team müssen ein Programm lernen oder etwas selbst einstellen.</p>
+      </details>
+      <details>
+        <summary>Was kostet das, und kommen noch Minutenpreise dazu?</summary>
+        <p>Der Preis hängt davon ab, was der Assistent für Sie übernehmen soll. Im Lösungsgespräch bekommen Sie ihn schwarz auf weiß: keine versteckten Kosten und keine Minutenaufschläge, die sich am Monatsende aufsummieren.</p>
       </details>
       <details>
         <summary>Wie sieht es mit dem Datenschutz aus?</summary>
