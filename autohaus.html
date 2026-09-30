@@ -148,7 +148,7 @@
     #ergebnisse::before { width: 620px; height: 620px; left: -120px; top: 180px; background: radial-gradient(circle, rgba(223,184,105,0.45) 0%, transparent 65%); }
     #ergebnisse::after { width: 700px; height: 700px; right: -160px; bottom: -120px; background: radial-gradient(circle, rgba(196,122,60,0.40) 0%, transparent 65%); }
     #ergebnisse .wrap { position: relative; z-index: 1; }
-    .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 56px; }
+    .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
     .case {
       position: relative; display: flex; flex-direction: column; overflow: hidden;
       border-radius: 24px;
@@ -167,8 +167,12 @@
     .case-logo img { height: 40px; width: auto; }
     .case-body { position: relative; padding: 26px 32px 34px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
     .case .avatar { border-color: rgba(255,255,255,0.28); }
-    .case .ba { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
-    .case .ba div + div { border-color: rgba(255,255,255,0.14); background: rgba(223,184,105,0.12); }
+    .case .ba { grid-template-columns: 1fr; border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
+    .case .ba div + div { border-left: 0; border-top: 1px solid rgba(255,255,255,0.14); background: rgba(223,184,105,0.12); }
+    .case-body { padding: 26px 28px 32px; }
+    .case-head { padding: 28px 28px 0; }
+    .logo-ph { font-family: var(--font-display); font-size: 18px; color: #6f6453; padding: 4px 6px; border: 1px dashed rgba(138,106,38,0.5); border-radius: 8px; white-space: nowrap; }
+    .logo-row .logo-ph { font-size: 20px; padding: 12px 20px; }
     .person { display: flex; align-items: center; gap: 16px; }
     .avatar { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; color: var(--text-muted); }
     .person strong { display: block; font-weight: 600; }
@@ -225,6 +229,8 @@
     footer a:hover { color: var(--text); }
 
     .mobile-cta { display: none; }
+
+    @media (max-width: 1100px) { .cases { grid-template-columns: repeat(2, 1fr); } }
 
     @media (max-width: 900px) {
       section { padding: 84px 0; }
@@ -295,6 +301,7 @@
     <div class="logo-row">
       <img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy" />
       <img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" loading="lazy" />
+      <span class="logo-ph">[Logo] Autohaus Benkert</span>
     </div>
   </div>
 </section>
@@ -401,6 +408,22 @@
           <div class="person">
             <div class="avatar ph-box">Foto</div>
             <div><strong><span class="ph">[Name Geschäftsführer]</span></strong><span>Geschäftsführer, Auto Amthauer GmbH</span></div>
+          </div>
+          <div class="ba">
+            <div><small>Vorher</small><p class="ph">[Situation vorher]</p></div>
+            <div><small>Nachher</small><p class="ph">[Situation heute]</p></div>
+          </div>
+          <div class="case-metric"><b class="ph">[Zahl]</b><span class="ph">[Ergebnis]</span></div>
+          <blockquote class="ph">„[Zitat des Geschäftsführers]“</blockquote>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head"><div class="case-logo"><span class="logo-ph">[Logo] Autohaus Benkert</span></div></div>
+        <div class="case-body">
+          <div class="person">
+            <div class="avatar ph-box">Foto</div>
+            <div><strong><span class="ph">[Name Geschäftsführer]</span></strong><span>Geschäftsführer, Autohaus Benkert</span></div>
           </div>
           <div class="ba">
             <div><small>Vorher</small><p class="ph">[Situation vorher]</p></div>
