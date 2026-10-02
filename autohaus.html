@@ -190,7 +190,7 @@
       background: linear-gradient(120deg, rgba(255,255,255,0.10) 0%, transparent 35%);
     }
     .case-head { position: relative; padding: 30px 32px 0; }
-    .case-logo { display: inline-flex; align-items: center; background: rgba(255,255,255,0.94); border-radius: 14px; padding: 14px 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .case-logo { display: inline-flex; align-items: center; height: 68px; background: rgba(255,255,255,0.94); border-radius: 14px; padding: 14px 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
     .case-logo img { height: 40px; width: auto; }
     .case-body { position: relative; padding: 26px 32px 34px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
     .case .avatar { border-color: rgba(255,255,255,0.28); }
@@ -200,6 +200,9 @@
     .case-head { padding: 28px 28px 0; }
     .logo-ph { font-family: var(--font-display); font-size: 18px; color: #6f6453; padding: 4px 6px; border: 1px dashed rgba(138,106,38,0.5); border-radius: 8px; white-space: nowrap; }
     .logo-row .logo-ph { font-size: 20px; padding: 12px 20px; }
+    .logo-row img.logo-wide { height: 36px; }
+    .case-logo img { max-width: 100%; }
+    .case-logo img.logo-wide { height: 28px; }
     .person { display: flex; align-items: center; gap: 16px; }
     .avatar { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; color: var(--text-muted); }
     .person strong { display: block; font-weight: 600; }
@@ -359,7 +362,7 @@
     <div class="logo-row">
       <img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy" />
       <img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" loading="lazy" />
-      <span class="logo-ph">[Logo] Autohaus Benkert</span>
+      <img src="assets/logos/benkert.png" alt="Autohaus Benkert" class="logo-wide" loading="lazy" />
     </div>
   </div>
 </section>
@@ -525,7 +528,7 @@
       </article>
 
       <article class="case">
-        <div class="case-head"><div class="case-logo"><span class="logo-ph">[Logo] Autohaus Benkert</span></div></div>
+        <div class="case-head"><div class="case-logo"><img src="assets/logos/benkert.png" alt="Autohaus Benkert" class="logo-wide" /></div></div>
         <div class="case-body">
           <div class="person">
             <div class="avatar ph-box">Foto</div>
