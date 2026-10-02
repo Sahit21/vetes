@@ -234,8 +234,6 @@
     /* ── Ablauf ── */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
     .step { display: flex; flex-direction: column; }
-    .step-effort { margin-top: auto; padding-top: 18px; font-size: 14px; font-weight: 600; color: var(--text); }
-    .step-effort::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: 1px; }
 
     .vs { display: grid; grid-template-columns: 1fr 1.1fr; gap: 0; margin-top: 88px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px rgba(42,36,30,0.14); }
     .vs-col { padding: 40px 44px; }
@@ -364,7 +362,7 @@
     <div class="logo-row">
       <img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy" />
       <img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" loading="lazy" />
-      <img src="assets/logos/benkert.png" alt="Autohaus Benkert" class="logo-wide" loading="lazy" />
+      <img src="assets/logos/benkert.png" alt="Autohaus Benkert GmbH" class="logo-wide" loading="lazy" />
     </div>
   </div>
 </section>
@@ -530,11 +528,11 @@
       </article>
 
       <article class="case">
-        <div class="case-head"><div class="case-logo"><img src="assets/logos/benkert.png" alt="Autohaus Benkert" class="logo-wide" /></div></div>
+        <div class="case-head"><div class="case-logo"><img src="assets/logos/benkert.png" alt="Autohaus Benkert GmbH" class="logo-wide" /></div></div>
         <div class="case-body">
           <div class="person">
             <div class="avatar ph-box">Foto</div>
-            <div><strong>Dirk Benkert</strong><span>Geschäftsführer, Autohaus Benkert</span></div>
+            <div><strong>Dirk Benkert</strong><span>Geschäftsführer, Autohaus Benkert GmbH</span></div>
           </div>
           <div class="ba">
             <div><small>Vorher</small><p>100 verpasste Anrufe in nur 10 Tagen.</p></div>
@@ -580,25 +578,21 @@
         <div class="step-when">Schritt 1</div>
         <h3>Erstgespräch</h3>
         <p>Wir schauen gemeinsam, welche Anrufe bei Ihnen heute verloren gehen, und Sie hören echte Beispielanrufe.</p>
-        <div class="step-effort">Ihr Aufwand: 30 Minuten</div>
       </div>
       <div class="step">
         <div class="step-when">Schritt 2</div>
         <h3>Lösungsgespräch</h3>
         <p>Wir stellen Ihnen ein konkretes Konzept für Ihr Autohaus vor: welche Anrufe der Assistent übernimmt, wie er klingt und was es kostet.</p>
-        <div class="step-effort">Ihr Aufwand: ein Termin</div>
       </div>
       <div class="step">
         <div class="step-when">Schritt 3</div>
         <h3>Einrichtung &amp; Tests</h3>
         <p>Wir bauen den Assistenten, kümmern uns um Nummer und Technik und testen, bis alles sitzt. Sie rufen am Ende nur zur Probe an.</p>
-        <div class="step-effort">Ihr Aufwand: ein Probeanruf</div>
       </div>
       <div class="step">
         <div class="step-when">Schritt 4</div>
         <h3>Livegang</h3>
         <p>Der Assistent geht erst live, wenn Sie zufrieden sind. Danach bleiben wir Ihr Ansprechpartner und passen ihn an, wenn sich bei Ihnen etwas ändert.</p>
-        <div class="step-effort">Ihr Aufwand: keiner</div>
       </div>
     </div>
 
