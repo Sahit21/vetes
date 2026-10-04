@@ -83,11 +83,6 @@
 
           <div class="checks">
             <label class="check">
-              <input type="checkbox" name="consent" value="true" required>
-              <span class="check__box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M1.5 5.2 L4 7.6 L8.5 2.6" fill="none" stroke="#e0b340" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span>Ich möchte den Leitfaden per Mail bekommen und habe die <a href="https://vetes-ai.de/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen.</span>
-            </label>
-            <label class="check">
               <input type="checkbox" name="marketing" value="true">
               <span class="check__box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M1.5 5.2 L4 7.6 L8.5 2.6" fill="none" stroke="#e0b340" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <span>Ich möchte auch weitere Tipps per Mail bekommen. <span class="check__opt">(freiwillig, jederzeit abbestellbar)</span></span>
@@ -113,7 +108,7 @@
             </span>
           </button>
 
-          <p class="form-card__fine">Kein Spam. Du bekommst nur, was du anhakst.</p>
+          <p class="form-card__fine">Kein Spam. Mit dem Absenden schicken wir dir den Leitfaden per Mail. Mehr dazu in der <a href="https://vetes-ai.de/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
           <hr class="form-card__rule">
           <a class="author" href="https://www.linkedin.com/in/sahit-luma-3831a8319/" target="_blank" rel="noopener">
             <img src="/leitfaden/assets/img/sahit-avatar.jpg" width="48" height="48" alt="">
@@ -286,7 +281,6 @@
     if (parts.length < 2) return showError('Bitte trag deinen Vor- und Nachnamen ein.', nameField);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('Bitte prüf deine E-Mail-Adresse.', form.email);
     if (telefon.replace(/\D/g, '').length < 6) return showError('Bitte prüf deine Telefonnummer.', phoneField);
-    if (!form.consent.checked) return showError('Bitte bestätige kurz das erste Häkchen, damit wir dir den Leitfaden schicken dürfen.', form.consent);
 
     var data = new URLSearchParams();
     // "vorname" stays for the existing n8n workflow (mail greeting)
