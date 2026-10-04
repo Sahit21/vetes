@@ -58,10 +58,10 @@
           </div>
 
           <div class="field">
-            <label for="lf-vorname">Vorname</label>
+            <label for="lf-name">Vor- und Nachname</label>
             <div class="field__control">
               <span class="field__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="6.2" r="3.2" fill="none" stroke="#8a6210" stroke-width="1.5"/><path d="M2.8 16 C3.4 12.6 6 11 9 11 C12 11 14.6 12.6 15.2 16" fill="none" stroke="#8a6210" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-              <input id="lf-vorname" name="vorname" type="text" placeholder="Dein Vorname" autocomplete="given-name" maxlength="60" required>
+              <input id="lf-name" name="name" type="text" placeholder="Max Mustermann" autocomplete="name" maxlength="80" required>
             </div>
           </div>
 
@@ -69,7 +69,15 @@
             <label for="lf-email">E-Mail</label>
             <div class="field__control">
               <span class="field__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><rect x="1.8" y="3.6" width="14.4" height="10.8" rx="2" fill="none" stroke="#8a6210" stroke-width="1.5"/><path d="M2.4 4.6 L9 9.6 L15.6 4.6" fill="none" stroke="#8a6210" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-              <input id="lf-email" name="email" type="email" placeholder="du@agentur.de" autocomplete="email" inputmode="email" required>
+              <input id="lf-email" name="email" type="email" placeholder="max@agentur.de" autocomplete="email" inputmode="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="lf-telefon">Telefonnummer</label>
+            <div class="field__control">
+              <span class="field__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M4.2 2.2 H6.6 L7.8 5.4 L6.3 6.6 C7 8.4 9.6 11 11.4 11.7 L12.6 10.2 L15.8 11.4 V13.8 C15.8 14.9 14.9 15.8 13.8 15.8 C7.9 15.4 2.6 10.1 2.2 4.2 C2.2 3.1 3.1 2.2 4.2 2.2 Z" fill="none" stroke="#8a6210" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+              <input id="lf-telefon" name="telefon" type="tel" placeholder="0151 23456789" autocomplete="tel" inputmode="tel" maxlength="30" required>
             </div>
           </div>
 
@@ -269,15 +277,24 @@
     e.preventDefault();
     errorBox.hidden = true;
 
-    var vorname = form.vorname.value.trim();
+    var nameField = form.elements['name'];
+    var phoneField = form.elements['telefon'];
+    var name = nameField.value.trim().replace(/\s+/g, ' ');
     var email = form.email.value.trim();
-    if (!vorname) return showError('Bitte trag deinen Vornamen ein.', form.vorname);
+    var telefon = phoneField.value.trim();
+    var parts = name.split(' ');
+    if (parts.length < 2) return showError('Bitte trag deinen Vor- und Nachnamen ein.', nameField);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('Bitte prüf deine E-Mail-Adresse.', form.email);
+    if (telefon.replace(/\D/g, '').length < 6) return showError('Bitte prüf deine Telefonnummer.', phoneField);
     if (!form.consent.checked) return showError('Bitte bestätige kurz das erste Häkchen, damit wir dir den Leitfaden schicken dürfen.', form.consent);
 
     var data = new URLSearchParams();
-    data.append('vorname', vorname);
+    // "vorname" stays for the existing n8n workflow (mail greeting)
+    data.append('vorname', parts[0]);
+    data.append('nachname', parts.slice(1).join(' '));
+    data.append('name', name);
     data.append('email', email);
+    data.append('telefon', telefon);
     data.append('consent', 'true');
     data.append('marketing', form.marketing.checked ? 'true' : 'false');
     data.append('website', form.website.value);
