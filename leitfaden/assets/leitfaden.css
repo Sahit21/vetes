@@ -144,7 +144,6 @@ a:hover { color: #6b4c0c; }
 .check input:checked + .check__box { background: var(--ink); border-color: var(--ink); }
 .check input:checked + .check__box svg { opacity: 1; }
 .check input:focus-visible + .check__box { outline: 2px solid var(--gold); outline-offset: 2px; }
-.check__opt { color: var(--muted); }
 .checks { display: flex; flex-direction: column; gap: 12px; }
 
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
