@@ -5,5 +5,7 @@ Disallow: /node_modules/
 Disallow: /outputs/
 Disallow: /brand-ci.html
 Disallow: /unternehmensvideo.html
+Disallow: /b/
+Disallow: /qr-dashboard
 
 Sitemap: https://vetes-ai.de/sitemap.xml

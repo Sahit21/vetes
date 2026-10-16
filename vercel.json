@@ -4,8 +4,21 @@
     {
       "source": "/leitfaden/dateien/(.*)\\.json",
       "headers": [
-        { "key": "Content-Disposition", "value": "attachment" }
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/b/:code",
+      "destination": "https://n8n.ssahit.de/webhook/qr?c=:code"
+    },
+    {
+      "source": "/qr-dashboard",
+      "destination": "https://n8n.ssahit.de/webhook/qr-dashboard"
     }
   ]
 }
