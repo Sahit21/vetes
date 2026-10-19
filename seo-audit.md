@@ -155,7 +155,7 @@
 
 ## 6. Adress- und Kontaktdaten (aus Footer ueber-uns.html)
 - **Adresse:** Flemingstraße 18, 36041 Fulda
-- **Telefon:** +49 157 88720205
+- **Telefon:** 0661 97423950
 - **E-Mail:** info@vetes.de
 - **LinkedIn:** https://www.linkedin.com/company/vetes
 - → Physische Adresse vorhanden → `LocalBusiness`-Schema ist berechtigt ✅
