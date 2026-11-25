@@ -115,8 +115,12 @@
     /* ── Logos (light) ── */
     #logos { background: var(--light-bg); color: var(--light-text); padding: 56px 0; border-bottom: 1px solid rgba(26,22,16,0.08); }
     #logos p { font-size: 15px; color: var(--light-secondary); margin-bottom: 28px; }
-    .logo-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px 80px; }
-    .logo-row img { height: 56px; width: auto; object-fit: contain; }
+    .logo-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); }
+    .logo-row { display: flex; align-items: center; width: max-content; animation: logoScroll 30s linear infinite; }
+    .logo-marquee:hover .logo-row { animation-play-state: paused; }
+    .logo-row img { height: 56px; width: auto; object-fit: contain; margin-right: 88px; flex-shrink: 0; }
+    @keyframes logoScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .logo-row { animation: none; flex-wrap: wrap; justify-content: center; width: auto; } .logo-row img[aria-hidden] { display: none; } }
 
     /* ── Problem ── */
     .stat { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; margin-top: 44px; padding: 32px 40px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; }
@@ -301,7 +305,7 @@
       .compare-row span:last-child::before { content: '✓  Mit VETES: '; }
       .topbar .btn { display: none; }
       #hero { padding: 56px 0 72px; }
-      .logo-row img { height: 44px; }
+      .logo-row img { height: 44px; margin-right: 56px; }
       .ba { grid-template-columns: 1fr; }
       .ba div + div { border-left: 0; border-top: 1px solid var(--border); }
       .booking iframe { min-height: 900px; }
@@ -361,12 +365,19 @@
 <section id="logos" class="center">
   <div class="wrap">
     <p>Diese Autohäuser lassen ihr Telefon bereits von VETES annehmen</p>
-    <div class="logo-row">
-      <img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy" />
-      <img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" loading="lazy" />
-      <img src="assets/logos/benkert.png" alt="Autohaus Benkert GmbH" class="logo-wide" loading="lazy" />
-      <img src="assets/logos/habfast.png" alt="Autohaus Habfast" loading="lazy" />
-      <img src="assets/logos/burmann.jpg" alt="Autohaus Burmann" class="logo-wide" loading="lazy" />
+    <div class="logo-marquee">
+      <div class="logo-row">
+        <img src="assets/logos/simon-autohaus.png" alt="Simon Autohaus GmbH" loading="lazy" />
+        <img src="assets/logos/amthauer.jpg" alt="Auto Amthauer GmbH" loading="lazy" />
+        <img src="assets/logos/benkert.png" alt="Autohaus Benkert GmbH" class="logo-wide" loading="lazy" />
+        <img src="assets/logos/habfast.png" alt="Autohaus Habfast" loading="lazy" />
+        <img src="assets/logos/burmann.jpg" alt="Autohaus Burmann" class="logo-wide" loading="lazy" />
+        <img src="assets/logos/simon-autohaus.png" alt="" loading="lazy" aria-hidden="true" />
+        <img src="assets/logos/amthauer.jpg" alt="" loading="lazy" aria-hidden="true" />
+        <img src="assets/logos/benkert.png" alt="" class="logo-wide" loading="lazy" aria-hidden="true" />
+        <img src="assets/logos/habfast.png" alt="" loading="lazy" aria-hidden="true" />
+        <img src="assets/logos/burmann.jpg" alt="" class="logo-wide" loading="lazy" aria-hidden="true" />
+      </div>
     </div>
   </div>
 </section>
